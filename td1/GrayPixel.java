@@ -50,9 +50,9 @@ public class GrayPixel  extends AbstractPixel
 	{
 		// compléter
 		if(this.pixel <= 127)
-		return new BWPixel(false);
+			return new BWPixel(false);
 		else
-		return new BWPixel(true);
+			return new BWPixel(true);
 	}
 	
 	/**

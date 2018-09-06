@@ -116,17 +116,19 @@ public class PixelMap
 		switch(type) {
 		
 		case BW:
-			this.imageData = new BWPixel[height][width];
+			this.imageData = new BWPixel[h][w];
 		break;
 		case Gray:
-			this.imageData = new GrayPixel[height][width];
+			this.imageData = new GrayPixel[h][w];
 		break;
 		case Color:
-			this.imageData = new ColorPixel[height][width];
+			this.imageData = new ColorPixel[h][w];
 		break;
 		case Transparent:
-			this.imageData = new TransparentPixel[height][width];
+			this.imageData = new TransparentPixel[h][w];
 		break;
+		default:
+			break;
 		
 		}
 		// compl�ter
@@ -138,7 +140,7 @@ public class PixelMap
 	 */
 	public void clearData()
 	{
-		this.imageData = null;
+	this.imageData = null;
 		// compl�ter
 		
 	}
