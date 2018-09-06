@@ -1,5 +1,5 @@
 /**
- * Fichier principal pour le problème
+ * Fichier principal pour le problï¿½me
  * @author Tarek Ould Bachir, Wail Khemir
  */
 
@@ -39,7 +39,7 @@ public class Main
 		/**
 		 * Exercice 2
 		 */
-		
+		/*
 		PixelMapPlus pmp = new PixelMapPlus("./ed.ppm");
 		
 		PixelMapPlus hpmp = new PixelMapPlus( pmp );
@@ -68,6 +68,6 @@ public class Main
 		
 		wName = "Edsger Dijkstra";
 		new DisplayImageWindow(wName, pmp);
-		
+		*/
 	}
 }
