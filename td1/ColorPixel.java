@@ -25,6 +25,9 @@ public class ColorPixel extends AbstractPixel
 	 */
 	ColorPixel(int[] rgb)
 	{
+		this.rgb[0] = rgb[0];
+		this.rgb[1] = rgb[1];
+		this.rgb[2] = rgb[2];
 		// compléter
 		
 	}
@@ -35,6 +38,14 @@ public class ColorPixel extends AbstractPixel
 	public BWPixel toBWPixel()
 	{
 		// compléter
+		int moyenne = (rgb[0]+rgb[1]+rgb[2])/3;
+		
+		if(moyenne>127) {
+			return new BWPixel(true);
+		}
+		else {
+			return new BWPixel(false);
+		}
 		
 	}
 	
@@ -43,6 +54,8 @@ public class ColorPixel extends AbstractPixel
 	 */
 	public GrayPixel toGrayPixel()
 	{
+		int moyenne = (rgb[0]+rgb[1]+rgb[2])/3;
+		return new GrayPixel(moyenne);
 		// compléter
 		
 	}
@@ -52,12 +65,14 @@ public class ColorPixel extends AbstractPixel
 	 */
 	public ColorPixel toColorPixel()
 	{
-		// compléter
+		return new ColorPixel(this.rgb);
 		
 	}
 	
 	public TransparentPixel toTransparentPixel()
 	{
+		int[] rgba = {rgb[0],rgb[1],rgb[2],255};
+		return new TransparentPixel(rgba);
 		// compléter
 		
 	}
@@ -67,6 +82,8 @@ public class ColorPixel extends AbstractPixel
 	 */
 	public AbstractPixel Negative()
 	{
+		int[] rgbNeg = {255-rgb[0],255-rgb[1],255-rgb[2]};
+		return new ColorPixel(rgbNeg);
 		// compléter
 		
 	}
