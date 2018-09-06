@@ -113,17 +113,33 @@ public class PixelMap
 		imageType = type; 
 		height = h; 
 		width = w;
+		switch(type) {
 		
-		// compléter
+		case BW:
+			this.imageData = new BWPixel[height][width];
+		break;
+		case Gray:
+			this.imageData = new GrayPixel[height][width];
+		break;
+		case Color:
+			this.imageData = new ColorPixel[height][width];
+		break;
+		case Transparent:
+			this.imageData = new TransparentPixel[height][width];
+		break;
+		
+		}
+		// complï¿½ter
 		
 	}
 	
 	/**
-	 * Libérer la mémoire
+	 * Libï¿½rer la mï¿½moire
 	 */
 	public void clearData()
 	{
-		// compléter
+		this.imageData = null;
+		// complï¿½ter
 		
 	}
 	
