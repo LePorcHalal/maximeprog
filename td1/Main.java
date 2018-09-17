@@ -39,25 +39,25 @@ public class Main
 		/**
 		 * Exercice 2
 		 */
-		/*
+		
 		PixelMapPlus pmp = new PixelMapPlus("./ed.ppm");
 		
 		PixelMapPlus hpmp = new PixelMapPlus( pmp );
-		hpmp.zoomIn(0, 0, 2);
+		//hpmp.zoomIn(0, 0, 2);
 		hpmp.resize(hpmp.width/2, hpmp.height/2);
 		
 		PixelMapPlus gpmp = new PixelMapPlus( pmp );
-		gpmp.zoomIn(0, gpmp.height, 2);
+		//gpmp.zoomIn(0, gpmp.height, 2);
 		gpmp.resize(gpmp.width/2, gpmp.height/2);
 		gpmp.convertToGrayImage();
 		
 		PixelMapPlus bwpmp = new PixelMapPlus( pmp );
-		bwpmp.zoomIn(pmp.getWidth(), 0, 2);
+		//bwpmp.zoomIn(pmp.getWidth(), 0, 2);
 		bwpmp.resize(bwpmp.width/2, bwpmp.height/2);
 		bwpmp.convertToBWImage();
 		
 		PixelMapPlus npmp = new PixelMapPlus( pmp );
-		npmp.zoomIn(npmp.getWidth(), npmp.getHeight(), 2);
+		//npmp.zoomIn(npmp.getWidth(), npmp.getHeight(), 2);
 		npmp.resize(npmp.width/2, npmp.height/2);
 		npmp.negate();
 		
@@ -65,9 +65,9 @@ public class Main
 		pmp.inset(gpmp, pmp.getHeight()/2, 0);
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
-		
+				
 		wName = "Edsger Dijkstra";
 		new DisplayImageWindow(wName, pmp);
-		*/
+		
 	}
 }

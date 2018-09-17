@@ -31,7 +31,10 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 	public AnyType peek()
 	{
 		//A completer
-		
+		if(empty() == true)
+			return null;
+		int end = table.length - 1;
+		return table[end];
 	}
 	
 	//Retire l'element en tete de file

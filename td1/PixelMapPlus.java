@@ -57,7 +57,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void negate()
 	{
 		// compléter
-		
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
+				imageData[i][j] = imageData[i][j].Negative();
+			}
+		}
 	}
 	
 	/**
@@ -66,7 +70,10 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void convertToBWImage()
 	{
 		// compléter
-		
+		this.imageType = ImageType.BW;
+		PixelMap tmp = this.toBWImage();
+		this.imageData = tmp.imageData;	
+		tmp.clearData();
 	}
 	
 	/**
@@ -75,7 +82,10 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void convertToGrayImage()
 	{
 		// compléter
-		
+		this.imageType = ImageType.Gray;
+		PixelMap tmp = this.toGrayImage();
+		this.imageData = tmp.imageData;	
+		tmp.clearData();
 	}
 	
 	/**
@@ -84,13 +94,19 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void convertToColorImage()
 	{
 		// compléter
-		
+		this.imageType = ImageType.Color;
+		PixelMap tmp = this.toColorImage();
+		this.imageData = tmp.imageData;
+		tmp.clearData();
 	}
 	
 	public void convertToTransparentImage()
 	{
 		// compléter
-		
+		this.imageType = ImageType.Transparent;
+		PixelMap tmp = this.toTransparentImage();
+		this.imageData = tmp.imageData;	
+		tmp.clearData();
 	}
 	
 	
@@ -103,7 +119,18 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	{
 		if(w < 0 || h < 0)
 			throw new IllegalArgumentException();
-		
+
+		PixelMap image = new PixelMap(this);
+		int resizedWidth = width/w;
+		int resizedHeight = height/h;
+		for (int i = 0; i < h; i++) {
+			for (int j = 0; j < w; j++) {
+				imageData[i][j] = image.getPixel(resizedHeight*i,resizedWidth*j);
+			}
+		}
+		height=h;
+		width=w;
+
 		// compléter
 		
 	}
@@ -111,19 +138,45 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	/**
 	 * Insert pm dans l'image a la position row0 col0
 	 */
-	public void inset(PixelMap pm, int row0, int col0)
+	public void inset(PixelMap pm, int row0, int col0) throws IllegalArgumentException
 	{
 		// compléter
+		if(row0 < 0 || col0 < 0)
+			throw new IllegalArgumentException();
+		
+		if(this.imageType != pm.getType() ) {
+			pm = new PixelMap(this.imageType, pm);
+		}
+		for(int i = row0; i < (row0 + pm.getHeight()); i++)
+		{
+			for(int j = col0; j < (col0 + pm.getWidth()); j++)
+			{
+				imageData[i][j] = pm.imageData[i - row0][j - col0];
+			}
+		}
+
 		
 	}
 	
 	/**
 	 * Decoupe l'image 
 	 */
-	public void crop(int h, int w)
+	public void crop(int h, int w) throws IllegalArgumentException
 	{
 		// compléter		
+		if(w <= 0 || h <= 0)
+			throw new IllegalArgumentException();
 		
+		AbstractPixel[][] cropped = new AbstractPixel[h][w];
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j++) {
+				cropped[i][j] = imageData[i][j];
+			}
+		}
+		imageData = cropped;
+		height = h;
+		width = w;
+
 	}
 	
 	/**
@@ -132,7 +185,20 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	public void translate(int rowOffset, int colOffset)
 	{
 		// compléter		
+		AbstractPixel[][] translated = new AbstractPixel[height][width];
 		
+		for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+            	if (i - rowOffset < 0  || j - colOffset < 0 || i - rowOffset >= height || j - colOffset >= height) {
+					translated[i][j] = new BWPixel(true);
+				} else {
+					translated[i][j] = imageData[i - rowOffset][j - colOffset];
+				}
+            }
+        }
+        imageData = translated;
+	
 	}
+	
 	
 }

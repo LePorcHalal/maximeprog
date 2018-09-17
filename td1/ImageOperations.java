@@ -12,7 +12,7 @@ public interface ImageOperations
 	public void convertToColorImage();
 	public void resize(int x, int y);
 	public void inset(PixelMap pm, int row0, int col0);
-	public void rotate(int x, int y, double angleRadian);
+	//public void rotate(int x, int y, double angleRadian);
 	public void crop(int h, int w);
 	public void translate(int colOffset, int rowOffset);
 }
