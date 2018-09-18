@@ -56,7 +56,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void negate()
 	{
-		// compléter
+		// complï¿½ter
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
 				imageData[i][j] = imageData[i][j].Negative();
@@ -69,7 +69,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToBWImage()
 	{
-		// compléter
+		// complï¿½ter
 		this.imageType = ImageType.BW;
 		PixelMap tmp = this.toBWImage();
 		this.imageData = tmp.imageData;	
@@ -81,7 +81,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToGrayImage()
 	{
-		// compléter
+		// complï¿½ter
 		this.imageType = ImageType.Gray;
 		PixelMap tmp = this.toGrayImage();
 		this.imageData = tmp.imageData;	
@@ -93,7 +93,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void convertToColorImage()
 	{
-		// compléter
+		// complï¿½ter
 		this.imageType = ImageType.Color;
 		PixelMap tmp = this.toColorImage();
 		this.imageData = tmp.imageData;
@@ -102,7 +102,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	
 	public void convertToTransparentImage()
 	{
-		// compléter
+		// complï¿½ter
 		this.imageType = ImageType.Transparent;
 		PixelMap tmp = this.toTransparentImage();
 		this.imageData = tmp.imageData;	
@@ -131,7 +131,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		height=h;
 		width=w;
 
-		// compléter
+		// complï¿½ter
 		
 	}
 	
@@ -140,7 +140,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void inset(PixelMap pm, int row0, int col0) throws IllegalArgumentException
 	{
-		// compléter
+		// complï¿½ter
 		if(row0 < 0 || col0 < 0)
 			throw new IllegalArgumentException();
 		
@@ -163,7 +163,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void crop(int h, int w) throws IllegalArgumentException
 	{
-		// compléter		
+		// complï¿½ter		
 		if(w <= 0 || h <= 0)
 			throw new IllegalArgumentException();
 		
@@ -188,12 +188,12 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void translate(int rowOffset, int colOffset)
 	{
-		// compléter		
+		// complï¿½ter		
 		AbstractPixel[][] translated = new AbstractPixel[height][width];
 		
 		for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-            	if (i - rowOffset < 0  || j - colOffset < 0 || i - rowOffset >= height || j - colOffset >= height) {
+            	if (i - rowOffset < 0  || j - colOffset < 0 || i - rowOffset >= height || j - colOffset >= width) {
 					translated[i][j] = new BWPixel(true);
 				} else {
 					translated[i][j] = imageData[i - rowOffset][j - colOffset];
