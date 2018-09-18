@@ -170,7 +170,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		AbstractPixel[][] cropped = new AbstractPixel[h][w];
 		for(int i = 0; i < h; i++) {
 			for(int j = 0; j < w; j++) {
-				cropped[i][j] = imageData[i][j];
+				if (i - height >= 0 || j - width >= 0) {
+					cropped[i][j] = new BWPixel(true);
+				}
+				else
+					cropped[i][j] = imageData[i][j];
 			}
 		}
 		imageData = cropped;
