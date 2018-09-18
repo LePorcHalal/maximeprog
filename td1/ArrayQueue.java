@@ -1,5 +1,3 @@
-
-
 public class ArrayQueue<AnyType> implements Queue<AnyType>
 {
 	private int size = 0;		//Nombre d'elements dans la file.
@@ -33,8 +31,7 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 		//A completer
 		if(empty() == true)
 			return null;
-		int end = size - 1;
-		return table[end];
+		return table[startindex];
 	}
 	
 	//Retire l'element en tete de file
@@ -44,9 +41,9 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 		//A completer
 		if(empty() == true) 
 			throw new EmptyQueueException();
-		int end = size - 1;
-		table[end] = null;
+		table[startindex] = null;
 		size = size - 1;
+		startindex = startindex + 1;
 	}
 	
 	//Ajoute un element a la fin de la file
@@ -55,10 +52,10 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 	public void push(AnyType item)
 	{
 		//A completer
-		if(size == table.length){
+		if((size+startindex) == table.length){
 			resize(2);
 		}
-		table[size] = item;
+		table[(size+startindex)] = item;
 		size = size + 1;
 	}
    
@@ -69,14 +66,15 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 	private void resize(int resizeFactor)
 	{
 		//A completer
-			AnyType[] resize = table;
-			if(size==0)
-				table = (AnyType[]) new Object[1 * resizeFactor];
-			else
-				table = (AnyType[]) new Object[size * resizeFactor];
-			for (int i = startindex; i < size; i++) {
+		if(size==0)
+			table = (AnyType[]) new Object[1];
+		else {
+		AnyType[] resize = table;	
+		table = (AnyType[]) new Object[(size+startindex) * resizeFactor];
+			for (int i = 0; i < (size+startindex); i++) {
 				table[i] = resize[i];
 			}
+		}
 	}   
 }
 
