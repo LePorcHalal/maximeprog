@@ -65,7 +65,7 @@ public class Main
 		pmp.inset(gpmp, pmp.getHeight()/2, 0);
 		pmp.inset(bwpmp, 0, pmp.getWidth()/2);
 		pmp.inset(npmp, pmp.getHeight()/2, pmp.getWidth()/2);
-		pmp.translate(-30, 0);		
+		
 		wName = "Edsger Dijkstra";
 		new DisplayImageWindow(wName, pmp);
 		
