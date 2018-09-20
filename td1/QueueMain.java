@@ -50,7 +50,11 @@ public class QueueMain
 				System.out.println("Erreur: l'ordre de sortie(FIFO) n'est pas respecte");
 				return;
 			}
+<<<<<<< HEAD
 			
+=======
+		
+>>>>>>> d4b5625c354cf2357048c6a427fe0319242610e6
 			try 
 			{
 				arrayQueue.pop();
@@ -76,8 +80,13 @@ public class QueueMain
 			return;
 		}
 		
+<<<<<<< HEAD
 		
 		try{
+=======
+		try 
+		{
+>>>>>>> d4b5625c354cf2357048c6a427fe0319242610e6
 			arrayQueue.pop();
 			System.out.println("Erreur: Pop doit lancer une exception lorsque la file est vide");
 			return;
