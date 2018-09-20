@@ -11,7 +11,7 @@ public class QueueMain
 		
 		for(int i = 0; i < COUNT*2; i++)
 		{
-	//		arrayQueue.push(pushCounter);
+			arrayQueue.push(pushCounter);
 			listQueue.push(pushCounter);
 			pushCounter++;
 		}
@@ -25,7 +25,7 @@ public class QueueMain
 		{
 			try 
 			{
-		//		arrayQueue.pop();
+				arrayQueue.pop();
 				listQueue.pop();
 				popCounter++;
 			} 
@@ -38,22 +38,22 @@ public class QueueMain
 		
 		for(int i = 0; i < COUNT*2.5; i++)
 		{
-		//	arrayQueue.push(pushCounter);
+			arrayQueue.push(pushCounter);
 			listQueue.push(pushCounter);
 			pushCounter++;
 		}
 		
 		for(int i = 0; i < COUNT*3.5; i++)
 		{
-		//	if(arrayQueue.peek() != popCounter || listQueue.peek() != popCounter)
-		//	{
-		//		System.out.println("Erreur: l'ordre de sortie(FIFO) n'est pas respecte");
-		//		return;
-		//	}
+			if(arrayQueue.peek() != popCounter || listQueue.peek() != popCounter)
+			{
+				System.out.println("Erreur: l'ordre de sortie(FIFO) n'est pas respecte");
+				return;
+			}
 			
 			try 
 			{
-			//	arrayQueue.pop();
+				arrayQueue.pop();
 				listQueue.pop();
 				popCounter++;
 			} 
@@ -76,14 +76,14 @@ public class QueueMain
 			return;
 		}
 		
-		/*try 
-		{
+		
+		try{
 			arrayQueue.pop();
 			System.out.println("Erreur: Pop doit lancer une exception lorsque la file est vide");
 			return;
 		} 
 		catch (EmptyQueueException e){}
-	*/	
+		
 		try 
 		{
 			listQueue.pop();
