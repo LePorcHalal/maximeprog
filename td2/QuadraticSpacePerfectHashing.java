@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class QuadraticSpacePerfectHashing<AnyType> 
 {
@@ -32,31 +34,59 @@ public class QuadraticSpacePerfectHashing<AnyType>
 
 	public boolean containsKey(int key)
 	{
-		// A completer
+		return items[key] != null;
+		
 
 	}
 
 	public boolean containsValue(AnyType x )
 	{
+		
+		for(int i = 0; i < items.length; i++) {
+			if(items[i] == x)
+				return true;
+		}
+		return false;
 		// A completer
 
 	}
 
 	public void remove (AnyType x) {
 		// A completer
+		int removeIndex = -1;
+		for(int i = 0; i < items.length; i++) {
+			if(items[i] == x) {
+			 removeIndex = i;
+				break;
+			}
+		}
+
+		   for(int i = removeIndex; i < items.length -1; i++){
+		        items[i] = items[i + 1];
+		      }	
 
 	}
 
 	public int getKey (AnyType x) {
-		// A completer
 		
+		return ((a*items.hashCode() + b)%p)%Size();	
+	}
+	public boolean collisionExist() {
+		
+		return true;
 	}
 
 	@SuppressWarnings("unchecked")
 	private void AllocateMemory(ArrayList<AnyType> array)
 	{
 		Random generator = new Random( System.nanoTime() );
-
+		a = generator.nextInt(p);
+		b = generator.nextInt(p);
+		int sizeM = array.size() * array.size();
+		
+		while(collisionExist());
+		
+		 items = (AnyType[]) new Object[sizeM];
 		if(array == null || array.size() == 0)
 		{
 			// A completer
@@ -69,9 +99,8 @@ public class QuadraticSpacePerfectHashing<AnyType>
 			// A completer			
 			return;
 		}
-
-		// A completer
-
+		
+		int postion = ((a*items.hashCode() + b)%p)%sizeM;
 	}
 
 	

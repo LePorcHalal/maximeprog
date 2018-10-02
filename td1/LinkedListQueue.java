@@ -66,13 +66,10 @@ public class LinkedListQueue<AnyType> implements Queue<AnyType>
 	public void pop() throws EmptyQueueException
 	{
 		//A completer
-<<<<<<< HEAD
-		 
-			
-=======
+
 		if(empty() == true) 
 			throw new EmptyQueueException();
->>>>>>> d4b5625c354cf2357048c6a427fe0319242610e6
+
 		last.setNext(last.getNext().getNext());
 		size--;
 	}
