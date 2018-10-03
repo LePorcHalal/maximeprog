@@ -3,118 +3,123 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class QuadraticSpacePerfectHashing<AnyType> 
-{
+public class QuadraticSpacePerfectHashing<AnyType> {
 	static int p = 46337;
 
 	int a, b;
 	AnyType[] items;
 
-	QuadraticSpacePerfectHashing()
-	{
-		a=b=0; items = null;
+	QuadraticSpacePerfectHashing() {
+		a = b = 0;
+		items = null;
 	}
 
-	QuadraticSpacePerfectHashing(ArrayList<AnyType> array)
-	{
+	QuadraticSpacePerfectHashing(ArrayList<AnyType> array) {
 		AllocateMemory(array);
 	}
 
-	public void SetArray(ArrayList<AnyType> array)
-	{
+	public void SetArray(ArrayList<AnyType> array) {
 		AllocateMemory(array);
 	}
 
-	public int Size()
-	{
-		if( items == null ) return 0;
+	public int Size() {
+		if (items == null)
+			return 0;
 
 		return items.length;
 	}
 
-	public boolean containsKey(int key)
-	{
-		return items[key] != null;
-		
-
+	public boolean containsKey(int key) {
+		if (Size() != 0) {
+			return items[key] != null;
+		} else
+			return false;
+		// A completer
 	}
 
-	public boolean containsValue(AnyType x )
-	{
-		
-		for(int i = 0; i < items.length; i++) {
-			if(items[i] == x)
-				return true;
-		}
-		return false;
+	public boolean containsValue(AnyType x) {
+		if (items[getKey(x)] == null || Size() == 0)
+			return false;
+		return items[getKey(x)].equals(x);
 		// A completer
-
 	}
 
-	public void remove (AnyType x) {
+	public void remove(AnyType x) {
 		// A completer
-		int removeIndex = -1;
-		for(int i = 0; i < items.length; i++) {
-			if(items[i] == x) {
-			 removeIndex = i;
-				break;
+		if (Size() != 0) {
+			int removeIndex = -1;
+			for (int i = 0; i < items.length; i++) {
+				if (items[i] == x) {
+					removeIndex = i;
+					break;
+				}
+			}
+
+			for (int i = removeIndex; i < items.length - 1; i++) {
+				items[i] = items[i + 1];
 			}
 		}
-
-		   for(int i = removeIndex; i < items.length -1; i++){
-		        items[i] = items[i + 1];
-		      }	
-
 	}
 
-	public int getKey (AnyType x) {
-		
-		return ((a*items.hashCode() + b)%p)%Size();	
+	public int getKey(AnyType x) {
+		if (Size() != 0) {
+			return ((a * x.hashCode() + b) % p) % Size();
+		} else
+			return 0;
 	}
-	public boolean collisionExist() {
-		
-		return true;
+
+	public boolean collisionExist(ArrayList<AnyType> array) {
+		for (AnyType item : array) {
+			if (items[getKey(item)] != null) {
+				return true;
+			}
+			items[getKey(item)] = item;
+		}
+		return false;
 	}
 
 	@SuppressWarnings("unchecked")
-	private void AllocateMemory(ArrayList<AnyType> array)
-	{
-		Random generator = new Random( System.nanoTime() );
-		a = generator.nextInt(p);
-		b = generator.nextInt(p);
-		int sizeM = array.size() * array.size();
-		
-		while(collisionExist());
-		
-		 items = (AnyType[]) new Object[sizeM];
-		if(array == null || array.size() == 0)
-		{
+	private void AllocateMemory(ArrayList<AnyType> array) {
+		Random generator = new Random(System.nanoTime());
+		if (array == null || array.size() == 0) {
+			// A completer
+			a = b = 0;
+			items = null;
+			return;
+		}
+		if (array.size() == 1) {
+			a = b = 0;
+			items = (AnyType[]) new Object[1];
+			items[0] = array.get(0);
 			// A completer
 			return;
 		}
-		if(array.size() == 1)
-		{
-			a = b = 0;
 
-			// A completer			
-			return;
-		}
-		
-		int postion = ((a*items.hashCode() + b)%p)%sizeM;
+		do {
+			a = generator.nextInt(p);
+			b = generator.nextInt(p);
+			int sizeM = array.size() * array.size();
+			items = (AnyType[]) new Object[sizeM];
+		} while (collisionExist(array));
 	}
 
-	
-	
-	public String toString () {
+	public String toString() {
 		String result = "";
-		
 		// A completer
-		
-		
-		return result; 
+		if (Size() != 0) {
+			for (int i = 0; i < items.length; i++) {
+				if (containsKey(i)) {
+					result = result + "clé de " + items[i].toString() + ": " + i + "\n";
+				}
+			}
+		}
+		return result;
 	}
 
-	public void makeEmpty () {
-		   // A completer
-   	}
+	public void makeEmpty() {
+		// A completer
+		for (int i = 0; i > items.length; i++) {
+			items[i] = null;
+		}
+	}
 }

@@ -30,7 +30,7 @@ public class HashFunctions
       System.out.println( "Number of elements: " + al.size() );
       System.out.println( "Size: " + e.Size() );
       System.out.println();
-      
+      e.makeEmpty();
       // Verifie qu'il fonctionne comme prevu
       System.out.println( 100 + " est present: " + e.containsValue(100) );
       System.out.println(  99 + " est present: " + e.containsValue( 99) );
@@ -40,12 +40,12 @@ public class HashFunctions
       System.out.println( 299 + " est present: " + e.containsValue(299) );
       System.out.println();
 
-      System.out.println("La clÃ© de 100 est : " + e.getKey(100) + ", elle est presente: " + e.containsKey(e.getKey(100)) );
-      System.out.println("La clÃ© de 99 est : " + e.getKey(99) + ", elle est presente: " + e.containsKey(e.getKey(99)) );
-      System.out.println("La clÃ© de 200 est : " + e.getKey(200) + ", elle est presente: " + e.containsKey(e.getKey(200)) );
-      System.out.println("La clÃ© de 199 est : " + e.getKey(199) + ", elle est presente: " + e.containsKey(e.getKey(199)) );
-      System.out.println("La clÃ© de 300 est : " + e.getKey(300) + ", elle est presente: " + e.containsKey(e.getKey(300)) );
-      System.out.println("La clÃ© de 299 est : " + e.getKey(299) + ", elle est presente: " + e.containsKey(e.getKey(299)) );
+      System.out.println("La clé de 100 est : " + e.getKey(100) + ", elle est presente: " + e.containsKey(e.getKey(100)) );
+      System.out.println("La clé de 99 est : " + e.getKey(99) + ", elle est presente: " + e.containsKey(e.getKey(99)) );
+      System.out.println("La clé de 200 est : " + e.getKey(200) + ", elle est presente: " + e.containsKey(e.getKey(200)) );
+      System.out.println("La clé de 199 est : " + e.getKey(199) + ", elle est presente: " + e.containsKey(e.getKey(199)) );
+      System.out.println("La clé de 300 est : " + e.getKey(300) + ", elle est presente: " + e.containsKey(e.getKey(300)) );
+      System.out.println("La clé de 299 est : " + e.getKey(299) + ", elle est presente: " + e.containsKey(e.getKey(299)) );
       System.out.println();
       
       System.out.println(e);
@@ -76,12 +76,12 @@ public class HashFunctions
       System.out.println();
       
 
-      System.out.println("La clÃ© de 100 est : " + pfhash.getKey(100) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(100)) );
-      System.out.println("La clÃ© de 99 est : " + pfhash.getKey(99) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(99)) );
-      System.out.println("La clÃ© de 200 est : " + pfhash.getKey(200) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(200)) );
-      System.out.println("La clÃ© de 199 est : " + pfhash.getKey(199) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(199)) );
-      System.out.println("La clÃ© de 300 est : " + pfhash.getKey(300) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(300)) );
-      System.out.println("La clÃ© de 299 est : " + pfhash.getKey(299) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(299)) );
+      System.out.println("La clé de 100 est : " + pfhash.getKey(100) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(100)) );
+      System.out.println("La clé de 99 est : " + pfhash.getKey(99) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(99)) );
+      System.out.println("La clé de 200 est : " + pfhash.getKey(200) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(200)) );
+      System.out.println("La clé de 199 est : " + pfhash.getKey(199) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(199)) );
+      System.out.println("La clé de 300 est : " + pfhash.getKey(300) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(300)) );
+      System.out.println("La clé de 299 est : " + pfhash.getKey(299) + ", elle est presente: " + pfhash.containsKey(pfhash.getKey(299)) );
       System.out.println();
       
       System.out.println(pfhash);
