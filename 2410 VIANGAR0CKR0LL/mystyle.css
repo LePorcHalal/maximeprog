@@ -1,0 +1,95 @@
+:root {
+  --rowNum: 9;
+  --colNum: 10;
+}
+.wrapper {
+  height: var(--wrapperH);
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+#grid-container {
+  display: grid;
+/*  grid-template-rows: repeat(var(--rowNum), auto);
+*/
+  /*grid-template-columns: repeat(var(--colNum), auto);*/
+  grid-template-columns: 150px 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+   grid-template-rows: 150px 50px 50px 50px 50px 50px 50px 50px ;
+  background-color: white;
+}
+
+.editableCase {
+
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.editableCase .tooltiptext {
+    width: 120px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.editableCase:hover .tooltiptext {
+    visibility: visible;
+}
+
+
+
+
+.grid-item  {
+  background-color: rgba(255, 255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 0px;
+  font-size: 15px;
+  text-align: center;
+}
+.grid-itemDate  {
+
+  background-color: rgba(255, 255, 255, 255);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 0px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.personne{
+float:
+}
+.editableCase {
+  display: none
+  background-color: rgba(255, 192, 203,1);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 0px;
+  font-size: 15px;
+  text-align: center;
+}
+button[name="buttonPlus"] {
+    display: block;
+}
+button[name="buttonEditable"] {
+  display: none;
+  float: right;
+
+}
+.wrap div[class= "personne"]:last-child{
+
+}
+
+.personne:hover button[name="buttonEditable"] {
+    display: block;
+}
