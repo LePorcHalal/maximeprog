@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 public class QuadraticSpacePerfectHashing<AnyType> {
 	static int p = 46337;
@@ -38,7 +36,7 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 	}
 
 	public boolean containsValue(AnyType x) {
-		if (items[getKey(x)] == null || Size() == 0)
+		if (Size() == 0 || items[getKey(x)] == null)
 			return false;
 		return items[getKey(x)].equals(x);
 		// A completer
@@ -46,19 +44,9 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 
 	public void remove(AnyType x) {
 		// A completer
-		if (Size() != 0) {
-			int removeIndex = -1;
-			for (int i = 0; i < items.length; i++) {
-				if (items[i] == x) {
-					removeIndex = i;
-					break;
-				}
-			}
 
-			for (int i = removeIndex; i < items.length - 1; i++) {
-				items[i] = items[i + 1];
-			}
-		}
+		items[getKey(x)] = null;
+
 	}
 
 	public int getKey(AnyType x) {
@@ -96,7 +84,7 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 		}
 
 		do {
-			a = generator.nextInt(p);
+			a = generator.nextInt(p - 1) + 1; // éviter les zéros
 			b = generator.nextInt(p);
 			int sizeM = array.size() * array.size();
 			items = (AnyType[]) new Object[sizeM];
@@ -104,15 +92,15 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 	}
 
 	public String toString() {
-		String result = "";
+		String result = " ";
 		// A completer
 		if (Size() != 0) {
-			for (int i = 0; i < items.length; i++) {
-				if (containsKey(i)) {
-					result = result + "clé de " + items[i].toString() + ": " + i + "\n";
-				}
+			for (AnyType i : items) {
+				if (i != null)
+					result = result + "(clé_" + String.valueOf(getKey(i)) + ", " + String.valueOf(i) + "),";
 			}
 		}
+		result = result.substring(0, result.length() - 1);
 		return result;
 	}
 
