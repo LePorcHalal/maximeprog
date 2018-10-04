@@ -81,7 +81,7 @@ float:
 button[name="buttonPlus"] {
     display: block;
 }
-button[name="buttonEditable"] {
+input[name="buttonEditable"] {
   display: none;
   float: right;
 
