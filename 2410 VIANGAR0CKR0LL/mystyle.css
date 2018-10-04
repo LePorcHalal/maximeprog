@@ -82,7 +82,7 @@ button[name="buttonPlus"] {
     display: block;
     float: right;
 }
-button[name="buttonEditable"] {
+input[name="buttonEditable"] {
   display: none;
   float: right;
   vertical-align: middle;
