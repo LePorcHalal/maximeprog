@@ -30,6 +30,25 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // TODO: est-ce que l'item fais partie du noeuds courant
     // O(log(n))
     public boolean contains(T item) {
+    	
+    	if(data.compareTo(item)== 0) {
+    		return true;
+    	}
+    	
+    	if(data.compareTo(item) < 0) {
+    		if(left.getData()==null) {
+    			return false;
+    			
+    		}
+    		data = left.getData(); 
+    		contains(item);
+    	}else {
+    		if(right.getData()==null) {
+    			return false;
+    		}
+    		data = right.getData(); 
+    		contains(item);
+    	}
         return false;
     }
 
