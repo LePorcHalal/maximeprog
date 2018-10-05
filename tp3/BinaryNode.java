@@ -8,7 +8,7 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // TODO: initialisation
     // O(1)
     public BinaryNode(T data) {
-    	data = null;
+    	this.data = data;
     	right = null;
     	left = null;
     }
@@ -22,15 +22,21 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // TODO: on ajoute une nouvelle donnee au bon endroit
     // O(log(n))
     public void insert(T item) {
-    	if(data.compareTo(item) <= 0) {
-    		
-    	}
+    		if(getData()==null)
+    			data = item;
+    		else {
+    		int compareResult = item.compareTo( data );
+    		if(compareResult <= 0 )
+    		left.insert(item);
+    		else if( compareResult > 0 )
+    		right.insert(item);
+    		}
     }
 
     // TODO: est-ce que l'item fais partie du noeuds courant
     // O(log(n))
     public boolean contains(T item) {
-    	
+
     	if(data.compareTo(item)== 0) {
     		return true;
     	}
@@ -56,7 +62,7 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // O(n)
     public int getHeight() {
     	if( data == null )
-    		return -1;
+    		return 0;
     	else
     		return 1 + Math.max(left.getHeight(),right.getHeight());
     }
@@ -65,6 +71,13 @@ public class BinaryNode<T extends Comparable<? super T> > {
     // de manière que le plus petit item sera le premier inseré
     // O(n)
     public void fillListInOrder(List<BinaryNode<T>> result) {
-
+    	if(left.getData()!=null) {
+    		left.fillListInOrder(result);
+    	}
+    		result.add(this);
+    	if(right.getData()!=null) {
+    		right.fillListInOrder(result);
+    	}
+    		
     }
 }
