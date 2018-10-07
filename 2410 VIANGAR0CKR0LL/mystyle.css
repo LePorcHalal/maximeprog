@@ -1,14 +1,18 @@
 :root {
   --rowNum: 9;
   --colNum: 10;
+  --main-color: white;
+
 }
 .wrapper {
   height: var(--wrapperH);
 }
 
 h1 {
-    color: white;
     text-align: center;
+}
+h3{
+  text-align: center;
 }
 #grid-container {
   display: grid;
@@ -21,7 +25,7 @@ h1 {
 }
 
 .editableCase {
-
+    background-color: #FCEDE9;
     position: relative;
     display: inline-block;
     border-bottom: 1px dotted black;
@@ -45,51 +49,119 @@ h1 {
 }
 
 .editableCase:hover .tooltiptext {
+  transition-delay: 1000ms;
     visibility: visible;
 }
 
 .grid-item  {
-  background-color: rgba(255, 255, 255, 255);
+
   border: 1px solid rgba(15, 138, 240, 0.2);
   padding: 0px;
   font-size: 15px;
   text-align: center;
 }
+
 .grid-itemDate  {
-
   background-color: rgba(255, 255, 255, 255);
   border: 1px solid rgba(15, 138, 240, 0.2);
   padding: 0px;
   font-size: 15px;
+  color: rgb(27, 26, 26);
+  text-align: center;
+}
+.grid-itemJour  {
+  background-color: rgba(255, 255, 255, 255);
+  padding: 0px;
+  font-size: 27px;
+  font-weight: bold;
   text-align: center;
 }
 
+.inputCase {
+background-color:  #90c7e8;
+}
 .personne {
   float: left;
   vertical-align: middle;
 }
+img {
+    float: left;
+}
+
+.grid-itemCalDate{
+  background-color: rgba(255, 255, 255, 255);
+  padding: 0px;
+  font-size: 25px;
+  text-align: center;
+  border: 10px;
+  border-color: white white white black;
+  width: 80px;
+}
+.grid-itemHour{
+  background-color: rgba(255, 255, 255, 255);
+  padding: 0px;
+  font-size: 15px;
+  text-align: center;
+  border: 10px;
+  border-color: white white white black;
+  width: 80px;
+}
+.flex-container {
+  display: flex;
+  visibility: visible;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  background-color: white;
+  flex-direction: column;
+  width: 100px;
+  height: 1000px;
+}
+.buttonSwitch{
+    display: flex;
+    width: 780px;
+    flex-direction: row;
+    justify-content : center;
+}
+.switch{
+  width: 120px;
+    border: none;
+    background-color: rgba(255, 255, 255, 255);
+    color: rgb(0, 0, 0);
+    text-align: center;
+    text-decoration: active;
+    display: inline-block;
+    font-size: 20px;
+    margin: 20px 2px;
+    cursor: pointer;
+}
 
 .editableCase {
   /*display: none;*/
-  background-color: rgb(255, 255, 255);
+    background-color: #FCEDE9;
   border: 1px solid rgba(15, 138, 240, 0.2);
   padding: 0px;
   font-size: 15px;
   text-align: center;
 }
-
-button[name="buttonPlus"] {
-    display: block;
-    float: right;
+.fa-input {
+  font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-input[name="buttonEditable"] {
-  display: none;
+
+
+
+button[name="buttonEditable"] {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(144, 199, 232, 0.3);
+  opacity: 0;
   float: right;
   vertical-align: middle;
 }
 
-.personne:hover button[name="buttonEditable"] {
-    display: block;
+.personne:hover i{
+    opacity: 1;
 }
+.personne:hover button[name="buttonEditable"] {
 
-
+    opacity: 1;
+}
