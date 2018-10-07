@@ -1,8 +1,12 @@
 var model = null;
 var boolFirstInit = true;
+var derniereLigneASeFaireModifier=0;
 var date, dayName, monthName, hourTwo;
 var days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
 var month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+
+
+
 function initVuTable(ligneModifiable){
 
 var jsonRequestResult = $.getJSON( "cal-data.json", function() {
@@ -144,14 +148,18 @@ function cocherSimulation(event,i,j) {
         }
 
    }
+
    function modifierPersonne(event) {
      //RESET
      var target = event.target;
+     var idTemp = target.id;
+     var id=idTemp[2];
+     var temp = document.getElementsByName("inputText")[0].value
+     document.getElementById('grid-container').innerHTML = "";
+    model.responseJSON.Participants[derniereLigneASeFaireModifier].Nom = temp;
+    initVuTable(id);
+    derniereLigneASeFaireModifier=id;
 
-     var id = target.id;
-
-            document.getElementById('grid-container').innerHTML = "";
-            initVuTable(id[2]);
       }
 
 function updateTable(ligneModifiable){
@@ -160,7 +168,7 @@ function updateTable(ligneModifiable){
   //nom de la personne
   if(i == ligneModifiable){
 
-    var input = "<div class='grid-item inputCase'><input type='text' value='"+model.responseJSON.Participants[i].Nom+"' required='required' maxlength='64' width='70' height='50'></div>";
+    var input = "<div class='grid-item inputCase'><img src='particip1.png' alt='Trulli' width='28' height='26'><input name='inputText' type='text' value='"+model.responseJSON.Participants[i].Nom+"' required='required' maxlength='64'  width='70' height='50'></div>";
     document.getElementById('grid-container').innerHTML += input;
 
     for (var j = 0; j < model.responseJSON.Participants[i].Disponibilités.length; j++) {
@@ -179,7 +187,7 @@ function updateTable(ligneModifiable){
     }
 
   } else{
-    var personne = "<div class='grid-item personne'><img src='particip2.png' alt='Trulli' width='28' height='26'>"+model.responseJSON.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt'></i></button></div>"
+    var personne = "<div class='grid-item personne' id='p"+i+"'><img src='particip2.png' alt='Trulli' width='28' height='26'>"+model.responseJSON.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt'></i></button></div>"
     document.getElementById('grid-container').innerHTML += personne;
 
   //check /pas check
@@ -188,7 +196,7 @@ function updateTable(ligneModifiable){
 
       if(model.responseJSON.Participants[i].Disponibilités[j]){
         ouiOuNon = model.responseJSON.Participants[i].Nom+" à voté OUI";
-        contenuCaseCheck= "<div class='editableCase id='r"+i+"c"+j+"''><input type='image' src='tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>"+model.responseJSON.Calendrier[i]+""+ouiOuNon+"</span></div>";
+        contenuCaseCheck= "<div class='editableCase'id='r"+i+"c"+j+"'><input type='image' src='tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>"+model.responseJSON.Calendrier[i]+""+ouiOuNon+"</span></div>";
         document.getElementById('grid-container').innerHTML += contenuCaseCheck;
 
       }else{
