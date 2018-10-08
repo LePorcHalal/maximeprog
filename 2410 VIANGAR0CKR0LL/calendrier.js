@@ -5,25 +5,39 @@ var date, dayName, monthName, hourTwo;
 var days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
 var month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
+function init(){
+  
+  initVuTable(0);
+  initVuCalendrier();
+  hide("flex-container");
+}
+
+function loadData  ()  {
+    var body = "";
+    fetch("cal-data.json")
+        .then(
+            (response) => {
+                return response.json();
+            }
+        )
+        .then(
+            (json) => {
+                model = json;
+            }
+        ).then(
+            () => {
+                init();
+            }
+        );
+};
 
 
 function initVuTable(ligneModifiable){
 
-var jsonRequestResult = $.getJSON( "cal-data.json", function() {
-  console.log( "success" );
-})
-  .done(function() {
-
-    if(boolFirstInit){
-      model = jsonRequestResult;
-      boolFirstInit=false;
-    }
-    //date
-
     var dateRow, contenuCaseCheck, contenuCasePasCheck,ouiOuNon;
     document.getElementById('grid-container').innerHTML += "<div class='grid-item'></div>"
     for (var i = 0; i < 9; i++) {
-      date = new Date(model.responseJSON.Calendrier[i]);
+      date = new Date(model.Calendrier[i]);
       dayName = days[date.getDay()];
       monthName = month[date.getMonth()];
       hourTwo = date.getHours()+2;
@@ -32,12 +46,12 @@ var jsonRequestResult = $.getJSON( "cal-data.json", function() {
     }
 
 //ligne apres les dates
-  var nombreDeParticipants = "<div class='grid-item personne'>"+model.responseJSON.Participants.length+" participants</div>"
+  var nombreDeParticipants = "<div class='grid-item personne'>"+model.Participants.length+" participants</div>"
     document.getElementById('grid-container').innerHTML += nombreDeParticipants;
   var compteurCrochet = 0;
     for (var i = 0; i < 9; i++) {
-      for (var j = 0; j < model.responseJSON.Participants.length; j++) {
-        if(model.responseJSON.Participants[j].Disponibilités[i]) {
+      for (var j = 0; j < model.Participants.length; j++) {
+        if(model.Participants[j].Disponibilités[i]) {
           compteurCrochet++;
         }
       }
@@ -48,32 +62,16 @@ var jsonRequestResult = $.getJSON( "cal-data.json", function() {
 
 updateTable(ligneModifiable);
 
-  })
-  .fail(function() {
-    console.log( "error" );
-  })
-  .always(function() {
-    console.log( "complete" );
-  });
+
 }
 
 
 function initVuCalendrier() {
-  var jsonRequestResult = $.getJSON("cal-data.json", function () {
-    console.log("success");
-  })
-    .done(function () {
 
-      if(boolFirstInit){
-        model = jsonRequestResult;
-        boolFirstInit=false;
-      }
-      //hide("grid-container");
-      //date
       var dateRow, date, dayName, days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
       dateRow = "<div class='grid-itemCalDate'>" + "</div>";
       for (var i = 0; i < 10; i = i + 2) {
-        date = new Date(model.responseJSON.Calendrier[i]);
+        date = new Date(model.Calendrier[i]);
         dayName = days[date.getDay()];
         dateRow += "<div class='grid-itemCalDate'>" + date.getDate() + '\n' + dayName + "</div>";
       }
@@ -93,14 +91,6 @@ function initVuCalendrier() {
 
       updateCal(model, -1);
 
-
-    })
-    .fail(function () {
-      console.log("error");
-    })
-    .always(function () {
-      console.log("complete");
-    });
 }
 
 function updateCal(model, ligneModifiable) {
@@ -139,12 +129,12 @@ function cocherSimulation(event,i,j) {
         if (document.getElementById(id).getAttribute('src') == "check.png")
         {
             document.getElementById(id).setAttribute('src',"tick-check.png");
-              model.responseJSON.Participants[i].Disponibilités[j] = 1;
+              model.Participants[i].Disponibilités[j] = 1;
         }
         else
         {
             document.getElementById(id).setAttribute('src',"check.png");
-              model.responseJSON.Participants[i].Disponibilités[j] = 0;
+              model.Participants[i].Disponibilités[j] = 0;
         }
 
    }
@@ -156,7 +146,7 @@ function cocherSimulation(event,i,j) {
      var id=idTemp[2];
      var temp = document.getElementsByName("inputText")[0].value
      document.getElementById('grid-container').innerHTML = "";
-    model.responseJSON.Participants[derniereLigneASeFaireModifier].Nom = temp;
+    model.Participants[derniereLigneASeFaireModifier].Nom = temp;
     initVuTable(id);
     derniereLigneASeFaireModifier=id;
 
@@ -164,18 +154,18 @@ function cocherSimulation(event,i,j) {
 
 function updateTable(ligneModifiable){
 
-  for (var i = 0; i < model.responseJSON.Participants.length; i++) {
+  for (var i = 0; i < model.Participants.length; i++) {
   //nom de la personne
   if(i == ligneModifiable){
 
-    var input = "<div class='grid-item inputCase'><img src='particip1.png' alt='Trulli' width='28' height='26'><input name='inputText' type='text' value='"+model.responseJSON.Participants[i].Nom+"' required='required' maxlength='64'  width='70' height='50'></div>";
+    var input = "<div class='grid-item inputCase'><img src='particip1.png' alt='Trulli' width='28' height='26'><input name='inputText' type='text' value='"+model.Participants[i].Nom+"' required='required' maxlength='64'  width='70' height='50'></div>";
     document.getElementById('grid-container').innerHTML += input;
 
-    for (var j = 0; j < model.responseJSON.Participants[i].Disponibilités.length; j++) {
+    for (var j = 0; j < model.Participants[i].Disponibilités.length; j++) {
       var idLigne = "r"+ligneModifiable+"c"+j;
 
 
-      if(model.responseJSON.Participants[i].Disponibilités[j]){
+      if(model.Participants[i].Disponibilités[j]){
         contenuCaseCheck= "<input type='image' id='btnCheck"+j+"' src='tick-check.png' onclick='cocherSimulation(event,"+i+","+j+")' alt='Submit' width='70' height='50'>"
         document.getElementById('grid-container').innerHTML += contenuCaseCheck;
         }else{
@@ -187,21 +177,21 @@ function updateTable(ligneModifiable){
     }
 
   } else{
-    var personne = "<div class='grid-item personne' id='p"+i+"'><img src='particip2.png' alt='Trulli' width='28' height='26'>"+model.responseJSON.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt'></i></button></div>"
+    var personne = "<div class='grid-item personne' id='p"+i+"'><img src='particip2.png' alt='Trulli' width='28' height='26'>"+model.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt'></i></button></div>"
     document.getElementById('grid-container').innerHTML += personne;
 
   //check /pas check
-    for (var j = 0; j < model.responseJSON.Participants[i].Disponibilités.length; j++) {
+    for (var j = 0; j < model.Participants[i].Disponibilités.length; j++) {
       ouiOuNon = "";
 
-      if(model.responseJSON.Participants[i].Disponibilités[j]){
-        ouiOuNon = model.responseJSON.Participants[i].Nom+" à voté OUI";
-        contenuCaseCheck= "<div class='editableCase'id='r"+i+"c"+j+"'><input type='image' src='tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>"+model.responseJSON.Calendrier[i]+""+ouiOuNon+"</span></div>";
+      if(model.Participants[i].Disponibilités[j]){
+        ouiOuNon = model.Participants[i].Nom+" à voté OUI";
+        contenuCaseCheck= "<div class='editableCase'id='r"+i+"c"+j+"'><input type='image' src='tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>"+model.Calendrier[i]+""+ouiOuNon+"</span></div>";
         document.getElementById('grid-container').innerHTML += contenuCaseCheck;
 
       }else{
-        ouiOuNon = model.responseJSON.Participants[i].Nom+" à voté NON";
-        contenuCasePasCheck= "<div class='editableCase'id='r"+i+"c"+j+"'><span class='tooltiptext'>"+model.responseJSON.Calendrier[i]+""+ouiOuNon+"</span></div>";
+        ouiOuNon = model.Participants[i].Nom+" à voté NON";
+        contenuCasePasCheck= "<div class='editableCase'id='r"+i+"c"+j+"'><span class='tooltiptext'>"+model.Calendrier[i]+""+ouiOuNon+"</span></div>";
         document.getElementById('grid-container').innerHTML += contenuCasePasCheck;
 
       }
