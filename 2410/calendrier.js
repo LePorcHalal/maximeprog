@@ -120,7 +120,7 @@ function initVuCalendrier() {
 function updateCal(model, heure, jours) {
   var check = false;
 
-  var tab = "3443133403";
+  var tab = "";
   for (var i = 0; i < 9; i++) {
     date = new Date(model.Calendrier[i]);
     if (date.getHours() == heure && date.getDate() == jours) {
@@ -138,7 +138,7 @@ function updateCal(model, heure, jours) {
           compteurCrochet++;
         }
       }
-      //tab += compteurCrochet + "";
+      tab += compteurCrochet + "";
 
 
       compteurCrochet = 0;
@@ -171,7 +171,9 @@ function reload() {
   **/
 function switchVuCalendar() {
   document.getElementById("grid-container").style.display = "none";
+  document.getElementById("flex-container").innerHTML = "";
   document.getElementById("flex-container").style.display = "flex";
+  initVuCalendrier();
 }
 /**
   * Fonction qui switch la vu a la table
