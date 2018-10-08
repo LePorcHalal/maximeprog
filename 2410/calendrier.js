@@ -67,33 +67,48 @@ updateTable(ligneModifiable);
 
 function initVuCalendrier() {
 
-      var dateRow, date, dayName, days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
+
+      var monthRow, dateRow, date, finalDate, dayName, days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
+      date = new Date(model.Calendrier[0]);
+      finalDate = new Date(model.Calendrier[8]);
+      monthRow = "<div class='grid-itemCalMonth'>" +month[date.getMonth()]+" "+ date.getDate() + " - " + month[finalDate.getMonth()]+" "+
+       finalDate.getDate()+ ", "+ finalDate.getFullYear() +"</div>";
+       document.getElementById('flex-container').innerHTML += monthRow;
       dateRow = "<div class='grid-itemCalDate'>" + "</div>";
       for (var i = 0; i < 10; i = i + 2) {
         date = new Date(model.Calendrier[i]);
         dayName = days[date.getDay()];
-        dateRow += "<div class='grid-itemCalDate'>" + date.getDate() + '\n' + dayName + "</div>";
+        dateRow += "<div class='grid-itemCalDate'>" + date.getDate() + '<br>' + dayName + "</div>";
       }
       document.getElementById('flex-container').innerHTML += dateRow;
       var dayRow = "<div class='grid-itemHour'>Jour entier</div>";
-      for (var i = 0; i < 6; i++) {
+      for (var i = 0; i < 5; i++) {
         dayRow += "<div class='grid-itemHour'>             </div>";
       }
       document.getElementById('flex-container').innerHTML += dayRow;
       for (var j = 0; j < 24; j = j + 2) {
-        var hourRow = "<div class='grid-itemHour'>" + j + ":00 \n" + (j + 1) + ":00 \n" + "</div>";
-        for (var i = 0; i < 5; i++) {
-          hourRow += "<div class='grid-itemHour'>             </div>";
-        }
+        var hourRow = "<div class='grid-itemHour'>" +'<br>'+ j + ":00 <br>"+ '<br>' + (j + 1) + ":00 <br>" + "</div>";
         document.getElementById('flex-container').innerHTML += hourRow;
+        for (var i = 0; i < 5; i++) {
+         updateCal(model, j);
+        }
       }
-
-      updateCal(model, -1);
-
 }
 
-function updateCal(model, ligneModifiable) {
 
+function updateCal(model, heure) {
+
+  //for (var i = 0; i < model.responseJSON.Participants.length; i++) {
+     // for (var j = 0; j < model.responseJSON.Participants[i].Disponibilités.length; j++) {
+        //if(model.responseJSON.Participants[i].Disponibilités[j]==heure){
+          //contenuCaseCheck= "<input type='image' id='btnCheck"+j+"' src='tick-check.png' alt='Submit' width='130' height='100'>"
+          //document.getElementById('flex-container').innerHTML += contenuCaseCheck;
+          //}else{
+          document.getElementById('flex-container').innerHTML += "<div class='grid-itemHour'>             </div>";
+        //}
+
+     // }
+  //}
 }
 
 function hide(what) {
