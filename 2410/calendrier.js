@@ -1,12 +1,11 @@
 var model = null;
-var boolFirstInit = true;
 var derniereLigneASeFaireModifier=0;
 var date, dayName, monthName, hourTwo;
 var days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
 var month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
 function init(){
-  
+
   initVuTable(0);
   initVuCalendrier();
   hide("flex-container");
