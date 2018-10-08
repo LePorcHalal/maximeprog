@@ -4,13 +4,20 @@ var date, dayName, monthName, hourTwo;
 var days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
 var month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
+/**
+  * Fonction qui initialise la vu du calendrier et la vu de la table
+  *
+  **/
 function init(){
 
   initVuTable(0);
   initVuCalendrier();
   hide("flex-container");
 }
-
+/**
+  * Fonction qui load le data du fichier json
+  *
+  **/
 function loadData  ()  {
     var body = "";
     fetch("cal-data.json")
@@ -30,9 +37,15 @@ function loadData  ()  {
         );
 };
 
+/**
+  *@param ligneModifiable le numero de la ligne qui est modifiable (au depart la 1er, donc 0)
+  *
+  *
+  **/
 
 function initVuTable(ligneModifiable){
 
+//LES DATES DU CALENDRIER
     var dateRow, contenuCaseCheck, contenuCasePasCheck,ouiOuNon;
     document.getElementById('grid-container').innerHTML += "<div class='grid-item'></div>"
     for (var i = 0; i < 9; i++) {
@@ -44,7 +57,7 @@ function initVuTable(ligneModifiable){
       + date.getDate() + "</div>" + dayName + '<br>' + '<br>' + date.getHours() + ':00'+  '<br>' + hourTwo +':00' + "</div>";
     }
 
-//ligne apres les dates
+//INITIALISE LA TABLE
   var nombreDeParticipants = "<div class='grid-item personne'>"+model.Participants.length+" participants</div>"
     document.getElementById('grid-container').innerHTML += nombreDeParticipants;
   var compteurCrochet = 0;
@@ -54,16 +67,19 @@ function initVuTable(ligneModifiable){
           compteurCrochet++;
         }
       }
-      var nbCrochets = "<div class='grid-item'><input type='image' src='tick2.png' alt='Submit' width='28' height='23' disabled = 'true'>"+compteurCrochet+"</div>"
+      var nbCrochets = "<div class='grid-item'><input type='image' src='img/tick2.png' alt='Submit' width='28' height='23' disabled = 'true'>"+compteurCrochet+"</div>"
       document.getElementById('grid-container').innerHTML += nbCrochets;
       compteurCrochet = 0;
     }
 
-updateTable(ligneModifiable);
+    updateTable(ligneModifiable);
 
 
 }
-
+/**
+  * Fonction initialise la vu en mode calendrier
+  *
+  **/
 
 function initVuCalendrier() {
 
@@ -95,13 +111,17 @@ function initVuCalendrier() {
       }
 }
 
+/**
+  * Fonction qui upadte le calendrier
+  *
+  **/
 
 function updateCal(model, heure) {
 
   //for (var i = 0; i < model.responseJSON.Participants.length; i++) {
      // for (var j = 0; j < model.responseJSON.Participants[i].Disponibilités.length; j++) {
         //if(model.responseJSON.Participants[i].Disponibilités[j]==heure){
-          //contenuCaseCheck= "<input type='image' id='btnCheck"+j+"' src='tick-check.png' alt='Submit' width='130' height='100'>"
+          //contenuCaseCheck= "<input type='image' id='btnCheck"+j+"' src='img/tick-check.png' alt='Submit' width='130' height='100'>"
           //document.getElementById('flex-container').innerHTML += contenuCaseCheck;
           //}else{
           document.getElementById('flex-container').innerHTML += "<div class='grid-itemHour'>             </div>";
@@ -110,49 +130,64 @@ function updateCal(model, heure) {
      // }
   //}
 }
-
+/**
+  * Fonction cache une des 2 vu
+  *
+  **/
 function hide(what) {
   document.getElementById(what).style.display = "none";
 }
-
+/**
+  * Fonction qui reload
+  *
+  **/
 function reload() {
   location.reload();
 }
-
+/**
+  * Fonction qui switch la vu au calendrier
+  *
+  **/
 function switchVuCalendar() {
   document.getElementById("grid-container").style.display = "none";
   document.getElementById("flex-container").style.display = "flex";
 }
-
+/**
+  * Fonction qui switch la vu a la table
+  *
+  **/
 function switchVuTable() {
   document.getElementById("grid-container").style.display = "grid";
   document.getElementById("flex-container").style.display = "none";
 }
 
-
-
-
-
-
-function cocherSimulation(event,i,j) {
+/**
+  * Fonction qui fait les changements lorsqu'une case est coché
+  *
+  **/
+  function cocher(event,i,j) {
 
         var target = event.target;
 
         var id = target.id;
 
-        if (document.getElementById(id).getAttribute('src') == "check.png")
+        if (document.getElementById(id).getAttribute('src') == "img/check.png")
         {
-            document.getElementById(id).setAttribute('src',"tick-check.png");
+            document.getElementById(id).setAttribute('src',"img/tick-check.png");
               model.Participants[i].Disponibilités[j] = 1;
         }
         else
         {
-            document.getElementById(id).setAttribute('src',"check.png");
+            document.getElementById(id).setAttribute('src',"img/check.png");
               model.Participants[i].Disponibilités[j] = 0;
         }
 
    }
 
+   /**
+     * Fonction qui transforme un row avec des crochets en une row: editable
+     *
+     **/
    function modifierPersonne(event) {
      //RESET
      var target = event.target;
@@ -166,13 +201,19 @@ function cocherSimulation(event,i,j) {
 
       }
 
+      /**
+        * Fonction qui update la table
+        *
+        **/
 function updateTable(ligneModifiable){
 
   for (var i = 0; i < model.Participants.length; i++) {
-  //nom de la personne
+
+
+  //VERIFIE SI CEST UNE LIGNE EN MODE: EDITABLE
   if(i == ligneModifiable){
 
-    var input = "<div class='grid-item inputCase'><img src='particip1.png' alt='Trulli' width='28' height='26'><input name='inputText' type='text' value='"+model.Participants[i].Nom+"' required='required' maxlength='64'  width='70' height='50'></div>";
+    var input = "<div class='grid-item inputCase'><img src='img/particip1.png' alt='Trulli' width='28' height='26'><input name='inputText' type='text' value='"+model.Participants[i].Nom+"' required='required' maxlength='64'  width='70' height='50'></div>";
     document.getElementById('grid-container').innerHTML += input;
 
     for (var j = 0; j < model.Participants[i].Disponibilités.length; j++) {
@@ -180,18 +221,18 @@ function updateTable(ligneModifiable){
 
 
       if(model.Participants[i].Disponibilités[j]){
-        contenuCaseCheck= "<input type='image' id='btnCheck"+j+"' src='tick-check.png' onclick='cocherSimulation(event,"+i+","+j+")' alt='Submit' width='70' height='50'>"
+        contenuCaseCheck= "<input type='image' id='btnCheck"+j+"' src='img/tick-check.png' onclick='cocher(event,"+i+","+j+")' alt='Submit' width='70' height='50'>"
         document.getElementById('grid-container').innerHTML += contenuCaseCheck;
         }else{
-        contenuCasePasCheck= "<input type='image' id='btnCheck"+j+"' src='check.png' onclick='cocherSimulation(event,"+i+","+j+")' alt='Submit' width='70' height='50'>"
+        contenuCasePasCheck= "<input type='image' id='btnCheck"+j+"' src='img/check.png' onclick='cocher(event,"+i+","+j+")' alt='Submit' width='70' height='50'>"
     document.getElementById('grid-container').innerHTML += contenuCasePasCheck;
 
       }
 
     }
-
+//LAISSE LA LIGNE NON MODIFIABLE SI ELLE N'EST PAS MODIFIABLE
   } else{
-    var personne = "<div class='grid-item personne' id='p"+i+"'><img src='particip2.png' alt='Trulli' width='28' height='26'>"+model.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt'></i></button></div>"
+    var personne = "<div class='grid-item personne' id='p"+i+"'><img src='img/particip2.png' alt='Trulli' width='28' height='26'>"+model.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt'></i></button></div>"
     document.getElementById('grid-container').innerHTML += personne;
 
   //check /pas check
@@ -200,7 +241,7 @@ function updateTable(ligneModifiable){
 
       if(model.Participants[i].Disponibilités[j]){
         ouiOuNon = model.Participants[i].Nom+" à voté OUI";
-        contenuCaseCheck= "<div class='editableCase'id='r"+i+"c"+j+"'><input type='image' src='tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>"+model.Calendrier[i]+""+ouiOuNon+"</span></div>";
+        contenuCaseCheck= "<div class='editableCase'id='r"+i+"c"+j+"'><input type='image' src='img/tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>"+model.Calendrier[i]+""+ouiOuNon+"</span></div>";
         document.getElementById('grid-container').innerHTML += contenuCaseCheck;
 
       }else{
