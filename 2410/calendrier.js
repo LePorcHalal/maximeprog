@@ -4,6 +4,7 @@ var date, dayName, monthName, hourTwo;
 var days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
 var month = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 var jour = 0;
+var cal = 0;
 /**
   * Fonction qui initialise la vu du calendrier et la vu de la table
   *
@@ -84,7 +85,7 @@ function initVuTable(ligneModifiable) {
 function initVuCalendrier() {
 
 
-  var monthRow, dateRow, date, finalDate, dayName, days = ['DIM.', 'LUN.', 'MAR.', 'MER.', 'JEU.', 'VEN.', 'SAM.'];
+  var monthRow, dateRow, date, finalDate, dayName;
   date = new Date(model.Calendrier[0]);
   finalDate = new Date(model.Calendrier[8]);
   monthRow = "<div class='grid-itemCalMonth'>" + month[date.getMonth()] + " " + date.getDate() + " - " + month[finalDate.getMonth()] + " " +
@@ -259,20 +260,21 @@ function updateTable(ligneModifiable) {
       //check /pas check
       for (var j = 0; j < model.Participants[i].Disponibilités.length; j++) {
         ouiOuNon = "";
-
+        date = new Date(model.Calendrier[cal]);
         if (model.Participants[i].Disponibilités[j]) {
           ouiOuNon = model.Participants[i].Nom + " à voté OUI";
-          contenuCaseCheck = "<div class='editableCase'id='r" + i + "c" + j + "'><input type='image' src='img/tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>" + model.Calendrier[i] + "" + ouiOuNon + "</span></div>";
+          contenuCaseCheck = "<div class='editableCase'id='r" + i + "c" + j + "'><input type='image' src='img/tick1.png' alt='Submit' width='70' height='50' disabled = 'false'><span class='tooltiptext'>" + month[date.getMonth()] +'<br>' +date.getDate() +'<br>'+ days[date.getDay()]+'<br>' + date.getHours() + ":00 <br>" + (date.getHours() + 2) + ":00 <br>" + "" + ouiOuNon + "</span></div>";
           document.getElementById('grid-container').innerHTML += contenuCaseCheck;
 
         } else {
           ouiOuNon = model.Participants[i].Nom + " à voté NON";
-          contenuCasePasCheck = "<div class='editableCase'id='r" + i + "c" + j + "'><span class='tooltiptext'>" + model.Calendrier[i] + "" + ouiOuNon + "</span></div>";
+          contenuCasePasCheck = "<div class='editableCase'id='r" + i + "c" + j + "'><span class='tooltiptext'>" + month[date.getMonth()] +'<br>' +date.getDate() +'<br>'+ days[date.getDay()]+'<br>' + date.getHours() + ":00 <br>" + (date.getHours() + 2) + ":00 <br>" + "" + ouiOuNon + "</span></div>";
           document.getElementById('grid-container').innerHTML += contenuCasePasCheck;
 
         }
-
+        cal++;
       }
+      cal = 0;
     }
   }
 }
