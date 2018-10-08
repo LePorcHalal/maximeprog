@@ -62,7 +62,6 @@ input[type="text"] {
 }
 
 .grid-item  {
-
   border: 1px solid rgba(15, 138, 240, 0.2);
   padding: 0px;
   font-size: 15px;
@@ -120,6 +119,22 @@ img {
   border-width: 1px 1px;
   border-color: white white rgb(41, 41, 41) white;
   width: 128px;
+}
+.grid-itemCalCheck{
+  background-color: #90C7E8;
+  font-size: 15px;
+  text-align: center;
+  border: solid rgb(29, 209, 38);
+  border-width: 1px 1px;
+  border-color: white white rgb(41, 41, 41) white;
+  width: 128px;
+}
+.grid-itemCheck{
+  background-color: #90C7E8;
+  font-size: 15px;
+  text-align: center;
+  width: 128px;
+  height: 80px;
 }
 #flex-container {
   display: flex;
