@@ -193,7 +193,7 @@ function switchVuTable() {
      var target = event.target;
      var idTemp = target.id;
      var id=idTemp[2];
-     var temp = document.getElementsByName("inputText")[0].value
+     var temp = document.getElementsByName("inputText")[0].value;
      document.getElementById('grid-container').innerHTML = "";
     model.Participants[derniereLigneASeFaireModifier].Nom = temp;
     initVuTable(id);
@@ -232,7 +232,7 @@ function updateTable(ligneModifiable){
     }
 //LAISSE LA LIGNE NON MODIFIABLE SI ELLE N'EST PAS MODIFIABLE
   } else{
-    var personne = "<div class='grid-item personne' id='p"+i+"'><img src='img/particip2.png' alt='Trulli' width='28' height='26'>"+model.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt'></i></button></div>"
+    var personne = "<div class='grid-item personne' id='p"+i+"'><img src='img/particip2.png' alt='Trulli' width='28' height='26'>"+model.Participants[i].Nom+"<button type='submit' id='br"+i+"' onclick='modifierPersonne(event,this.id)' name='buttonEditable'><i class='fas fa-pencil-alt' id='pr"+i+"'></i></button></div>"
     document.getElementById('grid-container').innerHTML += personne;
 
   //check /pas check
