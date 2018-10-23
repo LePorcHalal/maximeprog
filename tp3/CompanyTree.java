@@ -14,6 +14,8 @@ public class CompanyTree {
 	// O(n)
 	public void buy(CompanyNode item) {
 		root.buy(item);
+		if (root.worstChild.compareTo(item) > 0)
+			root.worstChild = item.worstChild;
 	}
 
 	// TODO: on retourne le montant en banque de la compagnie mère
