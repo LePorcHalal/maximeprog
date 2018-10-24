@@ -35,7 +35,7 @@ public class BinaryNode<T extends Comparable<? super T>> {
 					left = new BinaryNode<T>(item);
 			}
 		} else
-			this.data = item;
+			data = item;
 	}
 
 	// TODO: est-ce que l'item fais partie du noeuds courant
@@ -54,10 +54,6 @@ public class BinaryNode<T extends Comparable<? super T>> {
 	// TODO: on retourne la maximale de l'arbre
 	// O(n)
 	public int getHeight() {
-		
-		  //if( data == null ) return -1;
-		  //else return 1 + Math.max(left.getHeight(),right.getHeight());
-		 
 		if (data == null)
 			return -1;
 		else {
