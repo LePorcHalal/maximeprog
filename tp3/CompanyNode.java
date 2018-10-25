@@ -41,8 +41,12 @@ public class CompanyNode implements Comparable<CompanyNode> {
 	public void fillStringBuilderInOrder(StringBuilder builder, String prefix) {
 		builder.append(prefix + this.getMoney() + "\n");
 		List<BinaryNode<CompanyNode>> list = childs.getItemsInOrder();
-		for (int i = list.size(); i > 0; i--) {
+		for (int i = list.size() - 1 ; i >=0; i--) {
+			try {
 			list.get(i).getData().fillStringBuilderInOrder(builder, prefix);
+			}catch(Exception e) {
+				
+			}
 		}
 	}
 
