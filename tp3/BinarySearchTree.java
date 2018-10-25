@@ -45,9 +45,9 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 	// O(n)
 	public String toStringInOrder() {
 		List<BinaryNode<T>> itemsInOrder = getItemsInOrder();
-		String list = "[";
+		StringBuilder list = new StringBuilder("[");
 		for (int i = 0; i < itemsInOrder.size(); i++) {
-			list += itemsInOrder.get(i).getData() + ", ";
+			list.append(itemsInOrder.get(i).getData() + ", ");
 		}
 		return list.substring(0, list.length() - 2) + "]";
 	}

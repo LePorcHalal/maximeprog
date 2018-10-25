@@ -22,20 +22,21 @@ public class BinaryNode<T extends Comparable<? super T>> {
 	// TODO: on ajoute une nouvelle donnee au bon endroit
 	// O(log(n))
 	public void insert(T item) {
-		if (data != null) {
-			if (item.compareTo(data) > 0) {
-				if (right != null)
-					right.insert(item);
-				else
-					right = new BinaryNode<T>(item);
-			} else {
-				if (left != null)
-					left.insert(item);
-				else
-					left = new BinaryNode<T>(item);
-			}
-		} else
+		if (data == null)
 			data = item;
+		else {
+			if (item.compareTo(data) > 0) {
+				if (right == null)
+					right = new BinaryNode<T>(item);
+				else
+					right.insert(item);
+			} else {
+				if (left == null)
+					left = new BinaryNode<T>(item);
+				else
+					left.insert(item);
+			}
+		}
 	}
 
 	// TODO: est-ce que l'item fais partie du noeuds courant
@@ -74,13 +75,11 @@ public class BinaryNode<T extends Comparable<? super T>> {
 	// de manière que le plus petit item sera le premier inseré
 	// O(n)
 	public void fillListInOrder(List<BinaryNode<T>> result) {
-		if (left != null) {
+		if (left != null)
 			left.fillListInOrder(result);
-		}
 		result.add(this);
-		if (right != null) {
+		if (right != null)
 			right.fillListInOrder(result);
-		}
 	}
 
 }
