@@ -6,7 +6,7 @@ public class Main {
         System.out.println("Debut des tests du TP3");
         TestBinary testBinary = new TestBinary();
         testBinary.test();
-
+   
         TestCompany testCompany = new TestCompany();
         testCompany.test();
     }
