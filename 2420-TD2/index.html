@@ -7,19 +7,29 @@
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
     <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script type="text/javascript" src="message.js"></script>
-    <script type="text/javascript" src="main.js"></script>
-    <script type="text/javascript" src="channel.js"></script>
-    <script type="text/javascript" src="channelsObserver.js"></script>
-    <script type="text/javascript" src="messagesObserver.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="message.js"></script>
+  <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="channel.js"></script>
+  <script type="text/javascript" src="channelsObserver.js"></script>
+  <script type="text/javascript" src="messagesObserver.js"></script>
 </head>
 <body onload="initSocket()">
-  <div id="maxime">maxime</div>
-  <div class="buttonSwitch">
-      <input type="button" class="switch" onclick="sendText()" value="Message" />
-  </div>
-</body>
+         <div class="col-sm-3 col-sm-offset-4 frame">
+             <ul></ul>
+             <div>
+                 <div class="msj-rta macro">
+                     <div class="text text-r" style="background:whitesmoke !important">
+                         <input class="mytext" placeholder="Type a message"/>
+                     </div>
 
+                 </div>
+                 <div style="padding:10px;" onclick="sendText()">
+                     <span class="glyphicon glyphicon-share-alt"></span>
+                 </div>
+             </div>
+         </div>
+     </body>
 </html>

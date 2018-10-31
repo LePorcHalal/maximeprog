@@ -4,6 +4,7 @@
  * @copyright Ecole Polytechnique de MontrÃ©al & Course LOG2420
  * @version 1.0.0
  */
+ 
 class Message {
 
     /**
@@ -14,12 +15,14 @@ class Message {
      * @param {string} sender - The sender name.
      * @param {Date} timestamp - The timestamp of the message.
      */
+
     constructor(eventType, channelId, data, sender, timestamp) {
+
         this.eventType = eventType;
         this.channelId = channelId;
         this.data = data;
         this.sender = sender;
         this.timestamp = timestamp;
+
     }
 }
-
