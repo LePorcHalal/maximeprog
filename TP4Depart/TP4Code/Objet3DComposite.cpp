@@ -8,59 +8,70 @@
 #include "Objet3DComposite.h"
 
 
-Objet3DComposite::Objet3DComposite(){
+Objet3DComposite::Objet3DComposite() {
 
 }
 
 Objet3DComposite::Objet3DComposite(const Objet3DComposite & mdd)
 {
 	// A Completer...
+	for (auto iter = mdd.cbegin(); iter != mdd.cend(); ++iter)
+		addChild(*iter);
 }
 
-Objet3DComposite::~Objet3DComposite(){
+Objet3DComposite::~Objet3DComposite() {
 }
 
 Objet3DComposite * Objet3DComposite::clone() const
 {
 	return nullptr;
+	//return (new Objet3DComposite(*this));
 }
 
 void Objet3DComposite::addChild(const Objet3DAbs& obj3d)
 {
 	// A Completer...
+	std::unique_ptr<Objet3DAbs> objet(obj3d.clone());
+	m_objetContainer.push_back(objet);
+	//m_objetContainer.push_back(std::move(objet));
+
+	//Objet3DAbs* ptr = obj3d.clone();
+	//m_objetContainer.push_back(ptr);
+
 }
 
-Objet3DIterator Objet3DComposite::begin(){
+Objet3DIterator Objet3DComposite::begin() {
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return Objet3DIterator(m_objetContainer.begin());
 }
 
 Objet3DIterator_const Objet3DComposite::cbegin() const {
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return Objet3DIterator_const(m_objetContainer.cbegin());
 }
 
 Objet3DIterator_const Objet3DComposite::cend() const {
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return Objet3DIterator_const(m_objetContainer.cend());
 }
 
-Objet3DIterator Objet3DComposite::end(){
+Objet3DIterator Objet3DComposite::end() {
 
 	// A Completer...
-	return Objet3DBaseIterator();
+	return Objet3DBaseIterator(m_objetContainer.end());
 }
 
 Point3D Objet3DComposite::getCenter() const {
-	
+
 	// A Completer...
-	return Point3D();
+	//return Point3D();
+	return computeCenter();
 }
 
-size_t Objet3DComposite::getNbParameters() const 
+size_t Objet3DComposite::getNbParameters() const
 {
 	return 0;
 }
@@ -73,18 +84,27 @@ PrimitiveParams Objet3DComposite::getParameters() const {
 void Objet3DComposite::removeChild(Objet3DIterator_const obj3dIt)
 {
 	// A Completer...
+	//m_objetContainer.erase((Objet3DContainer::const_iterator)obj3dIt);
+	m_objetContainer.erase(obj3dIt);
 }
 
 void Objet3DComposite::moveCenter(const Point3D & delta)
 {
 	// A Completer...
+	Point3D temp = getCenter();
+	temp.x += delta.x;
+	temp.y += delta.y;
+	temp.z += delta.z;
+	setCenter(temp);
 }
 
-void Objet3DComposite::setCenter(const Point3D& center){
+void Objet3DComposite::setCenter(const Point3D& center) {
 	// A Completer...
+
+
 }
 
-void Objet3DComposite::setParameter(size_t pIndex, float pValue){
+void Objet3DComposite::setParameter(size_t pIndex, float pValue) {
 
 }
 
