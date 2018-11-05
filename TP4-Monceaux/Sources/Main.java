@@ -1,87 +1,98 @@
-import java.util.*; 
+import java.util.*;
 
-public class Main 
-{
-   /**
-     * Fonction principale
-     */
-   public static void main(String[] args) 
-   {
-      // creer un monceau avec 22 elements et un tableau equivalent
-      int numItems = 22;
-      BinaryHeap<Integer> heap = new BinaryHeap<Integer>(true);
-      
-      Integer [ ] items = new Integer[ numItems ];
+public class Main {
+	/**
+	 * Fonction principale
+	 */
+	public static void main(String[] args) {
+		// creer un monceau avec 22 elements et un tableau equivalent
+		int numItems = 22;
+		BinaryHeap<Integer> heap = new BinaryHeap<Integer>(true);
 
-      int i;
-      int j;
+		Integer[] items = new Integer[numItems];
 
-      // en inserant les elements un a un
-      for( i = 11, j = 0; j != numItems; i = ( i + 37 ), j++ )
-      {
-	  heap.offer( i );
-	  items[ j ] = i;
+		int i;
+		int j;
 
-	  i %=  numItems; 
-      }
+		// en inserant les elements un a un
+		for (i = 11, j = 0; j != numItems; i = (i + 37), j++) {
+			heap.offer(i);
+			items[j] = i;
 
-      // en construisant le monceau depuis le depart
-      System.out.println("Monceau min contruit element par element:");
-      System.out.println( heap.printFancyTree() );
+			i %= numItems;
+		}
 
-      heap = new BinaryHeap<Integer>(false);
-      // en inserant les elements un a un
-      for( Integer item : items)
-	  heap.offer( item );
+		// en construisant le monceau depuis le depart
+		System.out.println("Monceau min contruit element par element:");
+		System.out.println(heap.printFancyTree());
 
-      // en construisant le monceau depuis le depart
-      System.out.println("Monceau max contruit element par element:");
-      System.out.println( heap.printFancyTree() );
+		heap = new BinaryHeap<Integer>(false);
+		// en inserant les elements un a un
+		for (Integer item : items)
+			heap.offer(item);
 
-      heap = new BinaryHeap<Integer>(items,false);
-      System.out.println("Monceau max contruit a partir d'un tableau:");
-      System.out.println( heap.printFancyTree() );
+		// en construisant le monceau depuis le depart
+		System.out.println("Monceau max contruit element par element:");
+		System.out.println(heap.printFancyTree());
 
-      heap = new BinaryHeap<Integer>(items,true);
-      System.out.println("Monceau min contruit a partir d'un tableau:");
-      System.out.println( heap.printFancyTree() );
+		heap = new BinaryHeap<Integer>(items, false);
+		System.out.println("Monceau max contruit a partir d'un tableau:");
+		System.out.println(heap.printFancyTree());
 
-      System.out.println();
-      System.out.println("Affichage recursif:");
-      System.out.println( heap.printFancyTree() );
+		heap = new BinaryHeap<Integer>(items, true);
+		System.out.println("Monceau min contruit a partir d'un tableau:");
+		System.out.println(heap.printFancyTree());
 
-      System.out.println("Affichage non recursif:");
-      System.out.println( heap.nonRecursivePrintFancyTree() );
+		System.out.println();
+		System.out.println("Affichage recursif:");
+		System.out.println(heap.printFancyTree());
 
-      System.out.println();
-      System.out.println("Tableau d'origine:");
-      System.out.println( printArray( items ) );
-      
-      BinaryHeap.heapSort( items );
-      System.out.println("Tableau ordonne:");
-      System.out.println( printArray( items ) );
+		System.out.println("Affichage non recursif:");
+		System.out.println(heap.nonRecursivePrintFancyTree());
 
-      BinaryHeap.heapSortReverse( items );
-      System.out.println("Tableau inversement ordonne:");
-      System.out.println( printArray( items ) );
+		System.out.println();
+		System.out.println("Tableau d'origine:");
+		System.out.println(printArray(items));
 
+		BinaryHeap.heapSort(items);
+		System.out.println("Tableau ordonne:");
+		System.out.println(printArray(items));
 
-      /*
-       * Ajouter appels pour repondre a la question
-       **/
-   }
+		BinaryHeap.heapSortReverse(items);
+		System.out.println("Tableau inversement ordonne:");
+		System.out.println(printArray(items));
 
-   private static <AnyType> 
-   String printArray(AnyType[] a)
-   {
-      String outputString = "";
+		/*
+		 * Ajouter appels pour repondre a la question
+		 **/
+		for (int k = 0; k < 22; k++) {
+			heap.poll();
+			System.out.println();
+			System.out.println("Affichage recursif:");
+			System.out.println(heap.printFancyTree());
+		}
 
-      for(AnyType item : a)
-      {
-         outputString += item;
-         outputString += ", ";
-      }
+		heap = new BinaryHeap<Integer>(false);
+		for (Integer item : items)
+			heap.offer(item);
 
-      return outputString.substring(0,outputString.length()-2);
-   }
+		for (int k = 0; k < 22; k++) {
+			heap.poll();
+			System.out.println();
+			System.out.println("Affichage recursif:");
+			System.out.println(heap.printFancyTree());
+		}
+
+	}
+
+	private static <AnyType> String printArray(AnyType[] a) {
+		String outputString = "";
+
+		for (AnyType item : a) {
+			outputString += item;
+			outputString += ", ";
+		}
+
+		return outputString.substring(0, outputString.length() - 2);
+	}
 }

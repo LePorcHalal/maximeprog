@@ -58,7 +58,16 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 	public AnyType poll() {
 		// COMPLETEZ
-		return array[1];
+		if (isEmpty())
+			return null;
+		AnyType racine = array[1];
+		array[1] = array[currentSize--];
+		if (min)
+			percolateDownMinHeap(1, currentSize);
+		else
+			percolateDownMaxHeap(1, currentSize);
+		modifications++;
+		return racine;
 	}
 
 	public Iterator<AnyType> iterator() {
@@ -225,18 +234,32 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 	public static <AnyType extends Comparable<? super AnyType>> void heapSort(AnyType[] a) {
 		// COMPLETEZ
-		
+		int size = a.length - 1;
+		for (int i = size / 2; i >= 0; i--)
+			percolateDownMaxHeap(a, i, size, true);
+		for (int i = size; i > 0; i--) {
+			swapReferences(a, 0, i);
+			size--;
+			percolateDownMaxHeap(a, 0, size, true);
+		}
 	}
 
 	public static <AnyType extends Comparable<? super AnyType>> void heapSortReverse(AnyType[] a) {
 		// COMPLETEZ
+		int size = a.length - 1;
+		for (int i = size / 2; i >= 0; i--)
+			percolateDownMinHeap(a, i, size, true);
+		for (int i = size; i > 0; i--) {
+			swapReferences(a, 0, i);
+			size--;
+			percolateDownMinHeap(a, 0, size, true);
+		}
 	}
 
 	public String nonRecursivePrintFancyTree() {
 		String outputString = "";
 
 		// COMPLETEZ
-		
 
 		return outputString;
 	}
