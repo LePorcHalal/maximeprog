@@ -83,7 +83,9 @@ public class Main {
 		for (Integer item : items)
 			heap.offer(item);
 		System.out.println("\n" + "Poll sur un min heap avec le tableau ordonné");
-		heap.poll();
+		if(heap.peek()==heap.poll()) {
+			System.out.println("Peek et Poll retournent la même valeur");
+		}
 		System.out.println("Affichage après 1 poll:");
 		System.out.println(heap.printFancyTree());
 		for (int k = 0; k < 21; k++)
@@ -96,6 +98,9 @@ public class Main {
 		heap = new BinaryHeap<Integer>(false);
 		for (Integer item : items)
 			heap.offer(item);
+		if(heap.peek()==heap.poll()) {
+			System.out.println("Peek et Poll retournent la même valeur");
+		}
 		heap.poll();
 		System.out.println("Affichage après 1 poll:");
 		System.out.println(heap.printFancyTree());
@@ -119,8 +124,12 @@ public class Main {
 			try {
 				contenu += " " + iterator.next();
 			} catch (NoSuchElementException e) {
-				System.out.println("Fin de la boucle infinie, car on est à la fin du heap: " + e);
-				System.out.println("Tableau complet avec next(): " + contenu);
+				System.out.println("Fin de la boucle infinie, car on est à la fin du heap: " + e.getMessage());
+				System.out.print("Tableau que l'on devrait trouver: ");
+				for (int k = 0; k < items.length; k++) {
+					System.out.print(items[k] + " ");
+				}
+				System.out.println("\n" + "Tableau complet avec next(): " + contenu);
 				fin = true;
 			}
 		} while (fin == false);
@@ -131,7 +140,7 @@ public class Main {
 		try {
 			iterator.next();
 		} catch (ConcurrentModificationException e) {
-			System.out.println("La modification a été trouvée -> fail-fast: " + e);
+			System.out.println("La modification a été trouvée -> fail-fast: " + e.getMessage());
 		}
 	}
 
