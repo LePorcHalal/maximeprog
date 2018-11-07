@@ -2,8 +2,6 @@
 <!doctype html>
 <head>
     <meta charset="utf-8">
-    <h1>&Eacute;quipe 4 - TD1</h1>
-    <h3>Vincent Angell - 1905399 et Vincent Tessier - 1895027</h3>
     <meta name="description" content="The HTML5 Herald">
     <meta name="author" content="SitePoint">
     <link rel="stylesheet" type="text/css" href="main.css">
@@ -16,20 +14,49 @@
   <script type="text/javascript" src="channelsObserver.js"></script>
   <script type="text/javascript" src="messagesObserver.js"></script>
 </head>
-<body onload="initSocket()">
-         <div class="col-sm-3 col-sm-offset-4 frame">
-             <ul></ul>
-             <div>
-                 <div class="msj-rta macro">
-                     <div class="text text-r" style="background:whitesmoke !important">
-                         <input class="mytext" placeholder="Type a message"/>
-                     </div>
+<header>
 
-                 </div>
-                 <div style="padding:10px;" onclick="sendText()">
-                     <span class="glyphicon glyphicon-share-alt"></span>
-                 </div>
-             </div>
-         </div>
-     </body>
+    <h3>Vincent Angell - 1905399 et Vincent Tessier - 1895027</h3>
+
+  <div >
+<h1>&Eacute;quipe 4 - TD1</h1>
+  </div>
+
+
+</header>
+<body onload="initSocket()">
+<div class="container-chat-channel">
+  <div class="container-toolboxAndChannel">
+    <div class="containerToolbox">Liste des groupes
+       <span class="pull-right">
+         <a href="#" class="btn btn-lg btn-primary" onclick="">
+            <span class="glyphicon glyphicon-plus"></span>
+          </a>
+        </span>
+        <span class="pull-right">
+          <a href="#" class="btn btn-lg btn-primary">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </a>
+         </span>
+      </div>
+      <div class="flex-channelList-container">
+      </div>
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-4 frame">
+        <ul id="chatBoxId"></ul>
+        <div>
+            <div class="msj-rta macro">
+                <div class="text text-r" style="background:whitesmoke !important">
+                    <input id="textBoxInput" class="mytext" placeholder="Type a message"/>
+                </div>
+
+            </div>
+            <div style="padding:10px;" onclick="sendText()">
+                <span class="glyphicon glyphicon-share-alt"></span>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
 </html>

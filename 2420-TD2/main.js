@@ -2,8 +2,9 @@
 //endPoint = url_base?username={ nom };
 //wt client = new WebSocket(endPoint);
   //var client = new WebSocket("ws://log2420-nginx.info.polymtl.ca/chatservice");
-var client;
-var jsonChannelId;
+var client, jsonChannelId,messageData,currentChannelId;
+var channelList = [];
+var joinedChannelList = [];
 var premiereConnection = true;
 
 function initSocket(){
@@ -12,32 +13,104 @@ function initSocket(){
           this.webSocket.onmessage = function(e){
 
             if(premiereConnection){
+
               jsonChannelId = JSON.parse(e.data);
+              setInitChannelList();
+              setChannelList();
               premiereConnection = false;
+              console.log(jsonChannelId);
+            }else{
+                messageData = JSON.parse(e.data);
+                handleMessageReceived (messageData);
             }
 
             console.log(e.data);
-            alert("message recu");
 
           };
+
+          this.webSocket.onJoinChannel = function(e){
+            console.log(e.data)
+          };
+
+          window.onkeyup = function(e) {
+
+           var key = e.keyCode ? e.keyCode : e.which;
+
+           if (key == 13) {
+               sendText();
+           }
+        }
       }
 
+function switchChannel(channelId){
+
+  //document.getElementById("chatBoxId")
+
+}
+
+function setInitChannelList(){
+  currentChannelId = jsonChannelId.data[0].id
+
+  for (var i = 0; i < jsonChannelId.data.length; i++) {
+    var messageList = []
+    var channel = new Channel(jsonChannelId.data[i].id,jsonChannelId.data[i].name,jsonChannelId.data[i].joinStatus,messageList,jsonChannelId.data[i].numberOfUsers);
+
+    if(channel.joinStatus){
+      joinedChannelList.push(channel);
+    }
+    channelList.push(channel);
+  }
+}
+function setChannelList(){
+
+  for (var i = 0; i < channelList.length; i++) {
+
+      var newDiv = document.createElement("div");
+      var newContent = document.createTextNode(channelList[i].name);
+      newDiv.appendChild(newContent);
+      newDiv.classList.add("channelItem");
+      document.getElementsByClassName("flex-channelList-container")[0].appendChild(newDiv);
+
+     if(channelList[i].name == "Général"){
+        symbole = "glyphicon-star";
+      }else if(channelList[i].joinStatus){
+        symbole = "glyphicon-minus";
+      }else if(!(channelList[i].joinStatus)){
+        symbole = "glyphicon-plus";
+      }
+        var symboleChannel  =   '<span class="pull-right">'+
+                                  '<a href="#" class="btn btn-lg btn-primary">'+
+                                    '<span class="glyphicon ' + symbole + '"></span>'+
+                                  '</a>'+
+                                 '</span>';
+
+      $(newDiv).append(symboleChannel);
+
+  }
+
+}
 function sendText() {
   // Construct a msg object containing the data the server needs to process the message from the chat client.
-  var data = "maxime";
-  var sender = "max";
 
-const socketMessage = new Message("onMessage", jsonChannelId.data[0].id, data, sender, Date.now());
+//obtention du texte
+var data = document.getElementById("textBoxInput").value;
+
+
+const socketMessage = new Message("onMessage", currentChannelId, data, "MAXIME", Date.now());
     console.log("Message sent to socket : \n" + JSON.stringify(socketMessage));
     this.webSocket.send(JSON.stringify(socketMessage));
+
+//reset du texte
+  document.getElementById("textBoxInput").value = "";
+
   }
 
 
   var me = {};
-  me.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
+  me.avatar = "https://pbs.twimg.com/profile_images/918264641368629249/F78xAklG_400x400.jpg";
 
   var you = {};
-  you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+  you.avatar = "https://image-store.slidesharecdn.com/33be41bd-29a2-44d4-8b81-4805eac10600-original.jpeg";
 
   function formatAMPM(date) {
       var hours = date.getHours();
@@ -51,19 +124,33 @@ const socketMessage = new Message("onMessage", jsonChannelId.data[0].id, data, s
   }
 
   //-- No use time. It is a javaScript effect.
-  function insertChat(who, text, time){
-      if (time === undefined){
-          time = 0;
+  function handleMessageReceived (messageData){
+
+//ajouter le message au bon channel
+    for (var i = 0; i < joinedChannelList.length; i++) {
+      if(joinedChannelList[i].id==messageData.channelId){
+        joinedChannelList[i].messages.push(messageData.data);
+        break;
+      }
+    }
+//insere le message dans le bon channel
+    insertChat(messageData.sender, messageData.data, messageData.timeStamp);
+
+  }
+
+  function insertChat(sender, messageText, timeStamp, channelId){
+      if (timeStamp === undefined){
+          timeStamp = 0;
       }
       var control = "";
       var date = formatAMPM(new Date());
 
-      if (who == "me"){
+      if (sender == null){
           control = '<li style="width:100%">' +
                           '<div class="msj macro">' +
                           '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
                               '<div class="text text-l">' +
-                                  '<p>'+ text +'</p>' +
+                                  '<p>'+ messageText +'</p>' +
                                   '<p><small>'+date+'</small></p>' +
                               '</div>' +
                           '</div>' +
@@ -72,23 +159,22 @@ const socketMessage = new Message("onMessage", jsonChannelId.data[0].id, data, s
           control = '<li style="width:100%;">' +
                           '<div class="msj-rta macro">' +
                               '<div class="text text-r">' +
-                                  '<p>'+text+'</p>' +
+                                  '<p>'+messageText+'</p>' +
                                   '<p><small>'+date+'</small></p>' +
                               '</div>' +
                           '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +
                     '</li>';
       }
-      setTimeout(
-          function(){
+
               $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
-          }, time);
+
 
   }
 
   function resetChat(){
       $("ul").empty();
   }
-
+/*
   $(".mytext").on("keydown", function(e){
       if (e.which == 13){
           var text = $(this).val();
@@ -102,17 +188,18 @@ const socketMessage = new Message("onMessage", jsonChannelId.data[0].id, data, s
   $('body > div > div > div:nth-child(2) > span').click(function(){
       $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
   })
-
+*/
   //-- Clear Chat
-  resetChat();
+//  resetChat();
 
   //-- Print Messages
+  /*
   insertChat("me", "Hello Tom...", 0);
   insertChat("you", "Hi, Pablo", 1500);
   insertChat("me", "What would you like to talk about today?", 3500);
   insertChat("you", "Tell me a joke",7000);
   insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
   insertChat("you", "LOL", 12000);
-
+*/
 
   //-- NOTE: No use time on insertChat.
