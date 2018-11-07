@@ -1,6 +1,8 @@
 class channelsObserver(){
 
-  constructor(){
+  constructor(currentChannelId){
+
+    this.currentChannelId = currentChannelId;
 
   }
 
@@ -30,11 +32,10 @@ class channelsObserver(){
         $(newDiv).append(symboleChannel);
 
     }
-
   }
 
   setInitChannelList(){
-    
+
     currentChannelId = jsonChannelId.data[0].id
 
     for (var i = 0; i < jsonChannelId.data.length; i++) {
