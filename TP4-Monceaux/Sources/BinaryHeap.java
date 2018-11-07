@@ -75,40 +75,17 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	}
 
 	private void buildMinHeap() {
-
-		for (int i = 0; i < array.length; i++) {
-			System.out.print(array[i] + " ");
-		}
-
 		for (int i = (size() / 2); i >= 1; i--) {
 			percolateDownMinHeap(array, i, size(), true);
-		}
-
-		System.out.println("");
-		for (int i = 0; i < array.length; i++) {
-
-			System.out.print(array[i] + " ");
 		}
 		// COMPLETEZ
 	}
 
 	private void buildMaxHeap() {
-		System.out.println("");
-		for (int i = 0; i < array.length; i++) {
-
-			System.out.print(array[i] + " ");
-		}
-		// COMP
 		for (int i = (size() / 2); i >= 1; i--) {
 
 			percolateDownMaxHeap(array, i, size(), false);
 		}
-		System.out.println("");
-		for (int i = 0; i < array.length; i++) {
-
-			System.out.print(array[i] + " ");
-		}
-		// COMP
 		// COMPLETEZ
 	}
 
@@ -167,19 +144,6 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	 */
 	private static <AnyType extends Comparable<? super AnyType>> void percolateDownMinHeap(AnyType[] array, int hole,
 			int size, boolean heapIndexing) {
-//		if (!(hole >= (currentSize / 2) && hole <= currentSize)) {
-//			
-//			if (array[hole].compareTo(array[leftChild(hole,true)]) > 0 || array[hole].compareTo(array[leftChild(hole,false)])>0) {
-//				if (array[leftChild(hole,true)].compareTo(array[leftChild(hole,false)]) < 0) {
-//					swapReferences(array,hole, leftChild(hole,true));
-//					percolateDownMinHeap(leftChild(hole,true),currentSize);
-//				} else {
-//					swapReferences(array,hole, leftChild(hole,false));
-//					percolateDownMinHeap(leftChild(hole,false),currentSize);
-//				}
-//			}
-//		}
-
 		int smallest = hole;
 		int leftIndex = leftChild(hole, true);
 		int rightIndex = leftChild(hole, false);
@@ -297,20 +261,33 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 	private class HeapIterator implements Iterator {
 
+		private int position;
+		private int nombreModifications;
+
+		public HeapIterator() {
+			position = 0;
+			nombreModifications = modifications;
+		}
+
 		public boolean hasNext() {
 			// COMPLETEZ
+			if (position == currentSize)
+				return false;
 			return true;
 		}
 
 		public Object next()
 				throws NoSuchElementException, ConcurrentModificationException, UnsupportedOperationException {
 			// COMPLETEZ
-			Object object = new Object();
-			return object;
+			if (modifications != nombreModifications)
+				throw new ConcurrentModificationException("Concurrent modification exception thrown");
+			if (hasNext() == false)
+				throw new NoSuchElementException("No such element exception thrown");
+			return array[++position];
 		}
 
 		public void remove() {
-			throw new UnsupportedOperationException();
+			throw new UnsupportedOperationException("Unsupported operation exception thrown");
 		}
 	}
 

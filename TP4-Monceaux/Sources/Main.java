@@ -65,24 +65,74 @@ public class Main {
 		/*
 		 * Ajouter appels pour repondre a la question
 		 **/
-		for (int k = 0; k < 22; k++) {
-			heap.poll();
-			System.out.println();
-			System.out.println("Affichage recursif:");
-			System.out.println(heap.printFancyTree());
-		}
 
+		// Tests du poll par rapport à une priority queue
+		PriorityQueue<Integer> test = new PriorityQueue<Integer>();
+		for (Integer item : items)
+			test.offer(item);
+		Boolean pollCorrect = true;
+		for (int k = 0; k < 22; k++) {
+			if (heap.poll() != test.poll()) {
+				pollCorrect = false;
+			}
+		}
+		System.out.println("\n" + "Poll pareil que le poll d'une priority queue: " + pollCorrect);
+
+		// Affichage de différents poll sur un min heap
+		heap = new BinaryHeap<Integer>(true);
+		for (Integer item : items)
+			heap.offer(item);
+		System.out.println("\n" + "Poll sur un min heap avec le tableau ordonné");
+		heap.poll();
+		System.out.println("Affichage après 1 poll:");
+		System.out.println(heap.printFancyTree());
+		for (int k = 0; k < 21; k++)
+			heap.poll();
+		System.out.println("Affichage après 22 poll:");
+		System.out.println(heap.printFancyTree());
+
+		// Affichage de différents poll sur un max heap
+		System.out.println("Poll sur un max heap avec le tableau ordonné");
 		heap = new BinaryHeap<Integer>(false);
 		for (Integer item : items)
 			heap.offer(item);
-
-		for (int k = 0; k < 22; k++) {
+		heap.poll();
+		System.out.println("Affichage après 1 poll:");
+		System.out.println(heap.printFancyTree());
+		for (int k = 0; k < 22; k++)
 			heap.poll();
-			System.out.println();
-			System.out.println("Affichage recursif:");
-			System.out.println(heap.printFancyTree());
-		}
+		System.out.println("Affichage après 22 poll:");
+		System.out.println(heap.printFancyTree());
 
+		// Différents tests sur les itérators
+		System.out.println("Heap pour les tests iterator:");
+		heap = new BinaryHeap<Integer>(false);
+		for (Integer item : items)
+			heap.offer(item);
+		System.out.println(heap.printFancyTree());
+		Iterator<Integer> iterator = heap.iterator();
+		String contenu = "";
+		Boolean fin = false;
+		System.out.println("Iterator next() jusqu'à la fin du heap:" + "\n");
+		System.out.println("Iterator hasNext() sur la première case (devrait être true): " + iterator.hasNext());
+		do {
+			try {
+				contenu += " " + iterator.next();
+			} catch (NoSuchElementException e) {
+				System.out.println("Fin de la boucle infinie, car on est à la fin du heap: " + e);
+				System.out.println("Tableau complet avec next(): " + contenu);
+				fin = true;
+			}
+		} while (fin == false);
+		System.out.println("Iterator hasNext() sur la dernière case (devrait être false): " + iterator.hasNext());
+
+		System.out.println("\n" + "Ajout d'un int dans le heap en cours d'itération:" + "\n");
+		heap.offer(1);
+		try {
+			iterator.next();
+		} catch (ConcurrentModificationException e) {
+			System.out.println("La modification a été trouvée -> fail-fast: " + e);
+		}
 	}
 
 	private static <AnyType> String printArray(AnyType[] a) {
