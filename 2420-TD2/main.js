@@ -4,10 +4,23 @@
   //var client = new WebSocket("ws://log2420-nginx.info.polymtl.ca/chatservice");
 
 
+var currentChannelId;
+var channelList = [];
+var joinedChannelList = [];
+
 function initMain(){
 
-  connectionHandler connectHandler = new connectionHandler("Max");
-  connectHandler.connection();
+  var connectHandlerObservable = new connectionHandler();
+
+  var channelsObs = new channelsObserver(connectHandlerObservable);
+
+  var messagesObs = new messagesObserver(connectHandlerObservable);
+
+  connectHandlerObservable.addChannelsObserver(channelsObs);
+  connectHandlerObservable.addMessagesObserver(messagesObs)
+
+  connectHandlerObservable.connection();
+
 
 }
 

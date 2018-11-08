@@ -1,12 +1,24 @@
-class channelsObserver(){
+class channelsObserver {
 
-  constructor(currentChannelId){
-
-    this.currentChannelId = currentChannelId;
+  constructor(connectionHandler) {
+    this.connectionHandler = connectionHandler;
+    const self = this;
 
   }
+  changeJoinStatus(channel){
 
+    if(channel.joinStatus){
+      channel.joinStatus=false;
+      connectionHandler.changeChannel(id);
+      //webSocket.onLeaveChannel(channel.id);
+    }else{
+      channel.joinStatus=true;
+      //webSocket.onJoinChannel(channel.id);
+    }
+  }
   setChannelList(){
+
+    var symbole;
 
     for (var i = 0; i < channelList.length; i++) {
 
@@ -23,7 +35,8 @@ class channelsObserver(){
         }else if(!(channelList[i].joinStatus)){
           symbole = "glyphicon-plus";
         }
-          var symboleChannel  =   '<span class="pull-right">'+
+
+          var symboleChannel  =   '<span class="pull-right channelBoutton">'+
                                     '<a href="#" class="btn btn-lg btn-primary">'+
                                       '<span class="glyphicon ' + symbole + '"></span>'+
                                     '</a>'+
@@ -31,16 +44,61 @@ class channelsObserver(){
 
         $(newDiv).append(symboleChannel);
 
+        var classname = document.getElementsByClassName("channelBoutton");
+
+        classname[i].addEventListener('click',  function(){
+          event.currentTarget.parentElement.innerText
+
+        for (var i = 0; i < channelList.length; i++) {
+          if(channelList[i].name == event.currentTarget.parentElement.innerText){
+            if(!(channelList[i].name == "Général")){
+              changeJoinStatus(channelList[i]);
+            }
+            break;
+          }
+        }
+            alert("max");
+
+        });
+      //  document.getElementsByClassName("btn-primary")[i].addEventListener("click",
     }
   }
 
-  setInitChannelList(){
+  update(e){
 
-    currentChannelId = jsonChannelId.data[0].id
+    const self = this;
 
-    for (var i = 0; i < jsonChannelId.data.length; i++) {
+    if(e.eventType=="updateChannelsList"){
+
+      if(channelList.length == 0){
+        //init de base (creation darray avec les channels)
+        self.setInitChannelList(e);
+      }
+
+      self.setChannelList(e);
+
+      console.log(e);
+    }
+    if(e.eventType=="onLeaveChannel"){
+
+    }
+    if(e.eventType=="onJoinChannel"){
+
+    }
+    if(e.eventType=="onCreateChannel"){
+
+      }
+
+
+  }
+
+  setInitChannelList(e){
+
+    currentChannelId = e.data[0].id
+
+    for (var i = 0; i < e.data.length; i++) {
       var messageList = []
-      var channel = new Channel(jsonChannelId.data[i].id,jsonChannelId.data[i].name,jsonChannelId.data[i].joinStatus,messageList,jsonChannelId.data[i].numberOfUsers);
+      var channel = new Channel(e.data[i].id,e.data[i].name,e.data[i].joinStatus,messageList,e.data[i].numberOfUsers);
 
       if(channel.joinStatus){
         joinedChannelList.push(channel);
