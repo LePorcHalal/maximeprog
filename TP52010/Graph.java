@@ -34,7 +34,8 @@ public class Graph {
 				int nodeDestination = 0;
 				for(int i = 0; i<parts.length; i++){
 					if(parts[i].equals("inf") == false)
-						edges.add(new Edge(nodes.get(nodeSource), nodes.get(nodeDestination), Double.parseDouble(parts[i])));
+						if(Double.parseDouble(parts[i]) != 0.0)
+							edges.add(new Edge(nodes.get(nodeSource), nodes.get(nodeDestination), Double.parseDouble(parts[i])));
 					nodeDestination++;
 				}
 			}

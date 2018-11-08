@@ -22,10 +22,38 @@ public class Bellman {
 	}
 	
 	public void shortestPath() {
-		// Compl�ter
+		// Compl�ters
+		int v = graph.getNodes().size();
+		int e = graph.getEdges().size();
+		Double distance[] = new Double[graph.getNodes().size()];
+		Double predecessor[] = new Double[graph.getEdges().size()];
 		
-		
+		for(int i = 0; i<graph.getNodes().size(); i++){
+			distance[i] = graph.inf;
+		}
 
+		/*for(int i = 0; i<graph.getNodes().size(); i++){
+			if(graph.getNodes().get(i).equals(sourceNode)){
+				int src = i;
+				break;
+			}
+		}*/
+		distance[sourceNode.getId()]=0.0;
+
+		for(int i = 1; i<v; ++i){
+			for(int j = 0; j<e; ++j){
+				int srcID = graph.getEdges().get(j).getSource().getId();
+				int destID = graph.getEdges().get(j).getDestination().getId();
+				Double dist = graph.getEdges().get(j).getDistance();
+				if(distance[srcID]!=graph.inf && distance[srcID]+dist < distance[destID]){
+					distance[destID]=distance[srcID]+dist;
+				}
+			}
+		}
+		
+		for(int k = 0; k<distance.length; k++){
+			System.out.println(distance[k]);
+		}
 	}
 	
 	public void  diplayShortestPaths() {
