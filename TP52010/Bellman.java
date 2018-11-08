@@ -22,15 +22,22 @@ public class Bellman {
 	}
 	
 	public void shortestPath() {
-		// Compléter
+		// Complï¿½ter
 		
+		
+
 	}
 	
 	public void  diplayShortestPaths() {
-		//Compléter
+		//Complï¿½ter
 	}
 
 	public void displayTables() {
-	 //Compléter
+	 //Complï¿½ter
+
+	System.out.println("<<PITable>>:");
+		for(int i = 0; i<graph.getNodes().size(); i++){
+
+		}
 	}
 }

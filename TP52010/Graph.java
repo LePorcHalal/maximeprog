@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class Graph {
@@ -17,19 +18,51 @@ public class Graph {
 	}
 
 	public void readFromFile(String filePath,String separtor){
-		//compléter
+		//complï¿½ter
+		try {
+			FileReader fr = new FileReader(filePath);
+			BufferedReader br = new BufferedReader(fr);
+			
+			String currentLine = br.readLine();
+			String[] parts = currentLine.split(separtor);
+			for(int i = 0; i<parts.length; i++)
+				nodes.add(new Node(nodes.size(), parts[i]));
+
+			int nodeSource = 0;
+			while ((currentLine = br.readLine()) != null) {
+				parts = currentLine.split(separtor);
+				int nodeDestination = 0;
+				for(int i = 0; i<parts.length; i++){
+					if(parts[i].equals("inf") == false)
+						edges.add(new Edge(nodes.get(nodeSource), nodes.get(nodeDestination), Double.parseDouble(parts[i])));
+					nodeDestination++;
+				}
+			}
+			br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public List<Edge> getOutEdges(Node source) {
-		List<Edge> outEdges ; 
-		// compléter
-		
+		List<Edge> outEdges= new ArrayList<Edge>(); 
+		for(int i =0; i<edges.size(); i++){
+			if(edges.get(i).getSource().equals(source)==true){
+				outEdges.add(edges.get(i));
+			}
+		}
+		// complï¿½ter
 		return outEdges;	
 	}
 	
 	public List<Edge> getInEdges(Node dest) {
-		List<Edge> inEdges ; 
-		// compléter
+		List<Edge> inEdges= new ArrayList<Edge>(); 
+		for(int i =0; i<edges.size(); i++){
+			if(edges.get(i).getDestination().equals(source)==true){
+				inEdges.add(edges.get(i));
+			}
+		}
+		// complï¿½ter
 		return inEdges;		
 	}
 	// Accesseurs 

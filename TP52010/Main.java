@@ -1,7 +1,7 @@
 
 public class Main {
 	public static void main(String[] args) {
-		// Exerice 1: creation de graphe à partir du fichier 
+		// Exerice 1: creation de graphe ï¿½ partir du fichier 
 		Graph g = new Graph();
 		g.readFromFile("./src/graphe.txt",",");
 		// Exerice 2: calcul du plus court chemin de source vers tous les sommet
