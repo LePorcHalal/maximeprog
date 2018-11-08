@@ -83,7 +83,7 @@ public class Main {
 		for (Integer item : items)
 			heap.offer(item);
 		System.out.println("\n" + "Poll sur un min heap avec le tableau ordonné");
-		if(heap.peek()==heap.poll()) {
+		if (heap.peek() == heap.poll()) {
 			System.out.println("Peek et Poll retournent la même valeur");
 		}
 		System.out.println("Affichage après 1 poll:");
@@ -98,10 +98,9 @@ public class Main {
 		heap = new BinaryHeap<Integer>(false);
 		for (Integer item : items)
 			heap.offer(item);
-		if(heap.peek()==heap.poll()) {
+		if (heap.peek() == heap.poll()) {
 			System.out.println("Peek et Poll retournent la même valeur");
 		}
-		heap.poll();
 		System.out.println("Affichage après 1 poll:");
 		System.out.println(heap.printFancyTree());
 		for (int k = 0; k < 22; k++)

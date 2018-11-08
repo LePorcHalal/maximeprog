@@ -222,9 +222,40 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 	public String nonRecursivePrintFancyTree() {
 		String outputString = "";
-
 		// COMPLETEZ
+		int position = 1;
+		int positionBase = 1;
+		Stack<Integer> noeuds = new Stack<Integer>();
+		noeuds.push(position);
+		while (noeuds.isEmpty() == false) {
+			String prefix = "";
+			Integer[] childs = new Integer[position + 2];
+			position = noeuds.pop();
+			positionBase = position;
+			for (int j = 1; position > 0; j++) {
+				childs[j] = position;
+				position = position / 2;
+			}
+			position = positionBase;
 
+			for (int i = childs.length - 1; i > 1; i--) {
+				if (childs[i] != null) {
+					if (childs[i] % 2 == 0)
+						prefix += "|  ";
+					else
+						prefix += "   ";
+				}
+			}
+			if (position <= currentSize)
+				outputString += prefix + "|__" + array[position] + "\n";
+			else
+				outputString += prefix + "|__" + "null" + "\n";
+
+			if (position * 2 <= currentSize) {
+				noeuds.push(leftChild(position, false));
+				noeuds.push(leftChild(position, true));
+			}
+		}
 		return outputString;
 	}
 
@@ -283,10 +314,11 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 				throw new ConcurrentModificationException("Concurrent modification exception thrown");
 			if (hasNext() == false)
 				throw new NoSuchElementException("No such element exception thrown");
-			return array[++position];
+			position++;
+			return array[position];
 		}
 
-		public void remove() {
+		public void remove() throws UnsupportedOperationException {
 			throw new UnsupportedOperationException("Unsupported operation exception thrown");
 		}
 	}
