@@ -154,6 +154,7 @@
     <ClInclude Include="..\TP4Code\Point3D.h" />
     <ClInclude Include="..\TP4Code\PrimitiveAbs.h" />
     <ClInclude Include="..\TP4Code\Sphere.h" />
+    <ClInclude Include="..\TP4Code\Torus.h" />
     <ClInclude Include="..\TP4Code\TP4_Test.h" />
     <ClInclude Include="..\TP4Code\TransformedObjet3D.h" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClCompile Include="..\TP4Code\PolyIcone3D.cpp" />
     <ClCompile Include="..\TP4Code\PrimitiveAbs.cpp" />
     <ClCompile Include="..\TP4Code\Sphere.cpp" />
+    <ClCompile Include="..\TP4Code\Torus.cpp" />
     <ClCompile Include="..\TP4Code\TP4_Test.cpp" />
     <ClCompile Include="..\TP4Code\TransformedObjet3D.cpp" />
   </ItemGroup>

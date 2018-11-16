@@ -9,6 +9,7 @@
 #include "Cube.h"
 #include "Cylinder.h"
 #include "Sphere.h"
+#include "Torus.h"
 
 
 TP4_Test::TP4_Test()
@@ -20,17 +21,21 @@ TP4_Test::TP4_Test()
 	Cylinder cyl2(Point3D(2., 1., 2.), 1., 2.);
 	Sphere   sph1(Point3D(2., 2., 2.), 2.);
 	Sphere   sph2(Point3D(3., -1., 1.), 3.5);
+	Torus tor1(Point3D(3., -1., 1.), 1., 2.);
+	Torus tor2(Point3D(2., 1., 2.), 1., 2.);
 
 	Objet3DComposite compos1;
 	compos1.addChild(cub1);
 	compos1.addChild(cyl1);
 	compos1.addChild(sph1);
+	compos1.addChild(tor1);
 
 	Objet3DComposite compos2;
 	compos2.addChild(sph1);
 	compos2.addChild(compos1);
 	compos2.addChild(cub1);
 	compos2.addChild(cyl2);
+	compos2.addChild(tor2);
 
 	m_icone3D.addChild(cub2);
 	m_icone3D.addChild(compos2);
@@ -153,6 +158,7 @@ TP4_Test::RESULTAT TP4_Test::testDecorator()
 	std::cout << "===== testDecorator TEST 5 SUCCES" << std::endl;
 
 	m_cylTransformed.setTranslation(Point3D(1., 1., 1.));
+	centreTransform = m_cylTransformed.getCenter();
 	Point3D resultatTransform2(3.5f, 2.5f, 1.);
 	if (centreTransform != resultatTransform2)
 	{
