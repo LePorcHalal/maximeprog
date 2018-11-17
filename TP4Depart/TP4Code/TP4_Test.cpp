@@ -13,7 +13,7 @@
 
 
 TP4_Test::TP4_Test()
-	: m_icone3D(), m_cylTransformed(Cylinder(Point3D(2.5f,1.5f,0.),2,5),Point3D(0.5f,0.5f,0.5f),3)
+	: m_icone3D(), m_cylTransformed(Torus(Point3D(2.5f,1.5f,0.),2,5),Point3D(0.5f,0.5f,0.5f),3)
 {
 	Cube     cub1(Point3D(1., 2., 3.), 2., 2., 2.);
 	Cube     cub2(Point3D(-1., 2., 4.), 2.5f, 2.1f, 4.);
