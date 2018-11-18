@@ -1,2 +1,3 @@
-﻿  TP4_Test.cpp
+﻿  Objet3DComposite.cpp
+c:\users\vange\desktop\maximeprog\tp4depart\tp4code\objet3dcomposite.cpp(110): warning C4244: 'argument': conversion from 'unsigned __int64' to 'float', possible loss of data
   PolyIcone3D.vcxproj -> C:\Users\vange\Desktop\maximeprog\TP4Depart\PolyIcone3D\x64\Debug\PolyIcone3D.exe
