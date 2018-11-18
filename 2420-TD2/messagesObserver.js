@@ -2,7 +2,25 @@ class messagesObserver {
 
   constructor(connectionHandler){
     this.connectionHandler = connectionHandler;
+
     const self = this;
+var modal = document.getElementById('myModal');
+    document.getElementById("btnAddChannel").addEventListener("click", function(){
+
+        modal.style.display = "block";
+
+    });
+
+for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
+
+  document.getElementsByClassName("close")[i].addEventListener("click", function(){
+
+    modal.style.display = "none";
+
+});
+}
+
+
     document.getElementById("btnEnter").addEventListener("click", function(){
 
         self.sendText();
@@ -26,6 +44,7 @@ class messagesObserver {
      const socketMessage = new Message("onMessage", currentChannelId, data,"MAXIME", Date.now());
       console.log("Message sent to socket : \n" + JSON.stringify(socketMessage));
       this.connectionHandler.webSocket.send(JSON.stringify(socketMessage));
+
       //reset du texte
       document.getElementById("textBoxInput").value = "";
 
@@ -34,6 +53,8 @@ class messagesObserver {
   handleMessageReceived (messageData){
     const self = this;
 //ajouter le message au bon channel
+
+  console.log(messageData);
     for (var i = 0; i < joinedChannelList.length; i++) {
       if(joinedChannelList[i].id==messageData.channelId){
         joinedChannelList[i].messages.push(messageData.data);
@@ -41,13 +62,14 @@ class messagesObserver {
       }
     }
 //insere le message dans le bon channel
+
     self.insertChat(messageData.sender, messageData.data, messageData.timeStamp);
 
   }
 
   insertChat(sender, messageText, timeStamp){
-    const me = "https://pbs.twimg.com/profile_images/918264641368629249/F78xAklG_400x400.jpg";
-    const you = "https://image-store.slidesharecdn.com/33be41bd-29a2-44d4-8b81-4805eac10600-original.jpeg";
+    const you = "https://pbs.twimg.com/profile_images/918264641368629249/F78xAklG_400x400.jpg";
+    const me = "https://image-store.slidesharecdn.com/33be41bd-29a2-44d4-8b81-4805eac10600-original.jpeg";
 
     const self = this;
       if (timeStamp === undefined){
@@ -55,26 +77,43 @@ class messagesObserver {
       }
       var control = "";
       var date = self.formatAMPM(new Date());
+/*
+      var messageText = sanitizeHtml(messageText1, {
+        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
+      });
+    */
+    //sender = "Admin";
+      if (sender == this.connectionHandler.getUsername()){
 
-      if (sender == null){
-          control = '<li style="width:100%">' +
-                          '<div class="msj macro">' +
-                          '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me +'" /></div>' +
-                              '<div class="text text-l">' +
-                                  '<p>'+ messageText +'</p>' +
-                                  '<p><small>'+date+'</small></p>' +
-                              '</div>' +
-                          '</div>' +
-                      '</li>';
-      }else{
-          control = '<li style="width:100%;">' +
-                          '<div class="msj-rta macro">' +
-                              '<div class="text text-r">' +
-                                  '<p>'+messageText+'</p>' +
-                                  '<p><small>'+date+'</small></p>' +
-                              '</div>' +
-                          '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you+'" /></div>' +
+        control =
+                  '<li style="width:100%;">' +
+                        '<div class="msj-rta macro">' +
+                            '<div class="text text-r">' +
+                                '<p>'+messageText+'</p>' +
+                                '<p><small>'+date+'</small></p>' +
+                            '</div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you+'" /></div>' +
+                  '</li>';
+
+      }else if(sender=="Admin") {
+
+        control = '<li style="width:100%">' +
+                    '<div id="groupJoinId">'+messageText+'</div>'+
                     '</li>';
+
+      }else{
+
+        control = '<li style="width:100%">' +
+                    '<div id="nomSenderId">'+sender+'</div>'+
+                        '<div class="msj macro">' +
+                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me +'" /></div>' +
+                            '<div class="text text-l">' +
+                                '<p>'+ messageText +'</p>' +
+                                '<p><small>'+date+'</small></p>' +
+                            '</div>' +
+                        '</div>' +
+                    '</li>';
+
       }
 
               $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
