@@ -15,6 +15,9 @@ Cube::Cube(const Point3D& pt, float ln, float lg, float ht)
 		throw std::range_error("Invalid dimension value for cube. Must be larger than 0");
 
 	// A Completer...
+	m_dimensions[0] = ln;
+	m_dimensions[1] = lg;
+	m_dimensions[2] = ht;
 }
 
 Cube::~Cube(){
@@ -23,19 +26,23 @@ Cube::~Cube(){
 Cube * Cube::clone() const
 {
 	// A Completer...
-	return nullptr;
+	return new Cube(m_center, m_dimensions[0], m_dimensions[1], m_dimensions[2]);
 }
 
 size_t Cube::getNbParameters() const {
 
 	// A Completer...
-	return 0;
+	return getParameters().size();
 }
 
 PrimitiveParams Cube::getParameters() const 
 {
 	// A Completer...
-	return PrimitiveParams();
+	PrimitiveParams parametres;
+	parametres.push_back(m_dimensions[0]);
+	parametres.push_back(m_dimensions[1]);
+	parametres.push_back(m_dimensions[2]);
+	return parametres;
 }
 
 void Cube::setParameter(size_t pIndex, float pValue){
@@ -46,6 +53,7 @@ void Cube::setParameter(size_t pIndex, float pValue){
 		throw std::range_error("Invalid dimension value for cube. Must be larger than 0");
 
 	// A Completer...
+	m_dimensions[pIndex] = pValue;
 }
 
 std::ostream & Cube::toStream(std::ostream & o) const

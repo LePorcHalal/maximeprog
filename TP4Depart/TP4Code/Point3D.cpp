@@ -56,10 +56,22 @@ Point3D operator-(const Point3D & p1, const Point3D & p2)
 	return Point3D(p1.x() - p2.x(), p1.y() - p2.y(), p1.z() - p2.z());
 }
 
-bool operator==(const Point3D & p1, const Point3D & p2)
+template<typename T> T NORM3DSQR(T c1, T c2, T c3)
+
 {
-	const float small_eps = 1e-6;
-	return ((p1.x() - p2.x()) < small_eps && (p1.y() - p2.y()) < small_eps && (p1.z() - p2.z()) < small_eps);
+
+	return ((c1 * c1) + (c2 * c2) + (c3 *c3));
+
+}
+
+bool operator==(const Point3D & p1, const Point3D & p2)
+
+{
+
+	const double small_eps_sqr = 1e-12;
+
+	return (NORM3DSQR(p1.x() - p2.x(), p1.y() - p2.y(), p1.z() - p2.z()) < small_eps_sqr);
+
 }
 
 bool operator!=(const Point3D & p1, const Point3D & p2)
