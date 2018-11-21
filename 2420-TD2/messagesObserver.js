@@ -1,15 +1,16 @@
 class messagesObserver {
 
-  constructor(connectionHandler){
-    this.connectionHandler = connectionHandler;
+  constructor(){
+    //this.connectionHandler = connectionHandler;
 
     const self = this;
-var modal = document.getElementById('myModal');
+  var modal = document.getElementById('myModal');
     document.getElementById("btnAddChannel").addEventListener("click", function(){
 
         modal.style.display = "block";
 
     });
+
 
 for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
 
@@ -20,7 +21,7 @@ for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
 });
 }
 
-
+/*
     document.getElementById("btnEnter").addEventListener("click", function(){
 
         self.sendText();
@@ -34,8 +35,10 @@ for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
                 self.sendText();
             }
         }
+*/
   }
 
+/*
   sendText() {
     // Construct a msg object containing the data the server needs to process the message from the chat client.
 
@@ -49,22 +52,23 @@ for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
       document.getElementById("textBoxInput").value = "";
 
     }
-
+*/
   handleMessageReceived (messageData){
     const self = this;
 //ajouter le message au bon channel
 
   console.log(messageData);
-    for (var i = 0; i < joinedChannelList.length; i++) {
+/*    for (var i = 0; i < joinedChannelList.length; i++) {
       if(joinedChannelList[i].id==messageData.channelId){
         joinedChannelList[i].messages.push(messageData.data);
         break;
       }
     }
+    */
 //insere le message dans le bon channel
-
+  if(messageData.channelId == currentChannelId){
     self.insertChat(messageData.sender, messageData.data, messageData.timeStamp);
-
+  }
   }
 
   insertChat(sender, messageText, timeStamp){
@@ -83,8 +87,8 @@ for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
       });
     */
     //sender = "Admin";
-      if (sender == this.connectionHandler.getUsername()){
-
+    //  if (sender == this.connectionHandler.getUsername()){
+      if (sender == nomUsername){
         control =
                   '<li style="width:100%;">' +
                         '<div class="msj-rta macro">' +
@@ -132,12 +136,31 @@ for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
     }
+    refreshView(e){
+      const self = this;
+      var listeDesMessagesDuChannel = e.data.messages;
+      currentChannelId = e.channelId;
+      self.resetChat();
+      for (var i = 0; i < listeDesMessagesDuChannel.length; i++) {
+          self.handleMessageReceived(listeDesMessagesDuChannel[i]);
+      }
+
+    }
 
     resetChat(){
         $("ul").empty();
     }
     update(e){
+
       const self = this;
-      self.handleMessageReceived(e);
+
+      if(e.eventType=="onGetChannel"){
+
+        self.refreshView(e);
+
+      }else{
+
+        self.handleMessageReceived(e);
+      }
     }
 }

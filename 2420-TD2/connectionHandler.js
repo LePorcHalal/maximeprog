@@ -30,20 +30,7 @@ class connectionHandler {
              };
 
    }
-
-   sendText() {
-     // Construct a msg object containing the data the server needs to process the message from the chat client.
-
-   //obtention du texte
-      var data = document.getElementById("textBoxInput").value;
-      const socketMessage = new Message("onMessage", currentChannelId, data,"MAXIME", Date.now());
-       console.log("Message sent to socket : \n" + JSON.stringify(socketMessage));
-       this.webSocket.send(JSON.stringify(socketMessage));
-       //reset du texte
-       document.getElementById("textBoxInput").value = "";
-
-     }
-
+   
    eventHandler(e){
 
      const self  = this;
@@ -52,7 +39,7 @@ class connectionHandler {
        console.log("Erreur WebSocket");
       // handleMessageReceived(messageData);
      }
-     if(e.eventType=="onMessage"){
+     if(e.eventType=="onMessage" || e.eventType=="onGetChannel"){
 
        self.notify_messageObserver(e);
       // handleMessageReceived(messageData);
