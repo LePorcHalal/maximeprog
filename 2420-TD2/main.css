@@ -11,8 +11,19 @@ body{
 }
 header{
   background-color: #fff !important;
+  padding:10px;
 }
-
+.header-btn{ 
+    margin: 10px;
+    font-size: 30px;
+    color: #000;
+  }
+.header-nom{ 
+    font-size: 20px;
+  }
+.header-user{ 
+    font-size: 15px;
+  }
 #nomSenderId {
   font-weight: bold;
 }
@@ -108,7 +119,17 @@ li {
   font-size: 30px;
 }
 
-
+.chatBoxTitle{
+    width: 500px;
+    height: 55px;
+    font-size: 30px;
+    background:#e0e0de;
+    align-items:center;
+    text-align: center;
+    display: flex;
+    border-bottom: white;
+    border-bottom-width: 2px;
+}
 
 .text{
     width:75%;display:flex;flex-direction:column;
@@ -134,7 +155,12 @@ li {
     padding-right:10px;
 }
 .macro{
-    margin-top:5px;width:85%;border-radius:5px;padding:5px;display:flex;
+    margin-top:5px;
+    margin-bottom: 5px;
+    width:85%;
+    border-radius:5px;
+    padding:5px;
+    display:flex;
 }
 .msj-rta{
     float:right;background:whitesmoke;
