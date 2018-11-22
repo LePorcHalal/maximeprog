@@ -45,15 +45,28 @@ public class Bellman {
 				int srcID = graph.getEdges().get(j).getSource().getId();
 				int destID = graph.getEdges().get(j).getDestination().getId();
 				Double dist = graph.getEdges().get(j).getDistance();
+				//System.out.println("Source: "+srcID +", Dest: "+ destID +", Dist: "+ dist);
 				if(distance[srcID]!=graph.inf && distance[srcID]+dist < distance[destID]){
 					distance[destID]=distance[srcID]+dist;
 				}
+				
 			}
-		}
+			
 		
-		for(int k = 0; k<distance.length; k++){
-			System.out.println(distance[k]);
 		}
+	    for (int j=0; j<e; ++j) 
+        { 
+	    	int srcID = graph.getEdges().get(j).getSource().getId();
+			int destID = graph.getEdges().get(j).getDestination().getId();
+			Double dist = graph.getEdges().get(j).getDistance();
+            if (distance[srcID] != graph.inf  && 
+                distance[srcID]+dist < distance[destID]) 
+              System.out.println("Graph contains negative weight cycle"); 
+        } 
+		for(int k = 0; k<distance.length; k++){
+			System.out.print(distance[k] + " , ");
+			}
+		System.out.println();
 	}
 	
 	public void  diplayShortestPaths() {
@@ -64,8 +77,33 @@ public class Bellman {
 	 //Compl�ter
 
 	System.out.println("<<PITable>>:");
-		for(int i = 0; i<graph.getNodes().size(); i++){
-
+	int v = graph.getNodes().size();
+	int e = graph.getEdges().size();
+	Double distance[] = new Double[graph.getNodes().size()];
+	for(int i = 0; i<graph.getNodes().size(); i++){
+		distance[i] = graph.inf;
+	}
+	distance[sourceNode.getId()]=0.0;
+	
+	for(int k = 0; k<distance.length; k++){
+		System.out.print(distance[k] + " , ");
+		}System.out.println();
+		
+		for(int i = 1; i<v; ++i){
+			
+		for(int j = 0; j<e; ++j){
+			int srcID = graph.getEdges().get(j).getSource().getId();
+			int destID = graph.getEdges().get(j).getDestination().getId();
+			Double dist = graph.getEdges().get(j).getDistance();
+			//System.out.println("Source: "+srcID +", Dest: "+ destID +", Dist: "+ dist);
+			if(distance[srcID]!=graph.inf && distance[srcID]+dist < distance[destID]){
+				distance[destID]=distance[srcID]+dist;
+			}
+			
 		}
+		for(int k = 0; k<distance.length; k++){
+				System.out.print(distance[k] + " , ");
+				}System.out.println();
+	}
 	}
 }

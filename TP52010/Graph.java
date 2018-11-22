@@ -38,11 +38,17 @@ public class Graph {
 							edges.add(new Edge(nodes.get(nodeSource), nodes.get(nodeDestination), Double.parseDouble(parts[i])));
 					nodeDestination++;
 				}
+				nodeSource++;
 			}
 			br.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+			for(int i = 0; i < edges.size();i++) {
+					System.out.println("Source: "+ edges.get(i).getSource() +", Dest: "+ edges.get(i).getDestination() +", Dist: "+ edges.get(i).getDistance());
+		}
+		
 	}
 	
 	public List<Edge> getOutEdges(Node source) {
@@ -59,7 +65,7 @@ public class Graph {
 	public List<Edge> getInEdges(Node dest) {
 		List<Edge> inEdges= new ArrayList<Edge>(); 
 		for(int i =0; i<edges.size(); i++){
-			if(edges.get(i).getDestination().equals(source)==true){
+			if(edges.get(i).getDestination().equals(dest)==true){
 				inEdges.add(edges.get(i));
 			}
 		}
