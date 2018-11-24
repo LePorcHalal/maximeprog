@@ -2,21 +2,29 @@
     font-size: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+/*
 .mytext {
     border: 0;
-    padding: 10px;
+    /* padding: 10px;
     background: whitesmoke;
-}
+} */
 
 a.btn.btn-lg.btn-primary {
-    margin: 5px;
+    margin-right: 5px;
 }
+/* body>div>div>div:nth-child(2)>span {
+      background: #33cccc;
+     padding: 0px;
+    font-size: 21px;
+    border-radius: 50%;
+} */
 
 body {
     background-color: #ddd !important;
 }
-
+a{
+  color: white !important;
+}
 header {
     background-color: rgba(221, 221, 221, 0.678) !important;
     padding: 10px;
@@ -126,8 +134,54 @@ header {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+
+}
+
+.container-header-chat-channel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     background-color: #ddd;
 }
+.headerChat{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background-color: #33cccc;
+  margin-left: 5px;
+    margin-right: 5px;
+    width: 60%;
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  height: 70px;
+
+}
+.headerChannel{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  background-color: #33cccc;
+  width: 40%;
+  height: 70px;
+}
+.headerTxt{
+  padding-left: 5px;
+  margin: 5px;
+height: 40%;
+font-size: 15px;
+
+}
+.boutonsChannel{
+  margin-right: 10px;
+}
+.headerItemTxt{
+  padding-left: 10px;
+  margin-top: 0px;
+  font-size: 23px;
+  height: 60%;
+}
+
+
 
 li {
     width: 100% !important;
@@ -165,6 +219,9 @@ li {
 
 .flex-channelList-container {
     display: flex;
+    width: 35%;
+margin-left: 2.5%;
+margin-right: 2.5%;
     margin-left: 10px;
     margin-right: 10px;
     flex-direction: column;
@@ -173,7 +230,6 @@ li {
 }
 
 .flex-channelList-container .channelItem {
-    /*width: 300px;*/
     text-align: center;
     line-height: 45px;
     font-size: 30px;
@@ -267,12 +323,12 @@ li {
     display: flex;
 }
 
-body>div>div>div:nth-child(2)>span {
+/* body>div>div>div:nth-child(2)>span {
     background: whitesmoke;
     padding: 10px;
     font-size: 21px;
     border-radius: 50%;
-}
+} */
 
 body>div>div>div.msj-rta.macro {
     margin: auto;

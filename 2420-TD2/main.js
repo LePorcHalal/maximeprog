@@ -21,15 +21,16 @@ class Main {
 
     const self = this;
 
+    this.notifHandler = new NotificationHandler();
 
-    this.channelsObs = new channelsObserver(this);
+    this.channelsObs = new channelsObserver(this,this.notifHandler);
 
-    this.messagesObs = new messagesObserver();
+    this.messagesObs = new messagesObserver(this.notifHandler);
 
     this.connectHandlerObservable = new connectionHandler();
 
-  document.getElementById("myModalNouveauUtilisateur").style.display = "block";
-  document.getElementById("btnNomUtilisteur").addEventListener("click", function(){
+    document.getElementById("myModalNouveauUtilisateur").style.display = "block";
+    document.getElementById("btnNomUtilisteur").addEventListener("click", function(){
 
     nomUsername = document.getElementById("nomNouveauUtilisateur").value;
     self.connectHandlerObservable.connection(nomUsername);
@@ -101,12 +102,12 @@ class Main {
 
       channel.joinStatus = false;
       self.leaveChannel(channel.id, channelGeneral.id);
-
+      document.getElementById("groupeActifId").innerHTML = channelGeneral.name;
     } else {
 
       channel.joinStatus = true;
       self.joinNewChannel(channel.id);
-
+      document.getElementById("groupeActifId").innerHTML = channel.name;
     }
 
 
@@ -120,8 +121,9 @@ class Main {
       var newDiv = document.createElement("div");
       var newContent = document.createTextNode(channelList[i].name);
       newDiv.appendChild(newContent);
+
       if (i % 2 == 1) {
-        newDiv.style.backgroundColor = "#FFFFFF";
+        newDiv.style.backgroundColor = "#f2f2f2";
       }
       else {
         newDiv.style.backgroundColor = "#BBB";
@@ -159,6 +161,7 @@ class Main {
           if (channelList[i].id == event.currentTarget.parentElement.id) {
             if (!(channelList[i].name == "Général")) {
               self.changeJoinStatus(channelList[i], channelList[0]);
+
             }
             break;
           }
@@ -179,6 +182,7 @@ class Main {
           if (channelList[i].id == event.currentTarget.id) {
             if (channelList[i].joinStatus) {
               self.joinChannel(channelList[i].id);
+            //  document.getElementById("groupeActifId").innerHTML = channelList[i].name;
             }
             break;
           }
@@ -212,6 +216,33 @@ class Main {
     const socketGetChannel = new Message("onGetChannel", channelGeneralId, nomUsername, Date.now());
     this.connectHandlerObservable.webSocket.send(JSON.stringify(socketGetChannel));
 
+    //document.getElementById("groupeActifId").innerHTML = "Général";
+
+  }
+}
+
+class NotificationHandler {
+
+  constructor(){
+    this.nombreDeNotif = 0;
+    this.nombreDeMessageVu = 0;
+    this.nombreDeMessagePasVu = 0;
+  }
+  updateNombreNotif(){
+    if(this.nombreDeNotif<=0){
+      document.getElementById("notifId").innerHTML = "";
+      this.nombreDeNotif = 0;
+    }else{
+    document.getElementById("notifId").innerHTML = this.nombreDeNotif;
+  }
+  }
+  addNotif(){
+    this.nombreDeMessagePasVu++;
+  }
+  addMessageVu(){
+    this.nombreDeMessageVu++;
+  }
+  removeNotif(){
 
 
   }

@@ -1,8 +1,8 @@
 class messagesObserver {
 
-  constructor(){
-    //this.connectionHandler = connectionHandler;
+  constructor(notifHandler){
 
+    this.notifHandler = notifHandler;
     const self = this;
   var modal = document.getElementById('myModal');
     document.getElementById("btnAddChannel").addEventListener("click", function(){
@@ -68,6 +68,10 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
 //insere le message dans le bon channel
   if(messageData.channelId == currentChannelId){
     self.insertChat(messageData.sender, messageData.data, messageData.timeStamp);
+  }
+  else{
+    this.notifHandler.addNotif();
+    this.notifHandler.updateNombreNotif();
   }
   }
 
@@ -143,8 +147,13 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
       self.resetChat();
       for (var i = 0; i < listeDesMessagesDuChannel.length; i++) {
           self.handleMessageReceived(listeDesMessagesDuChannel[i]);
-      }
 
+          if(listeDesMessagesDuChannel[i].sender != nomUsername){
+            this.notifHandler.removeNotif();
+          }
+
+      }
+    this.notifHandler.updateNombreNotif();
     }
 
     resetChat(){

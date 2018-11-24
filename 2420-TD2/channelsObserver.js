@@ -1,7 +1,8 @@
 
 class channelsObserver {
 
-  constructor(main) {
+  constructor(main,notifHandler) {
+    this.notifHandler = notifHandler;
     this.main = main;
   //  this.connectionHandler = connectionHandler;
   //  this.premiereConnection = true;
@@ -190,11 +191,14 @@ filtrer(){
 
       if(this.premiereConnection){
         currentChannelId = e.data[0].id
+        document.getElementById("groupeActifId").innerHTML = e.data[0].name;
         this.premiereConnection = false;
       }
         document.getElementsByClassName("flex-channelList-container")[0].innerHTML = "";
         self.setInitChannelList(e);
         this.main.setChannelList(e);
+
+
 
 
     }
