@@ -20,16 +20,29 @@ class Main {
 initMain(){
 
 const self = this;
-  this.connectHandlerObservable = new connectionHandler(nomUsername);
+
 
   this.channelsObs = new channelsObserver(this);
 
   this.messagesObs = new messagesObserver();
 
+  this.connectHandlerObservable = new connectionHandler();
+
+  document.getElementById("myModalNouveauUtilisateur").style.display = "block";
+  document.getElementById("btnNomUtilisteur").addEventListener("click", function(){
+
+    nomUsername = document.getElementById("nomNouveauUtilisateur").value;
+    self.connectHandlerObservable.connection(nomUsername);
+    document.getElementById("nomNouveauUtilisateur").value = "";
+
+  });
+
+
+
   this.connectHandlerObservable.addChannelsObserver(this.channelsObs);
   this.connectHandlerObservable.addMessagesObserver(this.messagesObs)
 
-  this.connectHandlerObservable.connection();
+
 
   self.initEventlisteners();
 
@@ -59,11 +72,7 @@ initEventlisteners(){
     self.addChannel();
 
   });
-  document.getElementById("btnNouveauChannel").addEventListener("click", function(){
 
-    self.addChannel();
-
-  });
 }
 
 addChannel(){

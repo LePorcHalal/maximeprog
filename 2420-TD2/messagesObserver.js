@@ -17,7 +17,7 @@ for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
   document.getElementsByClassName("close")[i].addEventListener("click", function(){
 
     modal.style.display = "none";
-
+document.getElementById("myModalNouveauUtilisateur").style.display = "none";
 });
 }
 
