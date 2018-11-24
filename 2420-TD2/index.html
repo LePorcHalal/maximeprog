@@ -1,12 +1,13 @@
-
 <!doctype html>
+
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="The HTML5 Herald">
-    <meta name="author" content="SitePoint">
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <meta charset="utf-8">
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
   <script src="sanitize-html.min.js"></script>
   <script type="text/javascript" src="message.js"></script>
@@ -17,32 +18,62 @@
   <script type="text/javascript" src="main.js"></script>
 </head>
 <header>
-
-    <h3>Vincent Angell - 1905399 et Vincent Tessier - 1895027</h3>
-
-  <div >
-<h1>&Eacute;quipe 4 - TD1</h1>
+  <div class="header-nom">
+    Vincent Angell - 1905399 et Vincent Tessier - 1895027
+  </div>
+  <span class="pull-right">
+    <i href="#" class="header-btn" id="btnUser">
+      <i class="fa fa-user"></i>
+      Maxime
+    </i>
+    <i href="#" class="header-btn" id="btnNotif">
+      <i class="fa fa-bell"></i>
+    </i>
+    <i href="#" class="header-btn" id="btnGlobe">
+      <i class="fa fa-globe"></i>
+    </i>
+    <i href="#" class="header-btn" id="btnSettings">
+      <i class="fa fa-cog"></i>
+    </i>
+  </span>
+  <div class="header-title" onclick="window.location.reload()">
+    <h1><span style="color:orangered">Poly</span> <i class="fa fa-users" id="btnReload"></i> <span style="color:#428bca">Chat</span></h1>
   </div>
 
 
 </header>
+
 <body onload="var main = new Main();">
   <div id="myModal" class="modal">
 
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p>Nom du nouveau channel:</p>
-    <input type="text" id="nomNouveauChannelID"></input>
-    <button class="close" id="btnNouveauChannel">Confirmer</button>
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Nom du nouveau channel:</p>
+      <input type="text" id="nomNouveauChannelID"></input>
+      <button class="close" id="btnNouveauChannel">Confirmer</button>
+    </div>
+
+
   </div>
+  <div class="container-chat-channel">
+    <div class="col-sm-3 col-sm-offset-4 frame">
+      <ul id="chatBoxId"></ul>
+      <div style="margin-left: 18px; margin-right: 18px;">
+        <div class="msj-rta macro">
+          <div class="text text-r" style="background:whitesmoke !important">
+            <input id="textBoxInput" class="mytext" placeholder="Type a message" />
+          </div>
 
-
-</div>
-<div class="container-chat-channel">
-  <div class="container-toolboxAndChannel">
-    <div class="containerToolbox">Liste des groupes
-       <span class="pull-right">
-         <a href="#" class="btn btn-lg btn-primary" id ="btnAddChannel">
+        </div>
+        <div class= "send">
+          <span class="glyphicon glyphicon-share-alt" id="btnEnter"></span>
+        </div>
+      </div>
+    </div>
+    <div class="container-toolboxAndChannel">
+      <div class="containerToolbox">&nbsp;Groupes disponibles&nbsp;
+        <span class="pull-right">
+          <a href="#" class="btn btn-lg btn-primary" id="btnAddChannel">
             <span class="glyphicon glyphicon-plus"></span>
           </a>
         </span>
@@ -50,26 +81,14 @@
           <a href="#" class="btn btn-lg btn-primary">
             <span class="glyphicon glyphicon-pencil"></span>
           </a>
-         </span>
+        </span>
       </div>
       <div class="flex-channelList-container">
       </div>
     </div>
 
-    <div class="col-sm-3 col-sm-offset-4 frame">
-        <ul id="chatBoxId"></ul>
-        <div>
-            <div class="msj-rta macro">
-                <div class="text text-r" style="background:whitesmoke !important">
-                    <input id="textBoxInput" class="mytext" placeholder="Type a message"/>
-                </div>
-
-            </div>
-            <div style="padding:10px;" id="btnEnter">
-                <span class="glyphicon glyphicon-share-alt"></span>
-            </div>
-        </div>
-    </div>
+    
   </div>
 </body>
+
 </html>
