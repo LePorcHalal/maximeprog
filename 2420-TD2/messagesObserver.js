@@ -90,13 +90,13 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
     //  if (sender == this.connectionHandler.getUsername()){
       if (sender == nomUsername){
         control =
-                  '<li style="width:100%;">' +
+                  '<li style="width:85%;">' +
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
                                 '<p>'+messageText+'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you+'" /></div>' +
+                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:60%;" src="'+you+'" /></div>' +
                   '</li>';
 
       }else if(sender=="Admin") {
@@ -107,10 +107,10 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
 
       }else{
 
-        control = '<li style="width:100%">' +
+        control = '<li style="width:85%">' +
                     '<div id="nomSenderId">'+sender+'</div>'+
                         '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me +'" /></div>' +
+                        '<div class="avatar"><img class="img-circle" style="width:60%;" src="'+ me +'" /></div>' +
                             '<div class="text text-l">' +
                                 '<p>'+ messageText +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
