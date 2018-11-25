@@ -1,182 +1,138 @@
 class messagesObserver {
 
-  constructor(notifHandler){
+	constructor(notifHandler) {
 
-    this.notifHandler = notifHandler;
-    const self = this;
-  var modal = document.getElementById('myModal');
-    document.getElementById("btnAddChannel").addEventListener("click", function(){
+		this.notifHandler = notifHandler;
 
-        modal.style.display = "block";
+		var modal = document.getElementById('myModal');
 
-    });
-/*
-for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
+		document.getElementById("btnAddChannel").addEventListener("click", function () {
 
-  document.getElementsByClassName("close")[i].addEventListener("click", function(){
+			modal.style.display = "block";
 
-    modal.style.display = "none";
-document.getElementById("myModalNouveauUtilisateur").style.display = "none";
+		});
+	}
 
-});
-
-}
-*/
-/*
-    document.getElementById("btnEnter").addEventListener("click", function(){
-
-        self.sendText();
-
-    });
-    window.onkeyup = function(e) {
-
-          var key = e.keyCode ? e.keyCode : e.which;
-
-            if (key == 13) {
-                self.sendText();
-            }
-        }
-*/
+  sonMessage(){
+    audio.pause();
+    audio.currentTime = 0;
+    audio.play();
   }
 
-/*
-  sendText() {
-    // Construct a msg object containing the data the server needs to process the message from the chat client.
+	handleMessageReceived(messageData) {
 
-  //obtention du texte
-     var data = document.getElementById("textBoxInput").value;
-     const socketMessage = new Message("onMessage", currentChannelId, data,"MAXIME", Date.now());
-      console.log("Message sent to socket : \n" + JSON.stringify(socketMessage));
-      this.connectionHandler.webSocket.send(JSON.stringify(socketMessage));
+		const self = this;
+		var checkbox = document.getElementById('sonId');
 
-      //reset du texte
-      document.getElementById("textBoxInput").value = "";
+		if (checkbox.checked && messageData.sender != nomUsername) {
+			self.sonMessage();
+		}
+		//insere le message dans le bon channel
+		if (messageData.channelId == currentChannelId) {
 
-    }
-*/
-  handleMessageReceived (messageData){
-    const self = this;
-//ajouter le message au bon channel
-var checkbox = document.getElementById('sonId');
-if (checkbox.checked && messageData.sender !=  nomUsername){
-  audio.play();
-}
-  console.log(messageData);
-/*    for (var i = 0; i < joinedChannelList.length; i++) {
-      if(joinedChannelList[i].id==messageData.channelId){
-        joinedChannelList[i].messages.push(messageData.data);
-        break;
-      }
-    }
-    */
-//insere le message dans le bon channel
-  if(messageData.channelId == currentChannelId){
+			self.insertChat(messageData.sender, messageData.data, messageData.timeStamp);
 
-    self.insertChat(messageData.sender, messageData.data, messageData.timeStamp);
-  }
-  else{
-    this.notifHandler.addNotif();
-    this.notifHandler.updateNombreNotif();
-  }
-  }
+		} else {
 
-  insertChat(sender, messageText, timeStamp){
-    const you = "https://pbs.twimg.com/profile_images/918264641368629249/F78xAklG_400x400.jpg";
-    const me = "https://image-store.slidesharecdn.com/33be41bd-29a2-44d4-8b81-4805eac10600-original.jpeg";
+		}
+	}
 
-    const self = this;
-      if (timeStamp === undefined){
-          timeStamp = 0;
-      }
-      var control = "";
-      var date = self.formatAMPM(new Date());
-/*
-      var messageText = sanitizeHtml(messageText1, {
-        allowedTags: sanitizeHtml.defaults.allowedTags.concat([ 'img' ])
-      });
-    */
-    //sender = "Admin";
-    //  if (sender == this.connectionHandler.getUsername()){
-      if (sender == nomUsername){
-        control =
-                  '<li style="width:85%;">' +
-                        '<div class="msj-rta macro">' +
-                            '<div class="text text-r">' +
-                                '<p>'+messageText+'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:60%;" src="'+you+'" /></div>' +
-                  '</li>';
+	insertChat(sender, messageText, timeStamp) {
 
-      }else if(sender=="Admin") {
+		const you = "https://pbs.twimg.com/profile_images/918264641368629249/F78xAklG_400x400.jpg";
+		const me = "https://image-store.slidesharecdn.com/33be41bd-29a2-44d4-8b81-4805eac10600-original.jpeg";
+		const self = this;
 
-        control = '<li style="width:100%">' +
-                    '<div id="groupJoinId">'+messageText+'</div>'+
-                    '</li>';
+		if (timeStamp === undefined) {
+			timeStamp = 0;
+		}
+		var control = "";
+		var date = self.formatAMPM(new Date());
 
-      }else{
+		if (sender == nomUsername) {
+			control =
+				'<li style="width:85%;">' +
+				'<div class="msj-rta macro">' +
+				'<div class="text text-r">' +
+				'<p>' + messageText + '</p>' +
+				'<p><small>' + date + '</small></p>' +
+				'</div>' +
+				'<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:60%;" src="' + you + '" /></div>' +
+				'</li>';
 
-        control = '<li style="width:85%">' +
-                    '<div id="nomSenderId">'+sender+'</div>'+
-                        '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:60%;" src="'+ me +'" /></div>' +
-                            '<div class="text text-l">' +
-                                '<p>'+ messageText +'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '</div>' +
-                    '</li>';
+		} else if (sender == "Admin") {
 
-      }
+			control = '<li style="width:100%">' +
+				'<div id="groupJoinId">' + messageText + '</div>' +
+				'</li>';
 
-              $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
+		} else {
 
-  }
+			control = '<li style="width:85%">' +
+				'<div id="nomSenderId">' + sender + '</div>' +
+				'<div class="msj macro">' +
+				'<div class="avatar"><img class="img-circle" style="width:60%;" src="' + me + '" /></div>' +
+				'<div class="text text-l">' +
+				'<p>' + messageText + '</p>' +
+				'<p><small>' + date + '</small></p>' +
+				'</div>' +
+				'</div>' +
+				'</li>';
+
+		}
+
+		$("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
+
+	}
 
 
-    formatAMPM(date) {
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-    }
+	formatAMPM(date) {
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var ampm = hours >= 12 ? 'PM' : 'AM';
+		hours = hours % 12;
+		hours = hours ? hours : 12; // the hour '0' should be '12'
+		minutes = minutes < 10 ? '0' + minutes : minutes;
+		var strTime = hours + ':' + minutes + ' ' + ampm;
+		return strTime;
+	}
 
-    refreshView(e){
-      const self = this;
-      var listeDesMessagesDuChannel = e.data.messages;
-      currentChannelId = e.channelId;
-      self.resetChat();
-      for (var i = 0; i < listeDesMessagesDuChannel.length; i++) {
-          self.handleMessageReceived(listeDesMessagesDuChannel[i]);
+	refreshView(e) {
+		const self = this;
+		var listeDesMessagesDuChannel = e.data.messages;
 
-          if(listeDesMessagesDuChannel[i].sender != nomUsername){
-            this.notifHandler.removeNotif();
-          }
+		currentChannelId = e.channelId;
 
-      }
+		self.resetChat();
 
-    this.notifHandler.updateNombreNotif();
+		for (var i = 0; i < listeDesMessagesDuChannel.length; i++) {
 
-    }
+			self.handleMessageReceived(listeDesMessagesDuChannel[i]);
 
-    resetChat(){
-        $("ul").empty();
-    }
-    update(e){
+			if (listeDesMessagesDuChannel[i].sender != nomUsername) {
+				this.notifHandler.removeNotif();
+			}
+		}
 
-      const self = this;
+		this.notifHandler.updateNombreNotif();
 
-      if(e.eventType=="onGetChannel"){
+	}
 
-        self.refreshView(e);
+	resetChat() {
+		$("ul").empty();
+	}
+	update(e) {
 
-      }else{
+		const self = this;
 
-        self.handleMessageReceived(e);
-      }
-    }
+		if (e.eventType == "onGetChannel") {
+
+			self.refreshView(e);
+
+		} else {
+
+			self.handleMessageReceived(e);
+      
+		}
+	}
 }
