@@ -35,7 +35,7 @@ class connectionHandler {
 
      const self  = this;
      if(e.eventType=="onError"){
-
+    
        console.log("Erreur WebSocket");
       // handleMessageReceived(messageData);
      }

@@ -10,7 +10,7 @@ class messagesObserver {
         modal.style.display = "block";
 
     });
-
+/*
 for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
 
   document.getElementsByClassName("close")[i].addEventListener("click", function(){
@@ -21,7 +21,7 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
 });
 
 }
-
+*/
 /*
     document.getElementById("btnEnter").addEventListener("click", function(){
 

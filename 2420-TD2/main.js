@@ -29,14 +29,20 @@ class Main {
     this.messagesObs = new messagesObserver(this.notifHandler);
 
     this.connectHandlerObservable = new connectionHandler();
-
     document.getElementById("myModalNouveauUtilisateur").style.display = "block";
     document.getElementById("btnNomUtilisteur").addEventListener("click", function(){
+      if(document.getElementById("nomNouveauUtilisateur").value.length < 3 || document.getElementById("nomNouveauUtilisateur").value.length > 15
+      || document.getElementById("nomNouveauUtilisateur").value == "Admin"){
+        document.getElementById("nomNouveauUtilisateur").style.border = "thick solid red";
+      }
+      else{
     nomUsername = document.getElementById("nomNouveauUtilisateur").value;
     document.getElementById("btnUser").innerHTML = '<i class="fa fa-user"></i>    '+nomUsername;
     self.connectHandlerObservable.connection(nomUsername);
     document.getElementById("nomNouveauUtilisateur").value = "";
-
+    document.getElementById("myModalNouveauUtilisateur").style.display = "none";
+   
+      }
   });
 
 
@@ -76,13 +82,23 @@ class Main {
       self.addChannel();
 
   });
-
+  document.getElementById("closes").addEventListener("click", function () {
+    document.getElementById("myModal").style.display = "none";
+    document.getElementById("nomNouveauChannelID").value = "";
+    document.getElementById("nomNouveauChannelID").style.border = "";
+});
 }
 
   addChannel() {
+    if(document.getElementById("nomNouveauChannelID").value.length < 5 || document.getElementById("nomNouveauChannelID").value.length > 20){
+      document.getElementById("nomNouveauChannelID").style.border = "thick solid red";
+    }
+    else{
     const socketChannel = new Message("onCreateChannel", "", document.getElementById("nomNouveauChannelID").value, nomUsername, Date.now());
     this.connectHandlerObservable.webSocket.send(JSON.stringify(socketChannel));
     document.getElementById("nomNouveauChannelID").value = "";
+    document.getElementById("myModal").style.display = "none";
+    }
   }
 
   sendText() {
@@ -185,7 +201,7 @@ class Main {
           if (channelList[i].id == event.currentTarget.id) {
             if (channelList[i].joinStatus) {
               self.joinChannel(channelList[i].id);
-            //  document.getElementById("groupeActifId").innerHTML = channelList[i].name;
+              document.getElementById("groupeActifId").innerHTML = channelList[i].name;
             }
             break;
           }
