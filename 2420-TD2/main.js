@@ -51,8 +51,16 @@ class Main {
 
 			if (nomTouche === 'Enter') {
 				if (document.getElementById("myModalNouveauUtilisateur").style.display != "none") {
-					self.initUtilisateur()
-				} else {
+
+					self.initUtilisateur();
+
+				}
+      else if(document.getElementById("myModal").style.display == "block"){
+
+          self.addChannel();
+
+        }
+        else {
 					self.sendText();
 				}
 			}
