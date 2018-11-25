@@ -8,6 +8,7 @@ var currentChannelId;
 var channelList = [];
 var joinedChannelList = [];
 var nomUsername = "Caporal Maxime"
+var audio = new Audio("ding.wav") ;
 
 class Main {
 
@@ -32,6 +33,7 @@ class Main {
     document.getElementById("myModalNouveauUtilisateur").style.display = "block";
     document.getElementById("btnNomUtilisteur").addEventListener("click", function(){
 
+      audio.play();
     nomUsername = document.getElementById("nomNouveauUtilisateur").value;
     self.connectHandlerObservable.connection(nomUsername);
     document.getElementById("nomNouveauUtilisateur").value = "";
@@ -52,6 +54,7 @@ class Main {
   initEventlisteners() {
     const self = this;
 
+
     //Event du bouton enter
     document.getElementById("btnEnter").addEventListener("click", function () {
 
@@ -68,6 +71,7 @@ class Main {
 
     }, false);
     //Event boutonAjouterChannel
+
     document.getElementById("btnNouveauChannel").addEventListener("click", function () {
 
       self.addChannel();
@@ -246,4 +250,19 @@ class NotificationHandler {
 
 
   }
+}
+
+// When the user clicks on <div>, open the popup
+function popUpOpen() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+function onCheckBox(){
+
+
+  var checkbox = document.getElementById('sonId');
+if (checkbox.checked != true)
+{
+  alert("you need to be fluent in English to apply for the job");
+}
 }

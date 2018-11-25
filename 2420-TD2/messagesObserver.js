@@ -11,14 +11,15 @@ class messagesObserver {
 
     });
 
-
 for (var i = 0; i < document.getElementsByClassName("close").length; i++) {
 
   document.getElementsByClassName("close")[i].addEventListener("click", function(){
 
     modal.style.display = "none";
 document.getElementById("myModalNouveauUtilisateur").style.display = "none";
+
 });
+
 }
 
 /*
@@ -126,7 +127,6 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
 
               $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
 
-
   }
 
 
@@ -140,6 +140,7 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
         var strTime = hours + ':' + minutes + ' ' + ampm;
         return strTime;
     }
+
     refreshView(e){
       const self = this;
       var listeDesMessagesDuChannel = e.data.messages;
@@ -153,7 +154,9 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
           }
 
       }
+
     this.notifHandler.updateNombreNotif();
+
     }
 
     resetChat(){
