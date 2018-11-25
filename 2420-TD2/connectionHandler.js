@@ -48,6 +48,4 @@ class connectionHandler {
 		const self = this;
 		self.channelsObserver.update(e);
 	}
-
-
 }

@@ -22,11 +22,7 @@ class messagesObserver {
 	handleMessageReceived(messageData) {
 
 		const self = this;
-		var checkbox = document.getElementById('sonId');
 
-		if (checkbox.checked && messageData.sender != nomUsername) {
-			self.sonMessage();
-		}
 		//insere le message dans le bon channel
 		if (messageData.channelId == currentChannelId) {
 
@@ -97,25 +93,31 @@ class messagesObserver {
 		return strTime;
 	}
 
+  verifProvenanceMessage(e){
+    const self = this;
+    var checkbox = document.getElementById('sonId');
+    if (checkbox.checked && e.channelId != currentChannelId ) {
+      self.sonMessage();
+      this.notifHandler.addNotifChannel(e.channelId);
+      this.notifHandler.updateNombreNotif()
+    }
+  }
+
 	refreshView(e) {
 		const self = this;
 		var listeDesMessagesDuChannel = e.data.messages;
 
 		currentChannelId = e.channelId;
-
+    
+    this.notifHandler.removeNotifChannel(e.channelId);
+    this.notifHandler.updateNombreNotif()
 		self.resetChat();
 
 		for (var i = 0; i < listeDesMessagesDuChannel.length; i++) {
 
 			self.handleMessageReceived(listeDesMessagesDuChannel[i]);
 
-			if (listeDesMessagesDuChannel[i].sender != nomUsername) {
-				this.notifHandler.removeNotif();
-			}
 		}
-
-		this.notifHandler.updateNombreNotif();
-
 	}
 
 	resetChat() {
@@ -130,9 +132,9 @@ class messagesObserver {
 			self.refreshView(e);
 
 		} else {
-
+      self.verifProvenanceMessage(e);
 			self.handleMessageReceived(e);
-      
+
 		}
 	}
 }

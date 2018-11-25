@@ -212,37 +212,36 @@ class Main {
 	joinChannel(channelId) {
 		const self = this
 		const socketGetChannel = new Message("onGetChannel", channelId, "", nomUsername, Date.now());
+
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketGetChannel));
 	}
 
 	joinNewChannel(channelId) {
 		const self = this;
 		const socketJoinChannel = new Message("onJoinChannel", channelId, "", nomUsername, Date.now());
+
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketJoinChannel));
 		self.joinChannel(channelId);
-
-
 	}
+
 	leaveChannel(channelId, channelGeneralId) {
 		const self = this
 		const socketLeaveChannel = new Message("onLeaveChannel", channelId, "", nomUsername, Date.now());
+    const socketGetChannel = new Message("onGetChannel", channelGeneralId, nomUsername, Date.now());
+
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketLeaveChannel));
-
-		const socketGetChannel = new Message("onGetChannel", channelGeneralId, nomUsername, Date.now());
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketGetChannel));
-
-		//document.getElementById("groupeActifId").innerHTML = "Général";
-
 	}
 }
 
 class NotificationHandler {
 
+
 	constructor() {
-		this.nombreDeNotif = 0;
-		this.nombreDeMessageVu = 0;
-		this.nombreDeMessagePasVu = 0;
+    this.notifParChannel = {};
+    this.nombreDeNotif = 0;
 	}
+
 	updateNombreNotif() {
 		if (this.nombreDeNotif <= 0) {
 			document.getElementById("notifId").innerHTML = "";
@@ -251,14 +250,19 @@ class NotificationHandler {
 			document.getElementById("notifId").innerHTML = this.nombreDeNotif;
 		}
 	}
-	addNotif() {
-		this.nombreDeMessagePasVu++;
-	}
-	addMessageVu() {
-		this.nombreDeMessageVu++;
-	}
-	removeNotif() {
 
+	addNotifChannel(channelId) {
+    if(isNaN(this.notifParChannel[channelId])){
+      this.notifParChannel[channelId] = 0;
+    }
+      this.notifParChannel[channelId] = this.notifParChannel[channelId] + 1;
+      this.nombreDeNotif++;
+	}
+	removeNotifChannel(channelId) {
+      if(isNaN(this.notifParChannel[channelId])==false){
+        this.nombreDeNotif = this.notifParChannel[channelId] - this.nombreDeNotif;
+        this.notifParChannel[channelId] = 0;
+    }
 
 	}
 }
