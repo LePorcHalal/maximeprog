@@ -1,16 +1,30 @@
 var currentChannelId;
 var channelList = [];
-
 var nomUsername;
 var audio = new Audio("ding.wav");
 
+/**
+ * @description Main du programme
+ * @author Vincent Tessier et Vincent Angell
+ * @copyright Ecole Polytechnique de MontrÃ©al & Course LOG2420
+ * @version 1.0.0
+ */
+
 class Main {
 
+  /**
+   * @constructor
+   */
 	constructor() {
 		const self = this;
 		self.initMain();
 	}
-
+  /**
+   * Represente le main, fonction de depart ou tous les objets sont crees
+   *
+   * @param {string} title - The title of the book.
+   * @param {string} author - The author of the book.
+   */
 	initMain() {
 
 		const self = this;
@@ -35,7 +49,9 @@ class Main {
 		self.initEventlisteners();
 
 	}
-
+  /**
+   * Création des event listener du projet
+   */
 	initEventlisteners() {
 		const self = this;
 
@@ -80,7 +96,9 @@ class Main {
 			document.getElementById("nomNouveauChannelID").style.border = "";
 		});
 	}
-
+  /**
+   * Fonction qui permet d'ajouter un channel à la liste de channel
+   */
 	addChannel() {
 		if (document.getElementById("nomNouveauChannelID").value.length < 5 || document.getElementById("nomNouveauChannelID").value.length > 20) {
 			document.getElementById("nomNouveauChannelID").style.border = "thick solid red";
@@ -91,7 +109,9 @@ class Main {
 			document.getElementById("myModal").style.display = "none";
 		}
 	}
-
+  /**
+   * Permet d'initialiser Le nom de l'utlisateur à l'ouverture du programme
+   */
 	initUtilisateur() {
 		if (document.getElementById("nomNouveauUtilisateur").value.length < 3 || document.getElementById("nomNouveauUtilisateur").value.length > 15 ||
 			document.getElementById("nomNouveauUtilisateur").value == "Admin") {
@@ -105,6 +125,10 @@ class Main {
 
 		}
 	}
+  /**
+   * Permet d'envoyer un message au websocket
+   *
+   */
 	sendText() {
 
 		//obtention du texte
@@ -117,6 +141,9 @@ class Main {
 		document.getElementById("textBoxInput").value = "";
 
 	}
+  /**
+   * Permet de changer le status d'un channel
+   */
 	changeJoinStatus(channel, channelGeneral) {
 
 		const self = this;
@@ -135,6 +162,9 @@ class Main {
 
 
 	}
+  /**
+   * Permet de créer et d'afficher la liste de channel
+   */
 	setChannelList() {
 
 		var symbole;
@@ -205,13 +235,20 @@ class Main {
 			});
 		}
 	}
+  /**
+   * Permet de rejoindre un channel dont lutilisateur fait deja partie
+   * @param {string} channelId - Le id du channel
+   */
 	joinChannel(channelId) {
 		const self = this
 		const socketGetChannel = new Message("onGetChannel", channelId, "", nomUsername, Date.now());
 
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketGetChannel));
 	}
-
+/**
+   * Permet de rejoindre un nouveau channel
+   * @param {string} channelId - Le id du channel
+   */
 	joinNewChannel(channelId) {
 		const self = this;
 		const socketJoinChannel = new Message("onJoinChannel", channelId, "", nomUsername, Date.now());
@@ -219,7 +256,11 @@ class Main {
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketJoinChannel));
 		self.joinChannel(channelId);
 	}
-
+    /**
+     * Permet de quitter un channel
+     * @param {string} channelId - Le id du channel
+     * @param {string} channelGeneralId - Le id du channel Général
+     */
 	leaveChannel(channelId, channelGeneralId) {
 		const self = this
 		const socketLeaveChannel = new Message("onLeaveChannel", channelId, "", nomUsername, Date.now());
@@ -230,14 +271,25 @@ class Main {
 	}
 }
 
+/**
+ * @description permet de gérer les notificatioons
+ * @author Vincent Tessier et Vincent Angell
+ * @copyright Ecole Polytechnique de MontrÃ©al & Course LOG2420
+ * @version 1.0.0
+ */
+
 class NotificationHandler {
-
-
+  /**
+   * Initialise lobjet notifParChannel et le nombre de notif
+   * @constructor
+   */
 	constructor() {
 		this.notifParChannel = {};
 		this.nombreDeNotif = 0;
 	}
-
+  /**
+   * Permet de mettre a jour et afficher le bon nombre de notification
+   */
 	updateNombreNotif() {
 		if (this.nombreDeNotif <= 0) {
 			document.getElementById("notifId").innerHTML = "";
@@ -246,7 +298,10 @@ class NotificationHandler {
 			document.getElementById("notifId").innerHTML = this.nombreDeNotif;
 		}
 	}
-
+  /**
+   * Rajoute un au nombre total de notification
+   * @param {string} channelId - Le id du channel
+   */
 	addNotifChannel(channelId) {
 		if (isNaN(this.notifParChannel[channelId])) {
 			this.notifParChannel[channelId] = 0;
@@ -254,6 +309,10 @@ class NotificationHandler {
 		this.notifParChannel[channelId] = this.notifParChannel[channelId] + 1;
 		this.nombreDeNotif++;
 	}
+  /**
+   * Permet de retirer les notifs dun channel
+   * @param {string} channelId - Le id du channel
+   */
 	removeNotifChannel(channelId) {
 		if (isNaN(this.notifParChannel[channelId]) == false) {
 			this.nombreDeNotif = this.notifParChannel[channelId] - this.nombreDeNotif;
@@ -262,7 +321,9 @@ class NotificationHandler {
 
 	}
 }
-
+/**
+ * Permet douvrir le pop up
+ */
 function popUpOpen() {
 	var popup = document.getElementById("myPopup");
 	popup.classList.toggle("show");
