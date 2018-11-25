@@ -7,27 +7,31 @@
 .mytext {
     border: 0;
     padding-right: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 12px;
+    padding-top: 12px;
     background: whitesmoke;
 }
-/*
-a.btn.btn-lg.btn-primary {
-    margin-right: 5px;
-}*/
-/* body>div>div>div:nth-child(2)>span {
-      background: #33cccc;
-     padding: 0px;
-    font-size: 21px;
-    border-radius: 50%;
-} */
+
+.text.text-r {
+    background: whitesmoke !important;
+}
+
+.poly {
+    color: orangered;
+}
+
+.chatTitle {
+    color: #428bca;
+}
 
 body {
     background-color: #ddd !important;
 }
-a{
-  color: white !important;
+
+a {
+    color: white !important;
 }
+
 header {
     background-color: rgba(221, 221, 221, 0.678) !important;
     padding: 10px;
@@ -137,7 +141,6 @@ header {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-
 }
 
 .container-header-chat-channel {
@@ -146,45 +149,46 @@ header {
     flex-wrap: nowrap;
     background-color: #ddd;
 }
-.headerChat{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  background-color: #33cccc;
-  margin-left: 5px;
+
+.headerChat {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: #33cccc;
+    margin-left: 5px;
     margin-right: 5px;
     width: 60%;
     padding-right: 0px !important;
     padding-left: 0px !important;
-  height: 70px;
-
-}
-.headerChannel{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  background-color: #33cccc;
-  width: 40%;
-  height: 70px;
-}
-.headerTxt{
-  padding-left: 5px;
-  margin: 5px;
-height: 40%;
-font-size: 15px;
-
-}
-.boutonsChannel{
-  margin-right: 10px;
-}
-.headerItemTxt{
-  padding-left: 10px;
-  margin-top: 0px;
-  font-size: 23px;
-  height: 60%;
+    height: 70px;
 }
 
+.headerChannel {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color: #33cccc;
+    width: 40%;
+    height: 70px;
+}
 
+.headerTxt {
+    padding-left: 5px;
+    margin: 5px;
+    height: 40%;
+    font-size: 15px;
+}
+
+.boutonsChannel {
+    margin-right: 10px;
+}
+
+.headerItemTxt {
+    padding-left: 10px;
+    margin-top: 0px;
+    font-size: 23px;
+    height: 60%;
+}
 
 li {
     width: 100% !important;
@@ -215,7 +219,7 @@ li {
     font-size: 30px;
 }
 
-#btnNouveauChannel, #btnNomUtilisteur{
+#btnNouveauChannel, #btnNomUtilisteur {
     position: absolute;
     right: 10px;
 }
@@ -231,10 +235,6 @@ li {
 .flex-channelList-container {
     display: flex;
     width: 40%;
-/*margin-left: 2.5%;
-margin-right: 2.5%;*/
-    /*margin-left: 5px;
-    margin-right: 5px;*/
     flex-direction: column;
     flex-wrap: nowrap;
     background-color: white;
@@ -338,13 +338,6 @@ margin-right: 2.5%;*/
     display: flex;
 }
 
-/* body>div>div>div:nth-child(2)>span {
-    background: whitesmoke;
-    padding: 10px;
-    font-size: 21px;
-    border-radius: 50%;
-} */
-
 body>div>div>div.msj-rta.macro {
     margin: auto;
     margin-left: 1%;
@@ -390,9 +383,8 @@ input:focus {
     outline: none;
 }
 
-
-
 /* Popup container */
+
 .popup {
     position: relative;
     display: inline-block;
@@ -400,6 +392,7 @@ input:focus {
 }
 
 /* The actual popup (appears on top) */
+
 .popup .popuptext {
     visibility: hidden;
     width: 160px;
@@ -416,6 +409,7 @@ input:focus {
 }
 
 /* Popup arrow */
+
 .popup .popuptext::after {
     content: "";
     position: absolute;
@@ -428,10 +422,10 @@ input:focus {
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
+
 .popup .show {
     visibility: visible;
 }
-
 
 ::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */

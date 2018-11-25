@@ -90,7 +90,7 @@ class Main {
 			document.getElementById("nomNouveauUtilisateur").style.border = "thick solid red";
 		} else {
 			nomUsername = document.getElementById("nomNouveauUtilisateur").value;
-			document.getElementById("btnUser").innerHTML = '<i class="fa fa-user"></i>' + nomUsername;
+			document.getElementById("btnUser").innerHTML = '<i class="fa fa-user"></i> ' + nomUsername;
 			this.connectHandlerObservable.connection(nomUsername);
 			document.getElementById("nomNouveauUtilisateur").value = "";
 			document.getElementById("myModalNouveauUtilisateur").style.display = "none";
@@ -167,7 +167,7 @@ class Main {
 			var classnameChannelItem = document.getElementsByClassName("channelItem");
 
 			classnameButton[i].addEventListener('click', function () {
-        
+
 				for (var i = 0; i < channelList.length; i++) {
 
 					if (channelList[i].id == event.currentTarget.parentElement.id) {
@@ -215,7 +215,7 @@ class Main {
 	leaveChannel(channelId, channelGeneralId) {
 		const self = this
 		const socketLeaveChannel = new Message("onLeaveChannel", channelId, "", nomUsername, Date.now());
-    const socketGetChannel = new Message("onGetChannel", channelGeneralId, nomUsername, Date.now());
+		const socketGetChannel = new Message("onGetChannel", channelGeneralId, nomUsername, Date.now());
 
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketLeaveChannel));
 		this.connectHandlerObservable.webSocket.send(JSON.stringify(socketGetChannel));
@@ -226,8 +226,8 @@ class NotificationHandler {
 
 
 	constructor() {
-    this.notifParChannel = {};
-    this.nombreDeNotif = 0;
+		this.notifParChannel = {};
+		this.nombreDeNotif = 0;
 	}
 
 	updateNombreNotif() {
@@ -240,17 +240,17 @@ class NotificationHandler {
 	}
 
 	addNotifChannel(channelId) {
-    if(isNaN(this.notifParChannel[channelId])){
-      this.notifParChannel[channelId] = 0;
-    }
-      this.notifParChannel[channelId] = this.notifParChannel[channelId] + 1;
-      this.nombreDeNotif++;
+		if (isNaN(this.notifParChannel[channelId])) {
+			this.notifParChannel[channelId] = 0;
+		}
+		this.notifParChannel[channelId] = this.notifParChannel[channelId] + 1;
+		this.nombreDeNotif++;
 	}
 	removeNotifChannel(channelId) {
-      if(isNaN(this.notifParChannel[channelId])==false){
-        this.nombreDeNotif = this.notifParChannel[channelId] - this.nombreDeNotif;
-        this.notifParChannel[channelId] = 0;
-    }
+		if (isNaN(this.notifParChannel[channelId]) == false) {
+			this.nombreDeNotif = this.notifParChannel[channelId] - this.nombreDeNotif;
+			this.notifParChannel[channelId] = 0;
+		}
 
 	}
 }

@@ -22,21 +22,21 @@
         Vincent Angell - 1905399 et Vincent Tessier - 1895027
     </div>
     <span class="pull-right">
-    <i href="#" class="header-btn" id="btnUser">
-      <i class="fa fa-user"></i>
-    </i>
-    <i href="#" class="header-btn" id="btnNotif">
-      <i id="notifId" class="fa fa-bell"></i>
-    </i>
-    <i href="#" class="header-btn" id="btnGlobe">
-      <i class="fa fa-globe"></i>
-    </i>
-    <i href="#" class="header-btn" id="btnSettings">
-      <i class="fa fa-cog"></i>
-    </i>
-  </span>
+        <i href="#" class="header-btn" id="btnUser">
+            <i class="fa fa-user"></i>
+        </i>
+        <i href="#" class="header-btn" id="btnNotif">
+            <i id="notifId" class="fa fa-bell"></i>
+        </i>
+        <i href="#" class="header-btn" id="btnGlobe">
+            <i class="fa fa-globe"></i>
+        </i>
+        <i href="#" class="header-btn" id="btnSettings">
+            <i class="fa fa-cog"></i>
+        </i>
+    </span>
     <div class="header-title" onclick="window.location.reload()">
-        <h1><span style="color:orangered">Poly</span> <i class="fa fa-users" id="btnReload"></i> <span style="color:#428bca">Chat</span></h1>
+        <h1><span class="poly">Poly</span> <i class="fa fa-users" id="btnReload"></i> <span class="chatTitle">Chat</span></h1>
     </div>
     </div>
 </header>
@@ -66,18 +66,18 @@
             <div class="headerTxt">Liste de groupes:</div>
             <div class="headerItemTxt">Groupes disponibles
                 <span class="pull-right">
-          <a href="#" class ="boutonsChannel" id="btnAddChannel">
-            <span class="glyphicon glyphicon-plus"></span>
-                </a>
+                    <a href="#" class="boutonsChannel" id="btnAddChannel">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
                 </span>
                 <span class="pull-right">
-          <a href="#" class ="boutonsChannel popup" onclick="popUpOpen()" >
-            <span class="glyphicon glyphicon-pencil"></span>
-                <span class="popuptext" id="myPopup">
-                <div>Parametres</div>
-                <input id="sonId" type="checkbox" value ="son" checked name="checkbox">Son</input>
-              </span>
-                </a>
+                    <a href="#" class="boutonsChannel popup" onclick="popUpOpen()">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="popuptext" id="myPopup">
+                            <div>Parametres</div>
+                            <input id="sonId" type="checkbox" value="son" checked name="checkbox">Son</input>
+                        </span>
+                    </a>
                 </span>
             </div>
         </div>
@@ -87,7 +87,7 @@
             <ul id="chatBoxId"></ul>
             <div>
                 <div class="msj-rta macro">
-                    <div class="text text-r" style="background:whitesmoke !important">
+                    <div class="text text-r">
                         <input id="textBoxInput" class="mytext" placeholder="Type a message" />
                     </div>
                 </div>

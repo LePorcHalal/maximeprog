@@ -13,11 +13,11 @@ class messagesObserver {
 		});
 	}
 
-  sonMessage(){
-    audio.pause();
-    audio.currentTime = 0;
-    audio.play();
-  }
+	sonMessage() {
+		audio.pause();
+		audio.currentTime = 0;
+		audio.play();
+	}
 
 	handleMessageReceived(messageData) {
 
@@ -92,18 +92,18 @@ class messagesObserver {
 		return strTime;
 	}
 
-  verifProvenanceMessage(e){
-    const self = this;
-    var checkbox = document.getElementById('sonId');
+	verifProvenanceMessage(e) {
+		const self = this;
+		var checkbox = document.getElementById('sonId');
 
-    if (checkbox.checked && e.sender != nomUsername && e.sender != "Admin"){
-      self.sonMessage();
-    }
-    if(e.channelId != currentChannelId && e.sender != "Admin" ) {
-      this.notifHandler.addNotifChannel(e.channelId);
-      this.notifHandler.updateNombreNotif()
-    }
-  }
+		if (checkbox.checked && e.sender != nomUsername && e.sender != "Admin") {
+			self.sonMessage();
+		}
+		if (e.channelId != currentChannelId && e.sender != "Admin") {
+			this.notifHandler.addNotifChannel(e.channelId);
+			this.notifHandler.updateNombreNotif()
+		}
+	}
 
 	refreshView(e) {
 		const self = this;
@@ -111,8 +111,8 @@ class messagesObserver {
 
 		currentChannelId = e.channelId;
 
-    this.notifHandler.removeNotifChannel(e.channelId);
-    this.notifHandler.updateNombreNotif()
+		this.notifHandler.removeNotifChannel(e.channelId);
+		this.notifHandler.updateNombreNotif()
 		self.resetChat();
 
 		for (var i = 0; i < listeDesMessagesDuChannel.length; i++) {
@@ -134,8 +134,8 @@ class messagesObserver {
 			self.refreshView(e);
 
 		} else {
-      self.verifProvenanceMessage(e);
-      console.log(e);
+			self.verifProvenanceMessage(e);
+			console.log(e);
 			self.handleMessageReceived(e);
 
 		}
