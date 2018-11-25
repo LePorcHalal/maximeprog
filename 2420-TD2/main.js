@@ -32,17 +32,15 @@ class Main {
 
     document.getElementById("myModalNouveauUtilisateur").style.display = "block";
     document.getElementById("btnNomUtilisteur").addEventListener("click", function(){
-
-      audio.play();
     nomUsername = document.getElementById("nomNouveauUtilisateur").value;
     document.getElementById("btnUser").innerHTML = '<i class="fa fa-user"></i>    '+nomUsername;
     self.connectHandlerObservable.connection(nomUsername);
     document.getElementById("nomNouveauUtilisateur").value = "";
-    
+
   });
 
 
-  
+
   this.connectHandlerObservable.addChannelsObserver(this.channelsObs);
   this.connectHandlerObservable.addMessagesObserver(this.messagesObs)
 
@@ -260,10 +258,4 @@ function popUpOpen() {
 }
 function onCheckBox(){
 
-
-  var checkbox = document.getElementById('sonId');
-if (checkbox.checked != true)
-{
-  alert("you need to be fluent in English to apply for the job");
-}
 }

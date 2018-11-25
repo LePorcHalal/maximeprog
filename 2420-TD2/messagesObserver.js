@@ -57,7 +57,10 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
   handleMessageReceived (messageData){
     const self = this;
 //ajouter le message au bon channel
-
+var checkbox = document.getElementById('sonId');
+if (checkbox.checked && messageData.sender !=  nomUsername){
+  audio.play();
+}
   console.log(messageData);
 /*    for (var i = 0; i < joinedChannelList.length; i++) {
       if(joinedChannelList[i].id==messageData.channelId){
@@ -68,6 +71,7 @@ document.getElementById("myModalNouveauUtilisateur").style.display = "none";
     */
 //insere le message dans le bon channel
   if(messageData.channelId == currentChannelId){
+
     self.insertChat(messageData.sender, messageData.data, messageData.timeStamp);
   }
   else{
