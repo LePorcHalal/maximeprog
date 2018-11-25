@@ -1,7 +1,6 @@
 class channelsObserver {
 
-	constructor(main, notifHandler) {
-		this.notifHandler = notifHandler;
+	constructor(main) {
 		this.main = main;
 	}
 

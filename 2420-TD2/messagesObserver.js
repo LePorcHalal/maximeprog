@@ -1,8 +1,8 @@
 class messagesObserver {
 
-	constructor(notifHandler) {
+	constructor() {
 
-		this.notifHandler = notifHandler;
+		this.notifHandler = new NotificationHandler();
 
 		var modal = document.getElementById('myModal');
 
@@ -22,7 +22,6 @@ class messagesObserver {
 	handleMessageReceived(messageData) {
 
 		const self = this;
-
 		//insere le message dans le bon channel
 		if (messageData.channelId == currentChannelId) {
 
@@ -96,8 +95,11 @@ class messagesObserver {
   verifProvenanceMessage(e){
     const self = this;
     var checkbox = document.getElementById('sonId');
-    if (checkbox.checked && e.channelId != currentChannelId ) {
+
+    if (checkbox.checked && e.sender != nomUsername && e.sender != "Admin"){
       self.sonMessage();
+    }
+    if(e.channelId != currentChannelId && e.sender != "Admin" ) {
       this.notifHandler.addNotifChannel(e.channelId);
       this.notifHandler.updateNombreNotif()
     }
@@ -108,7 +110,7 @@ class messagesObserver {
 		var listeDesMessagesDuChannel = e.data.messages;
 
 		currentChannelId = e.channelId;
-    
+
     this.notifHandler.removeNotifChannel(e.channelId);
     this.notifHandler.updateNombreNotif()
 		self.resetChat();
@@ -133,6 +135,7 @@ class messagesObserver {
 
 		} else {
       self.verifProvenanceMessage(e);
+      console.log(e);
 			self.handleMessageReceived(e);
 
 		}

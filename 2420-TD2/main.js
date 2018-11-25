@@ -15,11 +15,9 @@ class Main {
 
 		const self = this;
 
-		this.notifHandler = new NotificationHandler();
+		this.channelsObs = new channelsObserver(this);
 
-		this.channelsObs = new channelsObserver(this, this.notifHandler);
-
-		this.messagesObs = new messagesObserver(this.notifHandler);
+		this.messagesObs = new messagesObserver();
 
 		this.connectHandlerObservable = new connectionHandler();
 
@@ -169,23 +167,17 @@ class Main {
 			var classnameChannelItem = document.getElementsByClassName("channelItem");
 
 			classnameButton[i].addEventListener('click', function () {
-
-
+        
 				for (var i = 0; i < channelList.length; i++) {
 
 					if (channelList[i].id == event.currentTarget.parentElement.id) {
 						if (!(channelList[i].name == "Général")) {
 							self.changeJoinStatus(channelList[i], channelList[0]);
-
 						}
 						break;
 					}
-
 				}
-
 			});
-
-
 			classnameDiv[i].addEventListener('click', function () {
 
 				if (event.target !== this) {
@@ -201,12 +193,8 @@ class Main {
 						}
 						break;
 					}
-
 				}
-
-
 			});
-
 		}
 	}
 	joinChannel(channelId) {
