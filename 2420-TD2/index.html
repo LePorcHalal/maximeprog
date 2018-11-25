@@ -23,7 +23,7 @@
     <span class="pull-right">
     <i href="#" class="header-btn" id="btnUser">
       <i class="fa fa-user"></i>
-      Maxime
+      
     </i>
     <i href="#" class="header-btn" id="btnNotif">
       <i id="notifId" class="fa fa-bell"></i>
@@ -46,7 +46,7 @@
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Nom du nouveau channel:</p>
+            <p>Nom du nouveau channel (entre 5 et 20 caractères):</p>
             <input type="text" id="nomNouveauChannelID"></input>
             <button class="close" id="btnNouveauChannel">Confirmer</button>
         </div>
@@ -54,7 +54,7 @@
     <div id="myModalNouveauUtilisateur" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>Nom utilisateur:</p>
+            <p>Nom utilisateur (entre 3 et 15 caractères):</p>
             <input type="text" id="nomNouveauUtilisateur"></input>
             <button class="close" id="btnNomUtilisteur">Confirmer</button>
         </div>
@@ -87,13 +87,13 @@
     <div class="container-chat-channel">
         <div class="col-sm-3 col-sm-offset-4 frame">
             <ul id="chatBoxId"></ul>
-            <div style="margin-left: 18px; margin-right: 18px;">
+            <div >
                 <div class="msj-rta macro">
                     <div class="text text-r" style="background:whitesmoke !important">
                         <input id="textBoxInput" class="mytext" placeholder="Type a message" />
                     </div>
                 </div>
-                <div class="send">
+                <div class="btn btn-success" id="send">
                     <span class="glyphicon glyphicon-share-alt" id="btnEnter"></span>
                 </div>
             </div>

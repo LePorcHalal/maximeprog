@@ -35,13 +35,14 @@ class Main {
 
       audio.play();
     nomUsername = document.getElementById("nomNouveauUtilisateur").value;
+    document.getElementById("btnUser").innerHTML = '<i class="fa fa-user"></i>    '+nomUsername;
     self.connectHandlerObservable.connection(nomUsername);
     document.getElementById("nomNouveauUtilisateur").value = "";
-
+    
   });
 
 
-
+  
   this.connectHandlerObservable.addChannelsObserver(this.channelsObs);
   this.connectHandlerObservable.addMessagesObserver(this.messagesObs)
 
