@@ -106,13 +106,16 @@ class messagesObserver {
    * @param {Date} date -Date du message
    */
 	formatAMPM(date) {
+		var jourPossible = ["DIM", "LUN","MAR", "MER", "JEU", "VEN", "SAM"];
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
+		var jour = jourPossible[date.getDay()];
+		var dateAuj = date.getDate();
 		var ampm = hours >= 12 ? 'PM' : 'AM';
 		hours = hours % 12;
 		hours = hours ? hours : 12; // the hour '0' should be '12'
 		minutes = minutes < 10 ? '0' + minutes : minutes;
-		var strTime = hours + ':' + minutes + ' ' + ampm;
+		var strTime = jour + ' ' + dateAuj+ ', ' + hours + ':' + minutes + ' ' + ampm;
 		return strTime;
 	}
   /**

@@ -292,10 +292,15 @@ class NotificationHandler {
    */
 	updateNombreNotif() {
 		if (this.nombreDeNotif <= 0) {
-			document.getElementById("notifId").innerHTML = "";
+			document.getElementById("notifText").innerHTML = "";
+			document.getElementById("notifText").style.webkitAnimationPlayState = "paused";
+			document.getElementById("notif").style.display = "none";
 			this.nombreDeNotif = 0;
 		} else {
-			document.getElementById("notifId").innerHTML = this.nombreDeNotif;
+			document.getElementById("notifText").innerHTML = "&nbsp;" + this.nombreDeNotif;
+			document.getElementById("notifText").style.webkitAnimationPlayState = "paused";
+			document.getElementById("notifText").style.webkitAnimationPlayState = "running";
+			document.getElementById("notif").style.display = "inline-block";
 		}
 	}
   /**
