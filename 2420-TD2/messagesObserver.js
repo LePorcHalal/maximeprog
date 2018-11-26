@@ -8,9 +8,9 @@
 
 class messagesObserver {
 
-  /**
-   * @constructor
-   */
+	/**
+	 * @constructor
+	 */
 	constructor() {
 
 		this.notifHandler = new NotificationHandler();
@@ -24,18 +24,18 @@ class messagesObserver {
 		});
 	}
 
-/**
-  * Permet de jouer un son
-  */
+	/**
+	  * Permet de jouer un son
+	  */
 	sonMessage() {
 		audio.pause();
 		audio.currentTime = 0;
 		audio.play();
 	}
-  /**
-   * Gère l'arrivé d'un message du webSocket
-   * @param {JSON} messageData -event du webSocket (contenu du message)
-   */
+	/**
+	 * Gère l'arrivé d'un message du webSocket
+	 * @param {JSON} messageData -event du webSocket (contenu du message)
+	 */
 	handleMessageReceived(messageData) {
 
 		const self = this;
@@ -48,12 +48,12 @@ class messagesObserver {
 
 		}
 	}
-  /**
-   * Insère le message dans le HTML
-   * @param {string} sender -Personne qui a envoyé le message
-   * @param {string} messageText -Contenu du message
-   * @param {JSON} timeStamp -temps que le message a ete recu
-   */
+	/**
+	 * Insère le message dans le HTML
+	 * @param {string} sender -Personne qui a envoyé le message
+	 * @param {string} messageText -Contenu du message
+	 * @param {JSON} timeStamp -temps que le message a ete recu
+	 */
 	insertChat(sender, messageText, timeStamp) {
 
 		const you = "https://pbs.twimg.com/profile_images/918264641368629249/F78xAklG_400x400.jpg";
@@ -101,12 +101,12 @@ class messagesObserver {
 		$("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
 
 	}
-  /**
-   * Format la date
-   * @param {Date} date -Date du message
-   */
+	/**
+	 * Format la date
+	 * @param {Date} date -Date du message
+	 */
 	formatAMPM(date) {
-		var jourPossible = ["DIM", "LUN","MAR", "MER", "JEU", "VEN", "SAM"];
+		var jourPossible = ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"];
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
 		var jour = jourPossible[date.getDay()];
@@ -115,13 +115,13 @@ class messagesObserver {
 		hours = hours % 12;
 		hours = hours ? hours : 12; // the hour '0' should be '12'
 		minutes = minutes < 10 ? '0' + minutes : minutes;
-		var strTime = jour + ' ' + dateAuj+ ', ' + hours + ':' + minutes + ' ' + ampm;
+		var strTime = jour + ' ' + dateAuj + ', ' + hours + ':' + minutes + ' ' + ampm;
 		return strTime;
 	}
-  /**
-   * Insère le message dans le HTML
-   * @param {JSON} e -evenement du WebSocket
-   */
+	/**
+	 * Insère le message dans le HTML
+	 * @param {JSON} e -evenement du WebSocket
+	 */
 	verifProvenanceMessage(e) {
 		const self = this;
 		var checkbox = document.getElementById('sonId');
@@ -134,10 +134,10 @@ class messagesObserver {
 			this.notifHandler.updateNombreNotif()
 		}
 	}
-  /**
-   * Update visuel de la vue
-   * @param {JSON} e -evenement du WebSocket
-   */
+	/**
+	 * Update visuel de la vue
+	 * @param {JSON} e -evenement du WebSocket
+	 */
 	refreshView(e) {
 		const self = this;
 		var listeDesMessagesDuChannel = e.data.messages;
@@ -154,16 +154,16 @@ class messagesObserver {
 
 		}
 	}
-  /**
-   * Reset de la boite avec tous les messages
-   */
+	/**
+	 * Reset de la boite avec tous les messages
+	 */
 	resetChat() {
 		$("ul").empty();
 	}
-  /**
-   * Update (quand l'observer se fait notify pas un observable)
-   * @param {JSON} e -evenement du WebSocket
-   */
+	/**
+	 * Update (quand l'observer se fait notify pas un observable)
+	 * @param {JSON} e -evenement du WebSocket
+	 */
 	update(e) {
 
 		const self = this;

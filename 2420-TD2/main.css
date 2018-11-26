@@ -251,6 +251,8 @@ li {
     flex-wrap: nowrap;
     background-color: white;
     margin-right: 5px;
+    overflow-y:scroll;
+    height: 600px;
 }
 
 .flex-channelList-container .channelItem {
@@ -396,7 +398,7 @@ input:focus {
     outline: none;
 }
 
-#param{
+#param {
     text-decoration: underline;
 }
 

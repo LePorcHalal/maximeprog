@@ -8,17 +8,17 @@
 
 class channelsObserver {
 
-  /**
-   * @constructor
-   * @param {Main} main -permet au channelsObesrver de créer des eventListener permettant d'envoyer des messages au WebSocket (onJoinChannel,onLeaveChannel)
-   */
+	/**
+	 * @constructor
+	 * @param {Main} main -permet au channelsObesrver de créer des eventListener permettant d'envoyer des messages au WebSocket (onJoinChannel,onLeaveChannel)
+	 */
 	constructor(main) {
 		this.main = main;
 	}
 
-  /**
-   * Permet de filter dans le bon ordre la liste des channels
-   */
+	/**
+	 * Permet de filter dans le bon ordre la liste des channels
+	 */
 	filtrer() {
 		var listeFiltrer = channelList.filter(channel => channel.joinStatus == true);
 		for (var i = 0; i < channelList.length; i++) {
@@ -28,10 +28,10 @@ class channelsObserver {
 		}
 		return listeFiltrer
 	}
-  /**
-   * Permet d'initialiser la liste des messages
-   * @param {JSON} e -evenement du WebSocket
-   */
+	/**
+	 * Permet d'initialiser la liste des messages
+	 * @param {JSON} e -evenement du WebSocket
+	 */
 	setInitChannelList(e) {
 		const self = this;
 		channelList = [];
@@ -45,10 +45,10 @@ class channelsObserver {
 		}
 		channelList = self.filtrer();
 	}
-  /**
-   * Permet de mettre à jour l'affichage des channels
-   * @param {JSON} e -evenement du WebSocket
-   */
+	/**
+	 * Permet de mettre à jour l'affichage des channels
+	 * @param {JSON} e -evenement du WebSocket
+	 */
 	update(e) {
 		const self = this;
 
