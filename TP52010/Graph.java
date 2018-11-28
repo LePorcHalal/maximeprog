@@ -44,10 +44,7 @@ public class Graph {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-			for(int i = 0; i < edges.size();i++) {
-					System.out.println("Source: "+ edges.get(i).getSource() +", Dest: "+ edges.get(i).getDestination() +", Dist: "+ edges.get(i).getDistance());
-		}
+
 		
 	}
 	
