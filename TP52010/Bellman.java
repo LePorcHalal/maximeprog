@@ -22,51 +22,56 @@ public class Bellman {
 	}
 	
 	public void shortestPath() {
-		// Compl�ters
+		
+		int iteration = 1;
+		List < Edge > listeEdgesAVisiter = new ArrayList < Edge > ();
+		listeEdgesAVisiter = graph.getOutEdges(sourceNode);
 		int v = graph.getNodes().size();
-		int e = graph.getEdges().size();
-		Double distance[] = new Double[graph.getNodes().size()];
-		Double predecessor[] = new Double[graph.getEdges().size()];
+		piTable.clear();
+		Vector < Double > vecTemp = new Vector < Double > ();
+		Vector < Integer > vecTempRTable = new Vector < Integer > ();
 		
-		for(int i = 0; i<graph.getNodes().size(); i++){
-			distance[i] = graph.inf;
+		for (int i = 0; i < v; i++) {
+		    vecTempRTable.add(0);
+		}
+		
+		for (int i = 0; i < v; i++) {
+		    vecTemp.add(graph.inf);
 		}
 
-		/*for(int i = 0; i<graph.getNodes().size(); i++){
-			if(graph.getNodes().get(i).equals(sourceNode)){
-				int src = i;
-				break;
-			}
-		}*/
-		distance[sourceNode.getId()]=0.0;
-
-		for(int i = 1; i<v; ++i){
-			for(int j = 0; j<e; ++j){
-				int srcID = graph.getEdges().get(j).getSource().getId();
-				int destID = graph.getEdges().get(j).getDestination().getId();
-				Double dist = graph.getEdges().get(j).getDistance();
-				//System.out.println("Source: "+srcID +", Dest: "+ destID +", Dist: "+ dist);
-				if(distance[srcID]!=graph.inf && distance[srcID]+dist < distance[destID]){
-					distance[destID]=distance[srcID]+dist;
-				}
-				
-			}
-			
+		vecTemp.set(sourceNode.getId(), 0.0);
 		
+		piTable.add(vecTemp);
+		rTable.add(vecTempRTable);
+
+		while (iteration <= v) {
+
+		    vecTemp = (Vector) piTable.get(iteration - 1).clone();
+		    vecTempRTable = (Vector) rTable.get(iteration - 1).clone();
+		    List < Edge > prochaineListeAVisiter = new ArrayList < Edge > ();
+
+		    for (Edge edge: listeEdgesAVisiter) {
+		        int srcID = edge.getSource().getId();
+		        int destID = edge.getDestination().getId();
+		        Double dist = edge.getDistance();
+
+		        if (vecTemp.get(srcID) + dist < vecTemp.get(destID)) {
+		            vecTemp.set(destID, vecTemp.get(srcID) + dist);
+		            vecTempRTable.set(destID, srcID);
+		            prochaineListeAVisiter.addAll(graph.getOutEdges(edge.getDestination()));
+		        }
+
+		    }
+
+		    listeEdgesAVisiter = prochaineListeAVisiter;
+		    piTable.add(vecTemp);
+		    rTable.add(vecTempRTable);
+		    if (piTable.get(iteration - 1).equals(piTable.get(iteration))) {
+		        break;
+		    }
+		    iteration++;
+
 		}
-	    for (int j=0; j<e; ++j) 
-        { 
-	    	int srcID = graph.getEdges().get(j).getSource().getId();
-			int destID = graph.getEdges().get(j).getDestination().getId();
-			Double dist = graph.getEdges().get(j).getDistance();
-            if (distance[srcID] != graph.inf  && 
-                distance[srcID]+dist < distance[destID]) 
-              System.out.println("Graph contains negative weight cycle"); 
-        } 
-		for(int k = 0; k<distance.length; k++){
-			System.out.print(distance[k] + " , ");
-			}
-		System.out.println();
 	}
 	
 	public void  diplayShortestPaths() {
@@ -75,35 +80,22 @@ public class Bellman {
 
 	public void displayTables() {
 	 //Compl�ter
-
-	System.out.println("<<PITable>>:");
-	int v = graph.getNodes().size();
-	int e = graph.getEdges().size();
-	Double distance[] = new Double[graph.getNodes().size()];
-	for(int i = 0; i<graph.getNodes().size(); i++){
-		distance[i] = graph.inf;
-	}
-	distance[sourceNode.getId()]=0.0;
-	
-	for(int k = 0; k<distance.length; k++){
-		System.out.print(distance[k] + " , ");
-		}System.out.println();
 		
-		for(int i = 1; i<v; ++i){
+		for(int i = 0; i<rTable.size(); i++){
+			for(int j = 0; j<rTable.get(i).size(); j++){
 			
-		for(int j = 0; j<e; ++j){
-			int srcID = graph.getEdges().get(j).getSource().getId();
-			int destID = graph.getEdges().get(j).getDestination().getId();
-			Double dist = graph.getEdges().get(j).getDistance();
-			//System.out.println("Source: "+srcID +", Dest: "+ destID +", Dist: "+ dist);
-			if(distance[srcID]!=graph.inf && distance[srcID]+dist < distance[destID]){
-				distance[destID]=distance[srcID]+dist;
+				System.out.print(rTable.get(i).get(j)+" , ");
 			}
-			
+			System.out.println();
 		}
-		for(int k = 0; k<distance.length; k++){
-				System.out.print(distance[k] + " , ");
-				}System.out.println();
-	}
+		System.out.println();
+		System.out.println();
+		for(int i = 0; i<piTable.size(); i++){
+			for(int j = 0; j<piTable.get(i).size(); j++){
+			
+				System.out.print(piTable.get(i).get(j)+" , ");
+			}
+			System.out.println();
+		}
 	}
 }
