@@ -1,2 +1,6 @@
-﻿  VisitorPrimitiveSelector.cpp
-  PolyIcone3D.vcxproj -> X:\Bureau\TP5\PolyIcone3D\x64\Debug\PolyIcone3D.exe
+﻿  Invoker.cpp
+  SelectPrimitiveCmd.cpp
+  TransformCmd.cpp
+  XMLPrintCmd.cpp
+  Generating Code...
+  PolyIcone3D.vcxproj -> C:\Users\vange\Desktop\maximeprog\TP5\PolyIcone3D\x64\Debug\PolyIcone3D.exe

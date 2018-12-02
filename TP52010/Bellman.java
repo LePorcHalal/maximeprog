@@ -1,9 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Stack;
 import java.util.Vector;
 
 public class Bellman {
@@ -35,7 +31,7 @@ public class Bellman {
 		}
 
 		for (int i = 0; i < v; i++) {
-			vecTemp.add(graph.inf);
+			vecTemp.add(Graph.inf);
 		}
 
 		vecTemp.set(sourceNode.getId(), 0.0);
@@ -45,8 +41,8 @@ public class Bellman {
 
 		while (iteration <= v) {
 
-			vecTemp = (Vector) piTable.get(iteration - 1).clone();
-			vecTempRTable = (Vector) rTable.get(iteration - 1).clone();
+			vecTemp = (Vector<Double>) piTable.get(iteration - 1).clone();
+			vecTempRTable = (Vector<Integer>) rTable.get(iteration - 1).clone();
 			List<Edge> prochaineListeAVisiter = new ArrayList<Edge>();
 
 			for (Edge edge : listeEdgesAVisiter) {
@@ -70,86 +66,76 @@ public class Bellman {
 			}
 			iteration++;
 
-	
-        }
+		}
 	}
 
 	public void diplayShortestPaths() {
 		// Compl�ter
 		Boolean estUnCercleNeg = false;
-		Vector<Integer> vecLastRLine= new Vector<Integer>();
-		Vector<Integer> cercleNeg= new Vector<Integer>();
+		Vector<Integer> vecLastRLine = new Vector<Integer>();
+		Vector<Integer> cercleNeg = new Vector<Integer>();
 		List<Vector<Integer>> shortestPathList = new ArrayList<Vector<Integer>>();
-		vecLastRLine = rTable.get(rTable.size()-1);
+		vecLastRLine = rTable.get(rTable.size() - 1);
 		int idNode = 0;
 		for (Integer node : vecLastRLine) {
-			
-			if(node != null) {
-				
-			if(estUnCercleNeg) {
-				System.out.println("==> Le graphe contient un circuit de cout negatif ");
-				System.out.println("");
-				System.out.print("["+graph.getNodes().get(cercleNeg.get(0)).getName()+" - "+graph.getNodes().get(cercleNeg.get(0)).getName()+"] : ");
-				System.out.print(graph.getNodes().get(cercleNeg.get(0)).getName());
-				for (int i = 1; i < cercleNeg.size(); i++) {
-					System.out.print("->"+graph.getNodes().get(cercleNeg.get(i)).getName());
-				}
-				
-				break;
-			}
-			
-			Integer nodeDepart = idNode;
-			Vector<Integer> shortestPath = new Vector<Integer>();
-			shortestPath.add(idNode);
-			shortestPath.add(node);
-			for (int i = 0; i < graph.getNodes().size(); i++) {
-				
-				if(node==null) {
-					shortestPathList.add(shortestPath);
-					break;				
-				}
-				
-				shortestPath.add(vecLastRLine.get(node));
-				
-				if(nodeDepart==vecLastRLine.get(node)) {
-					cercleNeg = shortestPath;
-					estUnCercleNeg = true;
+			if (node != null) {
+				if (estUnCercleNeg) {
+					System.out.println("==> Le graphe contient un circuit de cout negatif ");
+					System.out.println("");
+					System.out.print("[" + graph.getNodes().get(cercleNeg.get(0)).getName() + " - "
+							+ graph.getNodes().get(cercleNeg.get(0)).getName() + "] : ");
+					System.out.print(graph.getNodes().get(cercleNeg.get(0)).getName());
+					for (int i = 1; i < cercleNeg.size(); i++)
+						System.out.print("->" + graph.getNodes().get(cercleNeg.get(i)).getName());
 					break;
 				}
-				
-				node=vecLastRLine.get(node);
-				
-			}
+
+				Integer nodeDepart = idNode;
+				Vector<Integer> shortestPath = new Vector<Integer>();
+				shortestPath.add(idNode);
+				shortestPath.add(node);
+				for (int i = 0; i < graph.getNodes().size(); i++) {
+					if (node == null) {
+						shortestPathList.add(shortestPath);
+						break;
+					}
+					shortestPath.add(vecLastRLine.get(node));
+					if (nodeDepart == vecLastRLine.get(node)) {
+						cercleNeg = shortestPath;
+						estUnCercleNeg = true;
+						break;
+					}
+					node = vecLastRLine.get(node);
+				}
 			}
 			idNode++;
 		}
-		if(estUnCercleNeg == false) {
-		System.out.println("=> Les chemins sont:");
-		System.out.println("");
-		for (int i = 0; i < shortestPathList.size(); i++) {
-			for (int j = 0; j < shortestPathList.get(i).size(); j++) {
-			
-				if(shortestPathList.get(i).get(j)==null) {
-					shortestPathList.get(i).set(j,0);
-				}
-				
-			}		
-		}
-
-		for (int i = 0; i < shortestPathList.size(); i++) {
-			System.out.print("["+graph.getNodes().get(shortestPathList.get(i).get(shortestPathList.get(i).size()-1)).getName()+" - "+graph.getNodes().get(shortestPathList.get(i).get(0)).getName()+"] ");
-			String line;
-			line = piTable.get(piTable.size()-1).get(i+1)+" : ";
-			String path="";
-			path+=graph.getNodes().get(shortestPathList.get(i).get(0)).getName();
-			for (int j = 1; j < shortestPathList.get(i).size()-1; j++) {
-				path+=" >- "+graph.getNodes().get(shortestPathList.get(i).get(j)).getName();
-			}
-			String reversePath = new StringBuffer(path).reverse().toString();
-			line+=reversePath;
-			System.out.print(line);
+		if (estUnCercleNeg == false) {
+			System.out.println("=> Les chemins sont:");
 			System.out.println("");
-		}
+			for (int i = 0; i < shortestPathList.size(); i++) {
+				for (int j = 0; j < shortestPathList.get(i).size(); j++) {
+					if (shortestPathList.get(i).get(j) == null)
+						shortestPathList.get(i).set(j, 0);
+				}
+			}
+			for (int i = 0; i < shortestPathList.size(); i++) {
+				System.out.print("["
+						+ graph.getNodes().get(shortestPathList.get(i).get(shortestPathList.get(i).size() - 1))
+								.getName()
+						+ " - " + graph.getNodes().get(shortestPathList.get(i).get(0)).getName() + "] ");
+				String line;
+				line = piTable.get(piTable.size() - 1).get(i + 1) + " : ";
+				String path = "";
+				path += graph.getNodes().get(shortestPathList.get(i).get(0)).getName();
+				for (int j = 1; j < shortestPathList.get(i).size() - 1; j++) {
+					path += " >- " + graph.getNodes().get(shortestPathList.get(i).get(j)).getName();
+				}
+				String reversePath = new StringBuffer(path).reverse().toString();
+				line += reversePath;
+				System.out.print(line);
+				System.out.println("");
+			}
 		}
 	}
 

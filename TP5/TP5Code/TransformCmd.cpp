@@ -25,6 +25,10 @@ void TransformCmd::cancel()
 		//		- Verifier si l'objet sur lequel pointe l'iterateur est un objet transforme
 		//		- Recuperer la primitive decoree par l'objet transforme
 		//		- Remplacer l'objet sur lequel pointe l'iterateur par la primitive
+		TransformedObject3D* objetTrans = dynamic_cast<TransformedObject3D*>(&(*m_objIter));
+		if (objetTrans != NULL) {
+			m_objIter->getParent().replaceChild(m_objIter, objetTrans->getObject3D());
+		}
 	}
 	catch (std::bad_cast& err)
 	{
@@ -41,6 +45,11 @@ void TransformCmd::execute()
 		//		- Verifier si l'objet sur lequel pointe l'iterateur est une primitive
 		//		- Construire un nouvel objet transforme en ajoutant un decorateur
 		//		- Remplacer l'objet sur lequel pointe l'iterateur par l'objet transforme
+		PrimitiveAbs* objetPrim = dynamic_cast<PrimitiveAbs*>(&(*m_objIter));
+		if (objetPrim != NULL) {
+			TransformedObject3D* objetTrans = new TransformedObject3D(m_objIter->getParent(), *objetPrim, m_translate, m_scale);
+			m_objIter->getParent().replaceChild(m_objIter, *objetTrans);
+		}
 	}
 	catch (std::bad_cast& err)
 	{

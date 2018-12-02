@@ -37,10 +37,10 @@ void Invoker::undo()
 	//			- Retirer la derniere commande de la liste des commandes faites
 	//			- Ajouter la commande a la liste des commandes defaites
 	if (!m_cmdDone.empty()) {
-		CmdPtr max = m_cmdDone.front();
-			max->cancel();
+		CmdPtr pointeurCmd = m_cmdDone.front();
+			pointeurCmd->cancel();
 			m_cmdDone.pop_front();
-			m_cmdUndone.push_front(max);
+			m_cmdUndone.push_front(pointeurCmd);
 	}
 }
 
@@ -54,9 +54,9 @@ void Invoker::redo()
 	//			- Retirer la derniere commande de la liste des commandes defaites
 	//			- Ajouter la commande a la liste des commandes faites
 	if (!m_cmdUndone.empty()) {
-		CmdPtr max = m_cmdUndone.front();
-		max->execute();
+		CmdPtr pointeurCmd = m_cmdUndone.front();
+		pointeurCmd->execute();
 		m_cmdUndone.pop_front();
-		m_cmdDone.push_front(max);
+		m_cmdDone.push_front(pointeurCmd);
 	}
 }
